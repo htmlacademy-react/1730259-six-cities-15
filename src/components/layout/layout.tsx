@@ -10,8 +10,8 @@ function Layout(): JSX.Element {
     <div
       className={
         cn('page',
-          {'page--gray page--main' : pathname === AppRoute.Root},
-          {'page--gray page--login': pathname === AppRoute.Login},
+          {'page--gray page--main' : pathname === AppRoute.Root as string},
+          {'page--gray page--login': pathname === AppRoute.Login as string},
         )
       }
     >

@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import Logo from '../logo/logo';
 import { AppRoute } from '../../const';
 import HeaderNav from '../header-nav/header-nav';
+import cn from 'classnames';
 
 function Header(): JSX.Element {
   const { pathname } = useLocation();
@@ -10,11 +11,18 @@ function Header(): JSX.Element {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <a className="header__logo-link header__logo-link--active">
+            <a className={
+              cn('header__logo-link',
+                {'header__logo-link--active': pathname === AppRoute.Root as string}
+
+
+              )
+            }
+            >
               <Logo />
             </a>
           </div>
-          {pathname !== AppRoute.Login ? <HeaderNav /> : ''}
+          {pathname !== AppRoute.Login as string ? <HeaderNav /> : ''}
         </div>
       </div>
     </header>
