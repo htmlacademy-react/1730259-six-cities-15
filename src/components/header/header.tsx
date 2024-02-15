@@ -14,8 +14,6 @@ function Header(): JSX.Element {
             <a className={
               cn('header__logo-link',
                 {'header__logo-link--active': pathname === AppRoute.Root as string}
-
-
               )
             }
             >
