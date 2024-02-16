@@ -134,7 +134,7 @@ function Favorites(): JSX.Element {
       </main>
       <footer className="footer container">
         <a className="footer__logo-link" href="main.html">
-          <Logo isHeader={false} />
+          <Logo isFooter />
         </a>
       </footer>
     </>

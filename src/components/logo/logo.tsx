@@ -1,15 +1,15 @@
 type LogoProps = {
-  isHeader?: boolean;
+  isFooter?: boolean;
 }
 
-function Logo({isHeader = true}: LogoProps): JSX.Element {
+function Logo({isFooter}: LogoProps): JSX.Element {
   return (
     <img
-      className={isHeader ? 'header__logo' : 'footer__logo'}
+      className={isFooter ? 'footer__logo' : 'header__logo'}
       src="img/logo.svg"
       alt="6 cities logo"
-      width={isHeader ? '81' : '64'}
-      height={isHeader ? '41' : '33'}
+      width={isFooter ? '64' : '81'}
+      height={isFooter ? '33' : '41'}
     />
   );
 }
