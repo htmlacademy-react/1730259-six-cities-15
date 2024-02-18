@@ -1,5 +1,9 @@
 import { AppRoute } from '../../const';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Location, Link } from 'react-router-dom';
+
+interface MyLocation extends Location {
+  pathname: AppRoute;
+}
 
 type LogoLinkProps = {
   isFooter?: boolean;
@@ -7,9 +11,9 @@ type LogoLinkProps = {
 }
 
 function LogoLink({isFooter, children}: LogoLinkProps): JSX.Element {
-  const {pathname} = useLocation();
+  const {pathname} = useLocation() as MyLocation;
 
-  if (pathname === AppRoute.Root as string && !isFooter) {
+  if (pathname === AppRoute.Root && !isFooter) {
     return (
       <a className='header__logo-link header__logo-link--active'>
         {children}
