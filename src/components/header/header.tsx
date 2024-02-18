@@ -1,11 +1,8 @@
-import { useLocation, Location } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Logo from '../logo/logo';
 import { AppRoute } from '../../const';
 import HeaderNav from '../header-nav/header-nav';
-
-interface MyLocation extends Location {
-  pathname: AppRoute;
-}
+import { MyLocation } from '../../types/my-location';
 
 function Header(): JSX.Element {
   const { pathname } = useLocation() as MyLocation;

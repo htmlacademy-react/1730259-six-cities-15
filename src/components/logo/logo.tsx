@@ -1,15 +1,12 @@
-import { useLocation, Location } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import LogoLink from '../logo-link/logo-link';
 import { AppRoute } from '../../const';
 import classNames from 'classnames';
 import LogoImage from '../logo-image/logo-image';
+import { MyLocation } from '../../types/my-location';
 
 type LogoProps = {
   isFooter?: boolean;
-}
-
-interface MyLocation extends Location {
-  pathname: AppRoute;
 }
 
 function Logo({isFooter}: LogoProps): JSX.Element {
