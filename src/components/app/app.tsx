@@ -9,13 +9,17 @@ import Favorites from '../pages/favorites/favorites';
 import Offer from '../pages/offer/offer';
 import PrivateRoute from '../private-route/private-route';
 
-function App(): JSX.Element {
+type AppProps = {
+  offersCount: number;
+}
+
+function App({offersCount}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Root} element={<Layout />}>
-            <Route index element={<Main />} />
+            <Route index element={<Main offersCount={offersCount} />} />
             <Route path={AppRoute.Login} element={<Login />} />
             <Route path={`${AppRoute.Offer}:id`} element={<Offer />} />
             <Route
