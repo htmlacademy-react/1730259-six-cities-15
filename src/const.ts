@@ -13,15 +13,15 @@ export enum AuthorizationStatus {
 }
 
 export enum Cities {
-  PARIS = 'paris',
-  COLONGE = 'cologne',
-  BRUSSELS = 'brussels',
-  AMSTERDAM = 'amsterdam',
-  HAMBURG = 'hamburg',
-  DUSSELDORF = 'dusseldorf',
+  Paris = 'paris',
+  Cologne = 'cologne',
+  Brussels = 'brussels',
+  Amsterdam = 'amsterdam',
+  Hamburg = 'hamburg',
+  Dusseldorf = 'dusseldorf',
 }
 
-export const DEFAULT_CITIES = Cities.PARIS;
+export const DEFAULT_CITIES = Cities.Paris;
 
 export enum SortType {
   Popular = 'Popular',

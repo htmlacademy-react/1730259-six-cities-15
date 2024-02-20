@@ -13,7 +13,7 @@ function Favorites(): JSX.Element {
             <ul className="favorites__list">
               <li className="favorites__locations-items">
                 <div className="favorites__locations locations locations--current">
-                  <LocationItem city={Cities.AMSTERDAM} />
+                  <LocationItem city={Cities.Amsterdam} />
                 </div>
                 <div className="favorites__places">
                   <PlaceCard className='favorites' />
@@ -23,7 +23,7 @@ function Favorites(): JSX.Element {
 
               <li className="favorites__locations-items">
                 <div className="favorites__locations locations locations--current">
-                  <LocationItem city={Cities.COLONGE} />
+                  <LocationItem city={Cities.Cologne} />
                 </div>
                 <div className="favorites__places">
                   <PlaceCard className='favorites' />
