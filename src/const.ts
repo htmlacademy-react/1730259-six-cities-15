@@ -23,4 +23,13 @@ export enum Cities {
 
 export const DEFAULT_CITIES = Cities.PARIS;
 
+export enum SortType {
+  Popular = 'Popular',
+  LowPrice = 'Price: low to high',
+  HightPrice = 'Price: high to low',
+  Rating = 'Top rated first'
+}
+
+export const DEFAULT_SORT = SortType.Popular;
+
 export const OFFERS_COUNT = 312;
