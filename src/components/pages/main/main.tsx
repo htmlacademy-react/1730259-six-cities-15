@@ -1,4 +1,5 @@
 import { DEFAULT_CITIES } from '../../../const';
+import Map from '../../map/map';
 import PlaceCard from '../../place-card/place-card';
 import PlacesSorting from '../../places-sorting/places-sorting';
 import Tabs from '../../tabs/tabs';
@@ -30,7 +31,7 @@ function Main({offersCount}: MainProps): JSX.Element {
             </div>
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"></section>
+            <Map className='cities' />
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import FavoritButton from '../../favorit-button/favorit-button';
+import Map from '../../map/map';
 import PlaceCard from '../../place-card/place-card';
 import Premium from '../../premium/premium';
 import RaitingStars from '../../raiting-stars/raiting-stars';
@@ -118,7 +119,7 @@ function Offer(): JSX.Element {
             <Reviews />
           </div>
         </div>
-        <section className="offer__map map"></section>
+        <Map className='offer' />
       </section>
       <div className="container">
         <section className="near-places places">
