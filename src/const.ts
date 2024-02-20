@@ -32,4 +32,18 @@ export enum SortType {
 
 export const DEFAULT_SORT = SortType.Popular;
 
+export const STARS = [
+  'perfect',
+  'good',
+  'not bad',
+  'badly',
+  'terribly',
+] as const;
+
+export const STAR_NAME = 'rating';
+
+export const MIN_VALUE_REVIEW_LENGHT = 50;
+
+export const MAX_VALUE_REVIEW_LENGHT = 300;
+
 export const OFFERS_COUNT = 312;
