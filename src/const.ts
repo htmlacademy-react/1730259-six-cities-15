@@ -12,4 +12,15 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum Cities {
+  PARIS = 'paris',
+  COLONGE = 'cologne',
+  BRUSSELS = 'brussels',
+  AMSTERDAM = 'amsterdam',
+  HAMBURG = 'hamburg',
+  DUSSELDORF = 'dusseldorf',
+}
+
+export const DEFAULT_CITIES = Cities.PARIS;
+
 export const OFFERS_COUNT = 312;

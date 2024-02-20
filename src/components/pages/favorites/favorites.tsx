@@ -1,3 +1,5 @@
+import { Cities } from '../../../const';
+import LocationItem from '../../location-item/location-item';
 import Logo from '../../logo/logo';
 import PlaceCard from '../../place-card/place-card';
 
@@ -11,11 +13,7 @@ function Favorites(): JSX.Element {
             <ul className="favorites__list">
               <li className="favorites__locations-items">
                 <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="#">
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
+                  <LocationItem city={Cities.AMSTERDAM} />
                 </div>
                 <div className="favorites__places">
                   <PlaceCard className='favorites' />
@@ -25,11 +23,7 @@ function Favorites(): JSX.Element {
 
               <li className="favorites__locations-items">
                 <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="#">
-                      <span>Cologne</span>
-                    </a>
-                  </div>
+                  <LocationItem city={Cities.COLONGE} />
                 </div>
                 <div className="favorites__places">
                   <PlaceCard className='favorites' />

@@ -1,4 +1,10 @@
+import { useState } from 'react';
+import LocationItem from '../../location-item/location-item';
+import { getRandomArrayItem } from '../../../utils/utils';
+import { Cities } from '../../../const';
+
 function Login():JSX.Element {
+  const [randomCity,] = useState(getRandomArrayItem<Cities>(Object.values(Cities)));
   return (
     <main className="page__main page__main--login">
       <div className="page__login-container container">
@@ -17,11 +23,7 @@ function Login():JSX.Element {
           </form>
         </section>
         <section className="locations locations--login locations--current">
-          <div className="locations__item">
-            <a className="locations__item-link" href="#">
-              <span>Amsterdam</span>
-            </a>
-          </div>
+          <LocationItem city={randomCity} />
         </section>
       </div>
     </main>
