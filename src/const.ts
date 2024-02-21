@@ -21,7 +21,7 @@ export enum Cities {
   Dusseldorf = 'dusseldorf',
 }
 
-export const CITY = 'city' as const;
+export const CITY = 'city';
 
 export const DEFAULT_CITY = Cities.Paris;
 
