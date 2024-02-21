@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import FavoritButton from '../../components/favorit-button/favorit-button';
 import Map from '../../components/map/map';
 import PlaceCard from '../../components/place-card/place-card';
@@ -8,6 +9,9 @@ import Reviews from '../../components/reviews/reviews';
 function Offer(): JSX.Element {
   return (
     <main className="page__main page__main--offer">
+      <Helmet>
+        <title>6 cities: offer</title>
+      </Helmet>
       <section className="offer">
         <div className="offer__gallery-container container">
           <div className="offer__gallery">

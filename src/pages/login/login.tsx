@@ -2,12 +2,16 @@ import { useState } from 'react';
 import LocationItem from '../../components/location-item/location-item';
 import { getRandomArrayItem } from '../../utils/utils';
 import { Cities } from '../../const';
+import { Helmet } from 'react-helmet-async';
 
 function Login():JSX.Element {
   const [randomCity,] = useState(getRandomArrayItem<Cities>(Object.values(Cities)));
 
   return (
     <main className="page__main page__main--login">
+      <Helmet>
+        <title>6 cities: authorization</title>
+      </Helmet>
       <div className="page__login-container container">
         <section className="login">
           <h1 className="login__title">Sign in</h1>

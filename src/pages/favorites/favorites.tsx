@@ -2,10 +2,15 @@ import { Cities } from '../../const';
 import LocationItem from '../../components/location-item/location-item';
 import Logo from '../../components/logo/logo';
 import PlaceCard from '../../components/place-card/place-card';
+import { Helmet } from 'react-helmet-async';
 
 function Favorites(): JSX.Element {
   return (
     <>
+      <Helmet>
+        {/* <title>6 cities: favorites empty</title> */}
+        <title>6 cities: favorites</title>
+      </Helmet>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
