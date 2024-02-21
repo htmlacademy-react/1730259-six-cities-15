@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import LocationItem from '../../location-item/location-item';
-import { getRandomArrayItem } from '../../../utils/utils';
-import { Cities } from '../../../const';
+import LocationItem from '../../components/location-item/location-item';
+import { getRandomArrayItem } from '../../utils/utils';
+import { Cities } from '../../const';
 
 function Login():JSX.Element {
   const [randomCity,] = useState(getRandomArrayItem<Cities>(Object.values(Cities)));
+
   return (
     <main className="page__main page__main--login">
       <div className="page__login-container container">

@@ -1,8 +1,8 @@
-import { DEFAULT_CITIES } from '../../../const';
-import Map from '../../map/map';
-import PlaceCard from '../../place-card/place-card';
-import PlacesSorting from '../../places-sorting/places-sorting';
-import Tabs from '../../tabs/tabs';
+import { DEFAULT_CITIES } from '../../const';
+import Map from '../../components/map/map';
+import PlaceCard from '../../components/place-card/place-card';
+import PlacesSorting from '../../components/places-sorting/places-sorting';
+import Tabs from '../../components/tabs/tabs';
 
 type MainProps = {
   offersCount: number;

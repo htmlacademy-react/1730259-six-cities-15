@@ -1,7 +1,7 @@
-import { Cities } from '../../../const';
-import LocationItem from '../../location-item/location-item';
-import Logo from '../../logo/logo';
-import PlaceCard from '../../place-card/place-card';
+import { Cities } from '../../const';
+import LocationItem from '../../components/location-item/location-item';
+import Logo from '../../components/logo/logo';
+import PlaceCard from '../../components/place-card/place-card';
 
 function Favorites(): JSX.Element {
   return (

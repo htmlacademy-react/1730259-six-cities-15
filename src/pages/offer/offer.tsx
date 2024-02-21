@@ -1,9 +1,9 @@
-import FavoritButton from '../../favorit-button/favorit-button';
-import Map from '../../map/map';
-import PlaceCard from '../../place-card/place-card';
-import Premium from '../../premium/premium';
-import RaitingStars from '../../raiting-stars/raiting-stars';
-import Reviews from '../../reviews/reviews';
+import FavoritButton from '../../components/favorit-button/favorit-button';
+import Map from '../../components/map/map';
+import PlaceCard from '../../components/place-card/place-card';
+import Premium from '../../components/premium/premium';
+import RaitingStars from '../../components/raiting-stars/raiting-stars';
+import Reviews from '../../components/reviews/reviews';
 
 function Offer(): JSX.Element {
   return (
