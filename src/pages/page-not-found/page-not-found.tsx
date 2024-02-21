@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import './style.css';
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 function PageNotFound(): JSX.Element {
   return (
@@ -12,7 +13,7 @@ function PageNotFound(): JSX.Element {
         <h2>Oops! Page not found.</h2>
         <h1>404</h1>
         <p>We&nbsp;can&rsquo;t find the page you&rsquo;re looking for.</p>
-        <Link to="/">Go back home</Link>
+        <Link to={AppRoute.Root}>Go back home</Link>
       </div>
     </div>
   );

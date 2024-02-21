@@ -1,9 +1,10 @@
+import { Cities } from '../../const';
 import LocationItemWrapper from '../location-item-wrapper/location-item-wrapper';
 import LocationLink from '../location-link/location-link';
 
 type LocationItemProps = {
   isTabs?: boolean;
-  city: string;
+  city: Cities;
   isActive?: boolean;
 }
 

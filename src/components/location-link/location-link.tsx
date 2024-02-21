@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { capitalize } from '../../utils/utils';
 import cn from 'classnames';
-import { AppRoute } from '../../const';
+import { AppRoute, Cities } from '../../const';
 
 type LocationLinkProps = {
   isTabs?: boolean;
-  city: string;
+  city: Cities;
   isActive?: boolean;
 }
 
