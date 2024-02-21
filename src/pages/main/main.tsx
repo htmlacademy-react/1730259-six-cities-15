@@ -1,15 +1,16 @@
-import { DEFAULT_CITIES } from '../../const';
 import Map from '../../components/map/map';
 import PlaceCard from '../../components/place-card/place-card';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
 import Tabs from '../../components/tabs/tabs';
+import { useSearchParams } from 'react-router-dom';
+import { CITY } from '../../const';
 
 type MainProps = {
   offersCount: number;
 }
 
 function Main({offersCount}: MainProps): JSX.Element {
-  const location = DEFAULT_CITIES;
+  const [searchParams, ] = useSearchParams();
 
   return (
     <main className="page__main page__main--index">
@@ -19,7 +20,7 @@ function Main({offersCount}: MainProps): JSX.Element {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offersCount} places to stay in {location}</b>
+            <b className="places__found">{offersCount} places to stay in {searchParams.get(CITY)}</b>
             <PlacesSorting />
             <div className="cities__places-list places__list tabs__content">
               <PlaceCard className='cities' />

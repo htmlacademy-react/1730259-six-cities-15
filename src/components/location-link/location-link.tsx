@@ -7,9 +7,10 @@ type LocationLinkProps = {
   isTabs?: boolean;
   city: Cities;
   isActive?: boolean;
+  onChangeCurrentTabs?: (city: Cities) => void;
 }
 
-function LocationLink({city, isActive, isTabs}: LocationLinkProps):JSX.Element {
+function LocationLink({city, isActive, isTabs, onChangeCurrentTabs}: LocationLinkProps):JSX.Element {
   return (
     <Link
       className={
@@ -19,9 +20,12 @@ function LocationLink({city, isActive, isTabs}: LocationLinkProps):JSX.Element {
         )
       }
       to={isTabs ? '#todo' : AppRoute.Root}
-      onClick={(event) => {
-        event.preventDefault();
-      }}
+      onClick={
+        onChangeCurrentTabs && ((evt) => {
+          evt.preventDefault();
+          onChangeCurrentTabs(city);
+        })
+      }
     >
       <span>{capitalize(city)}</span>
     </Link>
