@@ -2,9 +2,11 @@ import { useLocation } from 'react-router-dom';
 import Logo from '../logo/logo';
 import { AppRoute } from '../../const';
 import HeaderNav from '../header-nav/header-nav';
+import { MyLocation } from '../../types/my-location';
 
 function Header(): JSX.Element {
-  const { pathname } = useLocation();
+  const { pathname } = useLocation() as MyLocation;
+
   return (
     <header className="header">
       <div className="container">
@@ -12,7 +14,7 @@ function Header(): JSX.Element {
           <div className="header__left">
             <Logo />
           </div>
-          {pathname !== AppRoute.Login as string ? <HeaderNav /> : ''}
+          {pathname !== AppRoute.Login ? <HeaderNav /> : null}
         </div>
       </div>
     </header>

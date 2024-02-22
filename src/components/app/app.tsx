@@ -1,22 +1,33 @@
-import Login from '../pages/login/login';
+import Login from '../../pages/login/login';
 import { HelmetProvider } from 'react-helmet-async';
-import Main from '../pages/main/main';
+import Main from '../../pages/main/main';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import Layout from '../layout/layout';
-import PageNotFound from '../pages/page-not-found/page-not-found';
-import Favorites from '../pages/favorites/favorites';
-import Offer from '../pages/offer/offer';
+import PageNotFound from '../../pages/page-not-found/page-not-found';
+import Favorites from '../../pages/favorites/favorites';
+import Offer from '../../pages/offer/offer';
 import PrivateRoute from '../private-route/private-route';
 
-function App(): JSX.Element {
+type AppProps = {
+  offersCount: number;
+}
+
+function App({offersCount}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Root} element={<Layout />}>
-            <Route index element={<Main />} />
-            <Route path={AppRoute.Login} element={<Login />} />
+            <Route index element={<Main offersCount={offersCount} />} />
+            <Route
+              path={AppRoute.Login}
+              element={
+                <PrivateRoute authorizationStatus={AuthorizationStatus.Auth} isReverse>
+                  <Login />
+                </PrivateRoute>
+              }
+            />
             <Route path={`${AppRoute.Offer}:id`} element={<Offer />} />
             <Route
               path={AppRoute.Favorites}
