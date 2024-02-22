@@ -20,7 +20,14 @@ function App({offersCount}: AppProps): JSX.Element {
         <Routes>
           <Route path={AppRoute.Root} element={<Layout />}>
             <Route index element={<Main offersCount={offersCount} />} />
-            <Route path={AppRoute.Login} element={<Login />} />
+            <Route
+              path={AppRoute.Login}
+              element={
+                <PrivateRoute authorizationStatus={AuthorizationStatus.Auth} isReverse>
+                  <Login />
+                </PrivateRoute>
+              }
+            />
             <Route path={`${AppRoute.Offer}:id`} element={<Offer />} />
             <Route
               path={AppRoute.Favorites}
