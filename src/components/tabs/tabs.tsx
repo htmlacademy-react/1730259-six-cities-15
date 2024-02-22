@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import { CITY, Cities, DEFAULT_CITY } from '../../const';
+import { CITY, Cities, DEFAULT_CITY, SortType } from '../../const';
 import LocationItem from '../location-item/location-item';
 import { useEffect } from 'react';
 
@@ -10,7 +10,10 @@ function Tabs(): JSX.Element {
 
   useEffect(() => {
     if (!cityQuery) {
-      setSearchParams({ city: DEFAULT_CITY });
+      setSearchParams({
+        city: DEFAULT_CITY,
+        sortType: SortType.Popular
+      });
     }
   }, [cityQuery, setSearchParams]);
 
