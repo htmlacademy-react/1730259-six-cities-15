@@ -34,6 +34,8 @@ export enum SortType {
 
 export const DEFAULT_SORT = SortType.Popular;
 
+export const SORT_TYPE = 'sortType';
+
 export const STARS = [
   'perfect',
   'good',
