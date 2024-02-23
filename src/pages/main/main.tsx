@@ -25,14 +25,14 @@ function Main({offersCount}: MainProps): JSX.Element {
   };
 
   useEffect(() => {
-    if (!cityQuery) {
+    if (!cityQuery || !sortTypeQuery) {
       setSearchParams({
         city: DEFAULT_CITY,
         sortType: DEFAULT_SORT
       });
     }
 
-  }, [cityQuery, setSearchParams]);
+  }, [cityQuery, setSearchParams, sortTypeQuery]);
 
   return (
     <main className="page__main page__main--index">
