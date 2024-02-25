@@ -18,13 +18,22 @@ function ReviewsForm(): JSX.Element {
   };
 
   useEffect(() => {
-    setIsSubmitActive(isChecked === '0' || (value.length < MIN_VALUE_REVIEW_LENGHT || value.length > MAX_VALUE_REVIEW_LENGHT));
+    setIsSubmitActive(
+      isChecked === '0' ||
+      (
+        value.length < MIN_VALUE_REVIEW_LENGHT ||
+        value.length > MAX_VALUE_REVIEW_LENGHT
+      )
+    );
   }, [isChecked, value.length]);
 
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <ReviewsRaitingStars isChecked={isChecked} handleChangeChecked={handleChangeChecked} />
+      <ReviewsRaitingStars
+        isChecked={isChecked}
+        handleChangeChecked={handleChangeChecked}
+      />
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
