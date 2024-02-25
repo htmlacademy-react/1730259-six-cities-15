@@ -1,4 +1,6 @@
-export const rewiews = [
+import { Reviews } from '../types/reviews';
+
+export const rewiews: Reviews = [
   {
     id: 'cc7a097d-d7ef-44e6-a917-44fb83f0a20c',
     comment: 'What an amazing view! The house is stunning and in an amazing location. The large glass wall had an amazing view of the river!',

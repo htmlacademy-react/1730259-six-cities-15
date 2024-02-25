@@ -1,4 +1,6 @@
-export const offers = [
+import { Offers } from '../types/offers';
+
+export const offers: Offers = [
   {
     id: '6c78ef29-5920-4416-8212-3692a57b0b21',
     title: 'The Pondhouse - A Magical Place',
