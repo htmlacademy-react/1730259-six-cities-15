@@ -20,9 +20,9 @@ export const offers: Offers = [
       longitude: 2.342499,
       zoom: 16
     },
-    isFavorite: false,
-    isPremium: true,
-    rating: 2.6
+    isFavorite: true,
+    isPremium: false,
+    rating: 1.6
   },
   {
     id: '0a4a8329-519e-4553-b463-d00a35f24a46',
@@ -67,8 +67,8 @@ export const offers: Offers = [
       zoom: 16
     },
     isFavorite: false,
-    isPremium: true,
-    rating: 2.8
+    isPremium: false,
+    rating: 3.8
   },
   {
     id: 'add865ee-2d16-46b5-a1e4-9b5823ee58b9',
@@ -114,6 +114,6 @@ export const offers: Offers = [
     },
     isFavorite: false,
     isPremium: false,
-    rating: 3.7
+    rating: 4.7
   },
 ];

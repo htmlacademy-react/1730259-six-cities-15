@@ -1,13 +1,21 @@
+import cn from 'classnames';
+
 type FavoritButtonProps = {
   className: string;
   iconWidth: string;
   iconHeight: string;
+  isFavorite: boolean;
 }
 
-function FavoritButton({className, iconWidth, iconHeight}: FavoritButtonProps): JSX.Element {
+function FavoritButton({className, iconWidth, iconHeight, isFavorite}: FavoritButtonProps): JSX.Element {
   return (
     <button
-      className={`${className}__bookmark-button ${className}__bookmark-button--active button`}
+      className={
+        cn(
+          `${className}__bookmark-button button`,
+          {[`${className}__bookmark-button--active`]: isFavorite}
+        )
+      }
       type="button"
     >
       <svg
