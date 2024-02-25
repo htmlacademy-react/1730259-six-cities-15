@@ -34,21 +34,14 @@ function Main({offers}: MainProps): JSX.Element {
         sortType: DEFAULT_SORT
       });
     }
-
   }, [cityQuery, setSearchParams, sortTypeQuery]);
 
-  const filteredOffers = useMemo(() => getCurrentOffers(cityQuery, offers), [cityQuery, offers]);
+  const filteredOffers = useMemo(() => getCurrentOffers(cityQuery || DEFAULT_CITY, offers), [cityQuery, offers]);
 
-  const sortedOffers = useMemo(() => {
-    if (filteredOffers.length > 0 && sortingType[sortTypeQuery]) {
-      return sortingType[sortTypeQuery](filteredOffers);
-    } else {
-      return filteredOffers;
-    }
-  }, [filteredOffers, sortTypeQuery]);
+  const filteredAndSortedOffers = useMemo(() => sortingType[sortTypeQuery || DEFAULT_SORT](filteredOffers), [filteredOffers, sortTypeQuery]);
 
   // нужно ли вынести данную переменную в константу или функцию
-  const hasNoFilteredOrSortedOffers = !sortedOffers.length;
+  const hasNoFilteredOrSortedOffers = !filteredAndSortedOffers.length;
 
   return (
     <main
@@ -80,11 +73,11 @@ function Main({offers}: MainProps): JSX.Element {
                 :
                 <>
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{filteredOffers.length} places to stay in {capitalize(cityQuery)}</b>
+                  <b className="places__found">{filteredAndSortedOffers.length} places to stay in {capitalize(cityQuery)}</b>
                   <PlacesSorting currentSort={sortTypeQuery} onChangeSort={handleSortTypeChange} />
                   <div className="cities__places-list places__list tabs__content">
                     {
-                      sortedOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} className='cities' />)
+                      filteredAndSortedOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} className='cities' />)
                     }
                   </div>
                 </>
