@@ -8,13 +8,16 @@ import PageNotFound from '../../pages/page-not-found/page-not-found';
 import Favorites from '../../pages/favorites/favorites';
 import Offer from '../../pages/offer/offer';
 import PrivateRoute from '../private-route/private-route';
-import { Offers } from '../../types/offers';
+import { FullOffer, Offers } from '../../types/offers';
+import { Reviews } from '../../types/reviews';
 
 type AppProps = {
   offers: Offers;
+  fullOffers: FullOffer[];
+  reviews: Reviews;
 }
 
-function App({offers}: AppProps): JSX.Element {
+function App({offers, fullOffers, reviews}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -29,7 +32,7 @@ function App({offers}: AppProps): JSX.Element {
                 </PrivateRoute>
               }
             />
-            <Route path={`${AppRoute.Offer}:id`} element={<Offer />} />
+            <Route path={`${AppRoute.Offer}:id`} element={<Offer fullOffers={fullOffers} reviews={reviews} />} />
             <Route
               path={AppRoute.Favorites}
               element={

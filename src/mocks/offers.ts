@@ -94,26 +94,26 @@ export const offers: Offers = [
     rating: 3.2
   },
   {
-    id: '60d3b9d6-6b46-4967-b64a-f88b6ce99106',
-    title: 'Nice, cozy, warm big bed apartment',
-    type: 'hotel',
-    price: 236,
-    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/10.jpg',
+    id: '94b5ced7-8a54-49c2-b6d2-d9cf31f79698',
+    title: 'Beautiful & luxurious apartment at great location',
+    type: 'house',
+    price: 854,
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/17.jpg',
     city: {
-      name: 'Paris',
+      name: 'Cologne',
       location: {
-        latitude: 48.85661,
-        longitude: 2.351499,
+        latitude: 50.938361,
+        longitude: 6.959974,
         zoom: 13
       }
     },
     location: {
-      latitude: 48.87561,
-      longitude: 2.375499,
+      latitude: 50.932361,
+      longitude: 6.937974,
       zoom: 16
     },
     isFavorite: false,
-    isPremium: false,
-    rating: 4.7
+    isPremium: true,
+    rating: 1.3
   },
 ];

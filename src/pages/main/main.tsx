@@ -35,12 +35,12 @@ function Main({offers}: MainProps): JSX.Element {
       });
     }
   }, [cityQuery, setSearchParams, sortTypeQuery]);
-
+  //TODO уточнить, допускается ли так?
   const filteredOffers = useMemo(() => getCurrentOffers(cityQuery || DEFAULT_CITY, offers), [cityQuery, offers]);
 
   const filteredAndSortedOffers = useMemo(() => sortingType[sortTypeQuery || DEFAULT_SORT](filteredOffers), [filteredOffers, sortTypeQuery]);
 
-  // нужно ли вынести данную переменную в константу или функцию
+  //TODO нужно ли вынести данную переменную в константу или функцию
   const hasNoFilteredOrSortedOffers = !filteredAndSortedOffers.length;
 
   return (

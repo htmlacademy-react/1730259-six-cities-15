@@ -49,3 +49,5 @@ export const STAR_NAME = 'rating';
 export const MIN_VALUE_REVIEW_LENGHT = 50;
 
 export const MAX_VALUE_REVIEW_LENGHT = 300;
+
+export const MAX_REVIEWS_COUNT = 10;

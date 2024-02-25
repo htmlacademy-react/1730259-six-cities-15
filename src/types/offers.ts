@@ -25,3 +25,18 @@ export type Offer = {
 };
 
 export type Offers = Offer[];
+
+export type Host = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+};
+
+export type FullOffer = Omit<Offer, 'previewImage'> & {
+  description: string | string[];
+  bedrooms: number;
+  goods: string[];
+  host: Host;
+  images: string[];
+  maxAdults: number;
+};
