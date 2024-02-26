@@ -5,8 +5,8 @@ import Tabs from '../../components/tabs/tabs';
 import { useSearchParams } from 'react-router-dom';
 import { CITY, Cities, DEFAULT_CITY, DEFAULT_SORT, SORT_TYPE, SortType } from '../../const';
 import { capitalize, getCurrentOffers, sortingType } from '../../utils/utils';
-import { useEffect, useMemo } from 'react';
-import { Offers } from '../../types/offers';
+import { useEffect, useMemo, useState } from 'react';
+import { Offer, Offers } from '../../types/offers';
 import cn from 'classnames';
 import MainEmpty from '../../components/main-empty/main-empty';
 
@@ -15,6 +15,7 @@ type MainProps = {
 }
 
 function Main({offers}: MainProps): JSX.Element {
+  const [, setHoveredOfferId] = useState<Offer['id'] | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const cityQuery = searchParams.get(CITY) as Cities;
   const sortTypeQuery = searchParams.get(SORT_TYPE) as SortType;
@@ -77,7 +78,7 @@ function Main({offers}: MainProps): JSX.Element {
                   <PlacesSorting currentSort={sortTypeQuery} onChangeSort={handleSortTypeChange} />
                   <div className="cities__places-list places__list tabs__content">
                     {
-                      filteredAndSortedOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} className='cities' />)
+                      filteredAndSortedOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} className='cities' onCardHover={setHoveredOfferId} />)
                     }
                   </div>
                 </>

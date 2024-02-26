@@ -9,14 +9,25 @@ import { capitalize } from '../../utils/utils';
 type PlaceCardProps ={
   className: string;
   offer: Offer;
+  onCardHover?: (offerId: Offer['id'] | null) => void;
 }
 
-function PlaceCard({className, offer}: PlaceCardProps): JSX.Element {
+function PlaceCard({className, offer, onCardHover}: PlaceCardProps): JSX.Element {
   const {id, isPremium, previewImage, price, isFavorite, rating, title, type} = offer;
+
+  function handleMouseEnter () {
+    onCardHover?.(id);
+  }
+
+  function handleMouseLeave () {
+    onCardHover?.(null);
+  }
 
   return (
     <article
       className={`${className}__card place-card`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {isPremium ? <Premium className={'place-card__mark'} /> : null}
 
