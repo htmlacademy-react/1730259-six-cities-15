@@ -1,7 +1,9 @@
+import { Cities } from '../const';
+
 export type ApartmentType = 'apartment' | 'room' | 'house' | 'hotel';
 
 export type City = {
-  name: string;
+  name: keyof typeof Cities;
   location: Location;
 };
 

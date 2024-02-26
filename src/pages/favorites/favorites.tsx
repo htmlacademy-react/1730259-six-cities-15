@@ -1,18 +1,24 @@
-import { Cities } from '../../const';
 import LocationItem from '../../components/location-item/location-item';
 import Logo from '../../components/logo/logo';
 import PlaceCard from '../../components/place-card/place-card';
 import { Helmet } from 'react-helmet-async';
-import { Offers } from '../../types/offers';
+import { City, Offers } from '../../types/offers';
 
 type FavoritesProps = {
   offersFavorite: Offers;
 }
 
 function Favorites({offersFavorite}: FavoritesProps): JSX.Element {
-  const favoritLocations = new Map<string, Offers>();
+  const favoritLocations = new Map<City['name'], Offers>();
 
-  offersFavorite.filter((offer) => offer.isFavorite).map((offer) => favoritLocations.set(offer.city.name, {...offer}));
+  offersFavorite.filter((offer) => offer.isFavorite).forEach((offer) => {
+    const cityName = offer.city.name;
+    if (favoritLocations.has(cityName)) {
+      favoritLocations.get(cityName)?.push(offer);
+    } else {
+      favoritLocations.set(cityName, [offer]);
+    }
+  });
 
   return (
     <>
@@ -32,7 +38,8 @@ function Favorites({offersFavorite}: FavoritesProps): JSX.Element {
                     </div>
                     <div className="favorites__places">
                       {
-                        Object.entries(favoritLocations.get(city)).map((offer) => <PlaceCard key={offer.id} className='favorites' offer={offer} />)
+                        favoritLocations.get(city)
+                          ?.map((offer) => <PlaceCard key={offer.id} className='favorites' offer={offer} />)
                       }
                     </div>
                   </li>

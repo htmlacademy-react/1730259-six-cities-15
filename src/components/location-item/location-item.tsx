@@ -4,9 +4,9 @@ import LocationLink from '../location-link/location-link';
 
 type LocationItemProps = {
   isTabs?: boolean;
-  city: Cities;
+  city: keyof typeof Cities;
   isActive?: boolean;
-  onChangeCurrentTabs?: (city: Cities) => void;
+  onChangeCurrentTabs?: (city: keyof typeof Cities) => void;
 }
 
 function LocationItem({isTabs, isActive, city, onChangeCurrentTabs}: LocationItemProps): JSX.Element {
