@@ -66,7 +66,7 @@ export const offers: Offers = [
       longitude: 2.335499,
       zoom: 16
     },
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     rating: 3.8
   },
@@ -112,7 +112,7 @@ export const offers: Offers = [
       longitude: 6.937974,
       zoom: 16
     },
-    isFavorite: false,
+    isFavorite: true,
     isPremium: true,
     rating: 1.3
   },

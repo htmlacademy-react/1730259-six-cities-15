@@ -3,37 +3,41 @@ import LocationItem from '../../components/location-item/location-item';
 import Logo from '../../components/logo/logo';
 import PlaceCard from '../../components/place-card/place-card';
 import { Helmet } from 'react-helmet-async';
+import { Offers } from '../../types/offers';
 
-function Favorites(): JSX.Element {
+type FavoritesProps = {
+  offersFavorite: Offers;
+}
+
+function Favorites({offersFavorite}: FavoritesProps): JSX.Element {
+  const favoritLocations = new Map<string, Offers>();
+
+  offersFavorite.filter((offer) => offer.isFavorite).map((offer) => favoritLocations.set(offer.city.name, {...offer}));
+
   return (
     <>
       <Helmet>
-        {/* <title>6 cities: favorites empty</title> */}
-        <title>6 cities: favorites</title>
+        <title>6 cities: {!offersFavorite.length ? 'favorites empty' : 'favorites'}</title>
       </Helmet>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <LocationItem city={Cities.Amsterdam} />
-                </div>
-                <div className="favorites__places">
-                  <PlaceCard className='favorites' />
-                  <PlaceCard className='favorites' />
-                </div>
-              </li>
-
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <LocationItem city={Cities.Cologne} />
-                </div>
-                <div className="favorites__places">
-                  <PlaceCard className='favorites' />
-                </div>
-              </li>
+              {
+                Array.from(favoritLocations.keys()).map((city) => (
+                  <li key={String(city)} className="favorites__locations-items">
+                    <div className="favorites__locations locations locations--current">
+                      <LocationItem city={city} />
+                    </div>
+                    <div className="favorites__places">
+                      {
+                        Object.entries(favoritLocations.get(city)).map((offer) => <PlaceCard key={offer.id} className='favorites' offer={offer} />)
+                      }
+                    </div>
+                  </li>
+                ))
+              }
             </ul>
           </section>
         </div>
