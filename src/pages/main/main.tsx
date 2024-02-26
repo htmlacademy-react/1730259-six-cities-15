@@ -20,7 +20,7 @@ function Main({offers}: MainProps): JSX.Element {
   const cityQuery = searchParams.get(CITY) as Cities;
   const sortTypeQuery = searchParams.get(SORT_TYPE) as SortType;
 
-  const handleClickTabsItem = (cityName: Cities) => {
+  const handleClickTabsItem = (cityName: keyof typeof Cities | Cities) => {
     setSearchParams({ city: cityName, sortType: sortTypeQuery });
   };
 

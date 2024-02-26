@@ -5,9 +5,9 @@ import { AppRoute, Cities } from '../../const';
 
 type LocationLinkProps = {
   isTabs?: boolean;
-  city: keyof typeof Cities;
+  city: keyof typeof Cities | Cities;
   isActive?: boolean;
-  onChangeCurrentTabs?: (city: keyof typeof Cities) => void;
+  onChangeCurrentTabs?: (city: keyof typeof Cities | Cities) => void;
 }
 
 function LocationLink({city, isActive, isTabs, onChangeCurrentTabs}: LocationLinkProps):JSX.Element {

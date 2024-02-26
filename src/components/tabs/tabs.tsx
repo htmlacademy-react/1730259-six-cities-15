@@ -3,7 +3,7 @@ import LocationItem from '../location-item/location-item';
 
 type TabsProps = {
   currentCity: Cities;
-  onChangeCurrentTabs?: (city: Cities) => void;
+  onChangeCurrentTabs?: (city: keyof typeof Cities | Cities) => void;
 }
 
 function Tabs({currentCity, onChangeCurrentTabs}: TabsProps): JSX.Element {
