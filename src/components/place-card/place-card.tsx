@@ -10,9 +10,10 @@ type PlaceCardProps ={
   className: string;
   offer: Offer;
   onCardHover?: (offerId: Offer['id'] | null) => void;
+  isSmall?: boolean;
 }
 
-function PlaceCard({className, offer, onCardHover}: PlaceCardProps): JSX.Element {
+function PlaceCard({className, offer, onCardHover, isSmall}: PlaceCardProps): JSX.Element {
   const {id, isPremium, previewImage, price, isFavorite, rating, title, type} = offer;
 
   function handleMouseEnter () {
@@ -35,7 +36,7 @@ function PlaceCard({className, offer, onCardHover}: PlaceCardProps): JSX.Element
         className={`${className}__image-wrapper place-card__image-wrapper`}
       >
         <Link to={`${AppRoute.Offer}${id}`}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={previewImage} width={isSmall ? '150' : '260'} height={isSmall ? '110' : '200'} alt="Place image" />
         </Link>
       </div>
       <div className="place-card__info">

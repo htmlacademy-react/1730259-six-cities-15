@@ -21,7 +21,7 @@ export const offers: Offers = [
       zoom: 16
     },
     isFavorite: true,
-    isPremium: false,
+    isPremium: true,
     rating: 1.6
   },
   {
