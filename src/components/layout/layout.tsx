@@ -2,6 +2,7 @@ import cn from 'classnames';
 import { Outlet, useLocation, Location } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Header from '../header/header';
+import ScrollToTop from '../scroll-to-top/scroll-to-top';
 
 interface MyLocation extends Location {
   pathname: AppRoute;
@@ -19,6 +20,7 @@ function Layout(): JSX.Element {
         )
       }
     >
+      <ScrollToTop />
       <Header />
       <Outlet />
     </div>
