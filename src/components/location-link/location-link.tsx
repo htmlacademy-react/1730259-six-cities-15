@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { capitalize } from '../../utils/utils';
 import cn from 'classnames';
-import { AppRoute, Cities } from '../../const';
+import { AppRoute, CITY, Cities, DEFAULT_SORT, SORT_TYPE } from '../../const';
 
 type LocationLinkProps = {
   isTabs?: boolean;
@@ -19,7 +19,7 @@ function LocationLink({city, isActive, isTabs, onChangeCurrentTabs}: LocationLin
           {'tabs__item--active': isActive}
         )
       }
-      to={isTabs ? '#todo' : AppRoute.Root}
+      to={isTabs ? '#todo' : {pathname: AppRoute.Root, search: `?${CITY}=${city}&${SORT_TYPE}=${DEFAULT_SORT}`}}
       onClick={
         onChangeCurrentTabs && ((evt) => {
           evt.preventDefault();
