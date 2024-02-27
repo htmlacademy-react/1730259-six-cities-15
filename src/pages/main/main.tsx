@@ -33,10 +33,12 @@ function Main({offers}: MainProps): JSX.Element {
     searchParams.set(SORT_TYPE, sortType);
     setSearchParams(searchParams);
   };
-
+  // TODO отказаться от useEffect????
   useEffect(() => {
-    setSearchParams(searchParams);
-  }, [searchParams, setSearchParams]);
+    if (cityQuery === DEFAULT_CITY && sortTypeQuery === DEFAULT_SORT) {
+      setSearchParams(searchParams);
+    }
+  }, [cityQuery, searchParams, setSearchParams, sortTypeQuery]);
   //TODO уточнить, допускается ли так?
   const filteredOffers = useMemo(() => getCurrentOffers(cityQuery, offers), [cityQuery, offers]);
 
