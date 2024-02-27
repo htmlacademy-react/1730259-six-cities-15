@@ -16,30 +16,31 @@ type MainProps = {
 
 function Main({offers}: MainProps): JSX.Element {
   const [, setHoveredOfferId] = useState<Offer['id'] | null>(null);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams({
+    city: DEFAULT_CITY,
+    sortType: DEFAULT_SORT
+  });
+
   const cityQuery = searchParams.get(CITY) as Cities;
   const sortTypeQuery = searchParams.get(SORT_TYPE) as SortType;
 
   const handleClickTabsItem = (cityName: keyof typeof Cities | Cities) => {
-    setSearchParams({ city: cityName, sortType: sortTypeQuery });
+    searchParams.set(CITY, cityName);
+    setSearchParams(searchParams);
   };
 
   const handleSortTypeChange = (sortType: SortType) => {
-    setSearchParams({ city: cityQuery, sortType: sortType });
+    searchParams.set(SORT_TYPE, sortType);
+    setSearchParams(searchParams);
   };
 
   useEffect(() => {
-    if (!cityQuery || !sortTypeQuery) {
-      setSearchParams({
-        city: DEFAULT_CITY,
-        sortType: DEFAULT_SORT
-      });
-    }
-  }, [cityQuery, setSearchParams, sortTypeQuery]);
+    setSearchParams(searchParams);
+  }, [searchParams, setSearchParams]);
   //TODO уточнить, допускается ли так?
-  const filteredOffers = useMemo(() => getCurrentOffers(cityQuery || DEFAULT_CITY, offers), [cityQuery, offers]);
+  const filteredOffers = useMemo(() => getCurrentOffers(cityQuery, offers), [cityQuery, offers]);
 
-  const filteredAndSortedOffers = useMemo(() => sortingType[sortTypeQuery || DEFAULT_SORT](filteredOffers), [filteredOffers, sortTypeQuery]);
+  const filteredAndSortedOffers = useMemo(() => sortingType[sortTypeQuery](filteredOffers), [filteredOffers, sortTypeQuery]);
 
   //TODO нужно ли вынести данную переменную в константу или функцию
   const hasNoFilteredOrSortedOffers = !filteredAndSortedOffers.length;
