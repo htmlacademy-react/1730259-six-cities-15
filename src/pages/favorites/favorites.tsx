@@ -1,8 +1,9 @@
-import LocationItem from '../../components/location-item/location-item';
 import Logo from '../../components/logo/logo';
-import PlaceCard from '../../components/place-card/place-card';
 import { Helmet } from 'react-helmet-async';
 import { City, Offers } from '../../types/offers';
+import cn from 'classnames';
+import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
+import FavoritesList from '../../components/favorites-list/favorites-list';
 
 type FavoritesProps = {
   offersFavorite: Offers;
@@ -20,32 +21,41 @@ function Favorites({offersFavorite}: FavoritesProps): JSX.Element {
     }
   });
 
+  const hasNoOffersFavoriteLength = !offersFavorite.length;
+
   return (
     <>
       <Helmet>
-        <title>6 cities: {!offersFavorite.length ? 'favorites empty' : 'favorites'}</title>
+        <title>6 cities: {hasNoOffersFavoriteLength ? 'favorites empty' : 'favorites'}</title>
       </Helmet>
-      <main className="page__main page__main--favorites">
+      <main
+        className={
+          cn(
+            'page__main page__main--favorites',
+            {'page__main--favorites-empty': hasNoOffersFavoriteLength}
+          )
+        }
+      >
         <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              {
-                Array.from(favoritLocations.keys()).map((city) => (
-                  <li key={String(city)} className="favorites__locations-items">
-                    <div className="favorites__locations locations locations--current">
-                      <LocationItem city={city} />
-                    </div>
-                    <div className="favorites__places">
-                      {
-                        favoritLocations.get(city)
-                          ?.map((offer) => <PlaceCard key={offer.id} className='favorites' offer={offer} isSmall />)
-                      }
-                    </div>
-                  </li>
-                ))
+          <section
+            className={
+              cn(
+                'favorites',
+                {'favorites--empty': hasNoOffersFavoriteLength}
+              )
+            }
+          >
+            <h1
+              className={
+                cn(
+                  {'favorites__title': !hasNoOffersFavoriteLength},
+                  {'visually-hidden': hasNoOffersFavoriteLength}
+                )
               }
-            </ul>
+            >
+              {hasNoOffersFavoriteLength ? 'Favorites (empty)' : 'Saved listing'}
+            </h1>
+            {hasNoOffersFavoriteLength ? <FavoritesEmpty /> : <FavoritesList favoritLocations={favoritLocations} />}
           </section>
         </div>
       </main>
