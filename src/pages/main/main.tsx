@@ -2,13 +2,14 @@ import Map from '../../components/map/map';
 import PlaceCard from '../../components/place-card/place-card';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
 import Tabs from '../../components/tabs/tabs';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { CITY, Cities, DEFAULT_CITY, DEFAULT_SORT, SORT_TYPE, SortType } from '../../const';
 import { capitalize, getCurrentOffers, sortingType } from '../../utils/utils';
 import { useEffect, useMemo, useState } from 'react';
 import { Offer, Offers } from '../../types/offers';
 import cn from 'classnames';
 import MainEmpty from '../../components/main-empty/main-empty';
+import { MyLocation } from '../../types/my-location';
 
 type MainProps = {
   offers: Offers;
@@ -16,6 +17,7 @@ type MainProps = {
 
 function Main({offers}: MainProps): JSX.Element {
   const [, setHoveredOfferId] = useState<Offer['id'] | null>(null);
+  const {search} = useLocation() as MyLocation;
   const [searchParams, setSearchParams] = useSearchParams({
     city: DEFAULT_CITY,
     sortType: DEFAULT_SORT
@@ -33,12 +35,12 @@ function Main({offers}: MainProps): JSX.Element {
     searchParams.set(SORT_TYPE, sortType);
     setSearchParams(searchParams);
   };
-  // TODO отказаться от useEffect????
+
   useEffect(() => {
-    if (cityQuery === DEFAULT_CITY && sortTypeQuery === DEFAULT_SORT) {
+    if (!search) {
       setSearchParams(searchParams);
     }
-  }, [cityQuery, searchParams, setSearchParams, sortTypeQuery]);
+  }, [search, searchParams, setSearchParams]);
   //TODO уточнить, допускается ли так?
   const filteredOffers = useMemo(() => getCurrentOffers(cityQuery, offers), [cityQuery, offers]);
 
