@@ -1,11 +1,15 @@
 import cn from 'classnames';
-import { DEFAULT_SORT, SortType } from '../../const';
+import { SortType } from '../../const';
 import { RefObject, useEffect, useRef, useState } from 'react';
 
-function PlacesSorting(): JSX.Element {
+type PlacesSortingProps ={
+  currentSort: SortType;
+  onChangeSort: (sortType: SortType) => void;
+}
+
+function PlacesSorting({currentSort, onChangeSort}: PlacesSortingProps): JSX.Element {
   const [isOpenSorting, setIsOpenSorting] = useState(false);
   const sortRef: RefObject<HTMLSpanElement> = useRef(null);
-  const sortType = DEFAULT_SORT;
 
   useEffect(() => {
     const closeSort = (evt: MouseEvent) => {
@@ -27,7 +31,7 @@ function PlacesSorting(): JSX.Element {
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex={0} onClick={() => setIsOpenSorting(!isOpenSorting)} ref={sortRef}>
-        {sortType}
+        {currentSort}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
@@ -40,10 +44,11 @@ function PlacesSorting(): JSX.Element {
               className={
                 cn(
                   'places__option',
-                  { 'places__option--active': sortType === type }
+                  { 'places__option--active': currentSort === type }
                 )
               }
               tabIndex={0}
+              onClick={() => onChangeSort(type)}
             >
               {type}
             </li>

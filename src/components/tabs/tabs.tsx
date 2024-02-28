@@ -1,26 +1,18 @@
-import { useSearchParams } from 'react-router-dom';
-import { CITY, Cities, DEFAULT_CITY } from '../../const';
+import { Cities } from '../../const';
 import LocationItem from '../location-item/location-item';
-import { useEffect } from 'react';
 
-function Tabs(): JSX.Element {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const cityQuery = searchParams.get(CITY);
-  const handleClickTabsItem = (cityName: Cities) => setSearchParams({city: cityName});
+type TabsProps = {
+  currentCity: Cities;
+}
 
-  useEffect(() => {
-    if (!cityQuery) {
-      setSearchParams({ city: DEFAULT_CITY });
-    }
-  }, [cityQuery, setSearchParams]);
-
+function Tabs({currentCity}: TabsProps): JSX.Element {
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
           {
             Object.values(Cities).map(
-              (city) => <LocationItem key={city} isTabs city={city} isActive={cityQuery === city} onChangeCurrentTabs={handleClickTabsItem} />
+              (city) => <LocationItem key={city} isTabs city={city} isActive={currentCity === city} />
             )
           }
         </ul>

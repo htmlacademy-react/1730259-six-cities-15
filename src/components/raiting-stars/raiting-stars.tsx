@@ -1,11 +1,14 @@
+import { convertRatingToPercentage } from '../../utils/utils';
+
 type RaitingStarsProps = {
   className?: string;
+  rating: number;
 }
 
-function RaitingStars({className}: RaitingStarsProps): JSX.Element {
+function RaitingStars({className, rating}: RaitingStarsProps): JSX.Element {
   return (
     <div className={`${className} rating__stars`}>
-      <span style={{width: '80%'}}></span>
+      <span style={{width: convertRatingToPercentage(rating)}}></span>
       <span className="visually-hidden">Rating</span>
     </div>
   );

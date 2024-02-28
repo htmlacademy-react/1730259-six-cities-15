@@ -1,16 +1,18 @@
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { capitalize } from '../../utils/utils';
 import cn from 'classnames';
-import { AppRoute, Cities } from '../../const';
+import { AppRoute, CITY, Cities, DEFAULT_SORT, SORT_TYPE, SortType } from '../../const';
 
 type LocationLinkProps = {
   isTabs?: boolean;
-  city: Cities;
+  city: keyof typeof Cities | Cities;
   isActive?: boolean;
-  onChangeCurrentTabs?: (city: Cities) => void;
 }
 
-function LocationLink({city, isActive, isTabs, onChangeCurrentTabs}: LocationLinkProps):JSX.Element {
+function LocationLink({city, isActive, isTabs}: LocationLinkProps):JSX.Element {
+  const [searchParams] = useSearchParams();
+  const currentSort = searchParams.get(SORT_TYPE) as SortType;
+
   return (
     <Link
       className={
@@ -19,13 +21,7 @@ function LocationLink({city, isActive, isTabs, onChangeCurrentTabs}: LocationLin
           {'tabs__item--active': isActive}
         )
       }
-      to={isTabs ? '#todo' : AppRoute.Root}
-      onClick={
-        onChangeCurrentTabs && ((evt) => {
-          evt.preventDefault();
-          onChangeCurrentTabs(city);
-        })
-      }
+      to={{pathname: AppRoute.Root, search: `?${CITY}=${city}&${SORT_TYPE}=${isTabs ? currentSort : DEFAULT_SORT}`}}
     >
       <span>{capitalize(city)}</span>
     </Link>
