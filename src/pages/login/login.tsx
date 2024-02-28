@@ -11,8 +11,8 @@ function Login():JSX.Element {
     password: ''
   });
 
-  const handleFieldChange = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = evt.target;
+  const handleFieldChange = useCallback(({target}: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = target;
     setLoginFormData((prevData) => ({
       ...prevData,
       [name]: value,

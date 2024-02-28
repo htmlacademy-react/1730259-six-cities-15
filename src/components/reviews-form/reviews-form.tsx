@@ -13,8 +13,8 @@ function ReviewsForm(): JSX.Element {
     }
   };
 
-  const handleTextariaInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(event.target.value);
+  const handleTextariaInputChange = ({ target }: ChangeEvent<HTMLTextAreaElement>) => {
+    setValue(target.value);
   };
 
   useEffect(() => {
