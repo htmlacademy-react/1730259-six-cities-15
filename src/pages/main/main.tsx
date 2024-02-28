@@ -30,7 +30,7 @@ function Main({offers}: MainProps): JSX.Element {
     searchParams.set(SORT_TYPE, sortType);
     setSearchParams(searchParams);
   };
-  // TODO Если сделать по другому то приходится устанавливать значения по умолчанию в сортировку и город по умолчанию
+
   useEffect(() => {
     if (!search) {
       setSearchParams(searchParams);
