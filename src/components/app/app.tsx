@@ -27,7 +27,7 @@ function App({offers, fullOffers, reviews}: AppProps): JSX.Element {
             <Route
               path={AppRoute.Login}
               element={
-                <PrivateRoute authorizationStatus={AuthorizationStatus.Auth} isReverse>
+                <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth} isReverse>
                   <Login />
                 </PrivateRoute>
               }
