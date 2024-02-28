@@ -12,7 +12,7 @@ type FavoritesProps = {
 function Favorites({offersFavorite}: FavoritesProps): JSX.Element {
   const favoritLocations = new Map<City['name'], Offers>();
 
-  offersFavorite.filter((offer) => offer.isFavorite).forEach((offer) => {
+  offersFavorite.forEach((offer) => {
     const cityName = offer.city.name;
     if (favoritLocations.has(cityName)) {
       favoritLocations.get(cityName)?.push(offer);

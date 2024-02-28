@@ -10,7 +10,8 @@ import Offer from '../../pages/offer/offer';
 import PrivateRoute from '../private-route/private-route';
 import { FullOffer, Offers } from '../../types/offers';
 import { Reviews } from '../../types/reviews';
-import { getAuthorizationStatus } from '../../mocks/utils';
+import { getAuthorizationStatus } from '../../mocks/get-authorization-status';
+import { getOffersFavorites } from '../../mocks/get-offers-favorites';
 
 type AppProps = {
   offers: Offers;
@@ -38,7 +39,7 @@ function App({offers, fullOffers, reviews}: AppProps): JSX.Element {
               path={AppRoute.Favorites}
               element={
                 <PrivateRoute authorizationStatus={getAuthorizationStatus()}>
-                  <Favorites offersFavorite={offers} />
+                  <Favorites offersFavorite={getOffersFavorites()} />
                 </PrivateRoute>
               }
             />
