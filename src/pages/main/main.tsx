@@ -26,27 +26,21 @@ function Main({offers}: MainProps): JSX.Element {
   const cityQuery = searchParams.get(CITY) as Cities;
   const sortTypeQuery = searchParams.get(SORT_TYPE) as SortType;
 
-  const handleClickTabsItem = (cityName: keyof typeof Cities | Cities) => {
-    searchParams.set(CITY, cityName);
-    setSearchParams(searchParams);
-  };
-
   const handleSortTypeChange = (sortType: SortType) => {
     searchParams.set(SORT_TYPE, sortType);
     setSearchParams(searchParams);
   };
-
+  // TODO Если сделать по другому то приходится устанавливать значения по умолчанию в сортировку и город по умолчанию
   useEffect(() => {
     if (!search) {
       setSearchParams(searchParams);
     }
   }, [search, searchParams, setSearchParams]);
-  //TODO уточнить, допускается ли так?
+
   const filteredOffers = useMemo(() => getCurrentOffers(cityQuery, offers), [cityQuery, offers]);
 
   const filteredAndSortedOffers = useMemo(() => sortingType[sortTypeQuery](filteredOffers), [filteredOffers, sortTypeQuery]);
 
-  //TODO нужно ли вынести данную переменную в константу или функцию
   const hasNoFilteredOrSortedOffers = !filteredAndSortedOffers.length;
 
   return (
@@ -59,7 +53,7 @@ function Main({offers}: MainProps): JSX.Element {
       }
     >
       <h1 className="visually-hidden">Cities</h1>
-      <Tabs onChangeCurrentTabs={handleClickTabsItem} currentCity={cityQuery} />
+      <Tabs currentCity={cityQuery} />
       <div className="cities">
         <div
           className={

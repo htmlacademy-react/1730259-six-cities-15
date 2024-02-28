@@ -6,13 +6,12 @@ type LocationItemProps = {
   isTabs?: boolean;
   city: keyof typeof Cities | Cities;
   isActive?: boolean;
-  onChangeCurrentTabs?: (city: keyof typeof Cities | Cities) => void;
 }
 
-function LocationItem({isTabs, isActive, city, onChangeCurrentTabs}: LocationItemProps): JSX.Element {
+function LocationItem({isTabs, isActive, city}: LocationItemProps): JSX.Element {
   return (
     <LocationItemWrapper isTabs={isTabs}>
-      <LocationLink isTabs={isTabs} isActive={isActive} city={city} onChangeCurrentTabs={onChangeCurrentTabs} />
+      <LocationLink isTabs={isTabs} isActive={isActive} city={city} />
     </LocationItemWrapper>
   );
 }
