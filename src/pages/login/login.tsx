@@ -1,5 +1,5 @@
-import { ChangeEvent, useCallback, useState } from 'react';
-import LocationItem from '../../components/location-item/location-item';
+import { ChangeEvent, memo, useCallback, useState } from 'react';
+import MemoizedLocationItem from '../../components/location-item/location-item';
 import { getRandomArrayItem } from '../../utils/utils';
 import { Cities } from '../../const';
 import { Helmet } from 'react-helmet-async';
@@ -35,7 +35,7 @@ function Login():JSX.Element {
                 type="email"
                 name="email"
                 placeholder="Email"
-                onChange={(evt) => handleFieldChange(evt)}
+                onChange={handleFieldChange}
                 value={loginFormData.email}
                 required
               />
@@ -47,7 +47,7 @@ function Login():JSX.Element {
                 type="password"
                 name="password"
                 placeholder="Password"
-                onChange={(evt) => handleFieldChange(evt)}
+                onChange={handleFieldChange}
                 value={loginFormData.password}
                 required
               />
@@ -56,11 +56,13 @@ function Login():JSX.Element {
           </form>
         </section>
         <section className="locations locations--login locations--current">
-          <LocationItem city={randomCity} />
+          <MemoizedLocationItem city={randomCity} />
         </section>
       </div>
     </main>
   );
 }
 
-export default Login;
+const MemoizedLogin = memo(Login);
+
+export default MemoizedLogin;
