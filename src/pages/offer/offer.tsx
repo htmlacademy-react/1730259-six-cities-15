@@ -21,8 +21,8 @@ function Offer({fullOffers, reviews}: OfferProps): JSX.Element {
   const {id} = useParams();
   const [offer] = fullOffers.filter((item) => String(item.id) === String(id));
 
-  if (offer === undefined) {
-    <Navigate to={AppRoute.PageNotFound} replace />;
+  if (!offer) {
+    return <Navigate to={AppRoute.PageNotFound} replace />;
   }
 
   const {

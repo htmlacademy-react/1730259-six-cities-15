@@ -24,6 +24,8 @@ function PlaceCard({className, offer, onCardHover, isSmall}: PlaceCardProps): JS
     onCardHover?.(null);
   }
 
+  const CardURL = `${AppRoute.Offer}${id}`;
+
   return (
     <article
       className={`${className}__card place-card`}
@@ -35,7 +37,7 @@ function PlaceCard({className, offer, onCardHover, isSmall}: PlaceCardProps): JS
       <div
         className={`${className}__image-wrapper place-card__image-wrapper`}
       >
-        <Link to={`${AppRoute.Offer}${id}`}>
+        <Link to={CardURL}>
           <img className="place-card__image" src={previewImage} width={isSmall ? '150' : '260'} height={isSmall ? '110' : '200'} alt="Place image" />
         </Link>
       </div>
@@ -51,7 +53,7 @@ function PlaceCard({className, offer, onCardHover, isSmall}: PlaceCardProps): JS
           <RaitingStars className='place-card__stars' rating={rating} />
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Offer}${id}`}>{title}</Link>
+          <Link to={CardURL}>{title}</Link>
         </h2>
         <p className="place-card__type">{capitalize(type)}</p>
       </div>
