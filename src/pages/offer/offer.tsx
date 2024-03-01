@@ -50,7 +50,7 @@ function Offer({fullOffers, reviews}: OfferProps): JSX.Element {
         </div>
         <div className="offer__container container">
           <div className="offer__wrapper">
-            {isPremium ? <Premium className='offer__mark' /> : null}
+            {isPremium && <Premium className='offer__mark' />}
             <div className="offer__name-wrapper">
               <h1 className="offer__name">
                 {title}
@@ -105,13 +105,10 @@ function Offer({fullOffers, reviews}: OfferProps): JSX.Element {
                   {host.name}
                 </span>
                 {
-                  host.isPro
-                    ?
+                  host.isPro &&
                     <span className="offer__user-status">
                       Pro
                     </span>
-                    :
-                    null
                 }
               </div>
               <div className="offer__description">
