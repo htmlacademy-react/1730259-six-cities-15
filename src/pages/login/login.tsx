@@ -1,23 +1,22 @@
-import { ChangeEvent, memo, useCallback, useState } from 'react';
+import { FormEvent, memo, useRef, useState } from 'react';
 import MemoizedLocationItem from '../../components/location-item/location-item';
 import { getRandomArrayItem } from '../../utils/utils';
 import { Cities } from '../../const';
 import { Helmet } from 'react-helmet-async';
 
 function Login():JSX.Element {
+  const formRef = useRef(null);
   const [randomCity,] = useState(getRandomArrayItem<Cities>(Object.values(Cities)));
-  const [loginFormData, setLoginFormData] = useState({
-    email: '',
-    password: ''
-  });
 
-  const handleFieldChange = useCallback(({target}: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = target;
-    setLoginFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  }, []);
+  const handleFormSubit = (evt: FormEvent) => {
+    evt.preventDefault();
+
+    if (formRef.current !== null) {
+      const formData = new FormData(formRef.current);
+      console.log(formData);
+    }
+
+  };
 
   return (
     <main className="page__main page__main--login">
@@ -27,7 +26,7 @@ function Login():JSX.Element {
       <div className="page__login-container container">
         <section className="login">
           <h1 className="login__title">Sign in</h1>
-          <form className="login__form form" action="#" method="post">
+          <form className="login__form form" action="#" method="post" ref={formRef} onSubmit={handleFormSubit}>
             <div className="login__input-wrapper form__input-wrapper">
               <label className="visually-hidden">E-mail</label>
               <input
@@ -35,8 +34,6 @@ function Login():JSX.Element {
                 type="email"
                 name="email"
                 placeholder="Email"
-                onChange={handleFieldChange}
-                value={loginFormData.email}
                 required
               />
             </div>
@@ -47,8 +44,6 @@ function Login():JSX.Element {
                 type="password"
                 name="password"
                 placeholder="Password"
-                onChange={handleFieldChange}
-                value={loginFormData.password}
                 required
               />
             </div>
