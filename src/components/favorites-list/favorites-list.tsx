@@ -1,5 +1,5 @@
 import { City, Offers } from '../../types/offers';
-import LocationItem from '../location-item/location-item';
+import MemoizedLocationItem from '../location-item/location-item';
 import PlaceCard from '../place-card/place-card';
 
 type FavoritesListProps = {
@@ -13,7 +13,7 @@ function FavoritesList({favoritLocations}:FavoritesListProps): JSX.Element {
         Array.from(favoritLocations.keys()).map((city) => (
           <li key={String(city)} className="favorites__locations-items">
             <div className="favorites__locations locations locations--current">
-              <LocationItem city={city} />
+              <MemoizedLocationItem city={city} />
             </div>
             <div className="favorites__places">
               {

@@ -1,7 +1,7 @@
 import Map from '../../components/map/map';
 import PlaceCard from '../../components/place-card/place-card';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
-import Tabs from '../../components/tabs/tabs';
+import MemoizedTabs from '../../components/tabs/tabs';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { CITY, Cities, DEFAULT_CITY, DEFAULT_SORT, SORT_TYPE, SortType } from '../../const';
 import { capitalize, getCurrentOffers, sortingType } from '../../utils/utils';
@@ -53,7 +53,7 @@ function Main({offers}: MainProps): JSX.Element {
       }
     >
       <h1 className="visually-hidden">Cities</h1>
-      <Tabs currentCity={cityQuery} />
+      <MemoizedTabs currentCity={cityQuery} />
       <div className="cities">
         <div
           className={
