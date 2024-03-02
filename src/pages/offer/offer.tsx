@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import FavoritButton from '../../components/favorit-button/favorit-button';
 import Map from '../../components/map/map';
-// import PlaceCard from '../../components/place-card/place-card';
+import PlaceCard from '../../components/place-card/place-card';
 import Premium from '../../components/premium/premium';
 import RaitingStars from '../../components/raiting-stars/raiting-stars';
 import { Navigate, useParams } from 'react-router-dom';
@@ -11,6 +11,7 @@ import { capitalize } from '../../utils/utils';
 import cn from 'classnames';
 import { Reviews } from '../../types/reviews';
 import OfferReviews from '../../components/offer-reviews/offer-reviews';
+import { offers } from '../../mocks/offers';
 
 type OfferProps = {
   fullOffers: FullOffer[];
@@ -125,16 +126,16 @@ function Offer({fullOffers, reviews}: OfferProps): JSX.Element {
             <OfferReviews reviews={reviews} />
           </div>
         </div>
-        <Map className='offer' />
+        <Map className='offer' activeOfferId={id} offers={offers} />
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          {/* <div className="near-places__list places__list">
-            <PlaceCard className='near-places' />
-            <PlaceCard className='near-places' />
-            <PlaceCard className='near-places' />
-          </div> */}
+          <div className="near-places__list places__list">
+            {
+              offers.slice(0, 3).map((nearOffer) => <PlaceCard key={nearOffer.id} className='near-places' offer={nearOffer} />)
+            }
+          </div>
         </section>
       </div>
     </main>

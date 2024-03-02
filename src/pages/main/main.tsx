@@ -16,7 +16,7 @@ type MainProps = {
 }
 
 function Main({offers}: MainProps): JSX.Element {
-  const [, setHoveredOfferId] = useState<Offer['id'] | null>(null);
+  const [hoveredOfferId, setHoveredOfferId] = useState<Offer['id'] | null>(null);
   const {search} = useLocation() as MyLocation;
   const [searchParams, setSearchParams] = useSearchParams({
     city: DEFAULT_CITY,
@@ -85,7 +85,7 @@ function Main({offers}: MainProps): JSX.Element {
           </section>
           <div className="cities__right-section">
             {
-              !hasNoFilteredOrSortedOffers ? <Map className='cities' /> : null
+              !hasNoFilteredOrSortedOffers ? <Map className='cities' offers={filteredOffers} activeOfferId={hoveredOfferId} /> : null
             }
           </div>
         </div>
