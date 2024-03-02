@@ -1,6 +1,6 @@
 import { FormEvent, memo, useRef, useState } from 'react';
 import MemoizedLocationItem from '../../components/location-item/location-item';
-import { getRandomArrayItem } from '../../utils/utils';
+import { getRandomArrayItem, validateLoginAndEmail } from '../../utils/utils';
 import { Cities } from '../../const';
 import { Helmet } from 'react-helmet-async';
 
@@ -13,7 +13,10 @@ function Login():JSX.Element {
 
     if (formRef.current !== null) {
       const formData = new FormData(formRef.current);
-      console.log(formData);
+
+      if (validateLoginAndEmail(formData)) {
+        // TODO Вставить колбк отправки
+      }
     }
 
   };

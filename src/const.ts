@@ -44,6 +44,19 @@ export const STARS = [
   'terribly',
 ] as const;
 
+export enum MouseEvent {
+  MouseEnter = 'mouseenter',
+  MouseLeave = 'mouseleave'
+}
+
+export enum LoginCredentials {
+  Email = 'email',
+  Password = 'password'
+}
+
+export const EMAIL_REG_EXP = /^[a-zA-Zа-яёА-ЯЁ0-9]+([._-][a-zA-Zа-яёА-ЯЁ0-9]+)*@[a-zA-Zа-яёА-ЯЁ0-9]+([.-][a-zA-Zа-яёА-ЯЁ0-9]+)*\.[a-zA-Zа-яёА-ЯЁ]{2,6}$/;
+export const PASSWORD_REG_EXP = /^(?=.*[A-Za-zА-Яа-я])(?=.*\d)[A-Za-zА-Яа-я\d]{2,}$/;
+
 export const STAR_NAME = 'rating';
 
 export const MIN_VALUE_REVIEW_LENGHT = 50;

@@ -1,4 +1,4 @@
-import { SortType } from '../const';
+import { EMAIL_REG_EXP, LoginCredentials, MouseEvent, PASSWORD_REG_EXP, SortType } from '../const';
 import { Offers } from '../types/offers';
 
 export const capitalize = (item: string | null): string | null => item !== null ? item.charAt(0).toUpperCase() + item.substring(1) : null;
@@ -16,4 +16,18 @@ export const sortingType = {
   [SortType.HightPrice]: (offers: Offers) => offers.slice().sort((offerFirst, offerSecond) => offerSecond.price - offerFirst.price),
   [SortType.LowPrice]: (offers: Offers) => offers.slice().sort((offerFirst, offerSecond) => offerFirst.price - offerSecond.price),
   [SortType.Rating]: (offers: Offers) => offers.slice().sort((offerFirst, offerSecond) => offerSecond.rating - offerFirst.rating)
+};
+
+export const mouseEvents: {
+  [key in MouseEvent]: (id: string) => string | null;
+} = {
+  [MouseEvent.MouseEnter]: (id) => id,
+  [MouseEvent.MouseLeave]: () => null
+};
+
+export const validateLoginAndEmail = (authData: FormData) => {
+  const isValidEmail = EMAIL_REG_EXP.test(authData.get(LoginCredentials.Email) as string);
+  const isValidPassword = PASSWORD_REG_EXP.test(authData.get(LoginCredentials.Password) as string);
+
+  return isValidEmail && isValidPassword;
 };
