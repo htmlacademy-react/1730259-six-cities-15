@@ -41,7 +41,7 @@ function Map({className, offers, activeOfferId}: MapProps): JSX.Element {
 
         marker
           .setIcon(
-            activeOfferId === offer.id
+            offer.id === activeOfferId
               ? currentCustomIcon
               : defaultCustomIcon
           )
