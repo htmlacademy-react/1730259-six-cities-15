@@ -26,10 +26,10 @@ function Main({offers}: MainProps): JSX.Element {
   const cityQuery = searchParams.get(CITY) as Cities;
   const sortTypeQuery = searchParams.get(SORT_TYPE) as SortType;
 
-  const handleSortTypeChange = useMemo(() => (sortType: SortType) => {
+  const handleSortTypeChange = (sortType: SortType) => {
     searchParams.set(SORT_TYPE, sortType);
     setSearchParams(searchParams);
-  },[searchParams, setSearchParams]);
+  };
 
   useEffect(() => {
     if (!search) {
