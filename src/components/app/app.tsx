@@ -1,6 +1,6 @@
 import MemoizedLogin from '../../pages/login/login';
 import { HelmetProvider } from 'react-helmet-async';
-import Main from '../../pages/main/main';
+import MemoizedMain from '../../pages/main/main';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Layout from '../layout/layout';
@@ -25,7 +25,7 @@ function App({offers, fullOffers, reviews}: AppProps): JSX.Element {
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Root} element={<Layout />}>
-            <Route index element={<Main offers={offers} />} />
+            <Route index element={<MemoizedMain offers={offers} />} />
             <Route
               path={AppRoute.Login}
               element={

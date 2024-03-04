@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offers';
 import { capitalize, mouseEvents } from '../../utils/utils';
+import { memo } from 'react';
 
 type PlaceCardProps ={
   className: string;
@@ -59,4 +60,6 @@ function PlaceCard({className, offer, onCardHover, isSmall}: PlaceCardProps): JS
   );
 }
 
-export default PlaceCard;
+const MemoizedPlaceCard = memo(PlaceCard);
+
+export default MemoizedPlaceCard;
