@@ -1,4 +1,4 @@
-import { Fragment, ChangeEvent } from 'react';
+import { Fragment, ChangeEvent, memo } from 'react';
 import { STARS } from '../../const';
 
 type ReviewsRaitingStarsProps = {
@@ -37,4 +37,6 @@ function ReviewsRaitingStars({isChecked, handleChangeChecked}: ReviewsRaitingSta
   );
 }
 
-export default ReviewsRaitingStars;
+const MemoizedReviewsRaitingStars = memo(ReviewsRaitingStars);
+
+export default MemoizedReviewsRaitingStars;

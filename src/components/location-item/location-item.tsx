@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Cities } from '../../const';
 import LocationItemWrapper from '../location-item-wrapper/location-item-wrapper';
 import LocationLink from '../location-link/location-link';
@@ -16,4 +17,6 @@ function LocationItem({isTabs, isActive, city}: LocationItemProps): JSX.Element 
   );
 }
 
-export default LocationItem;
+const MemoizedLocationItem = memo(LocationItem);
+
+export default MemoizedLocationItem;

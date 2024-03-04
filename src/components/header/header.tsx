@@ -14,7 +14,7 @@ function Header(): JSX.Element {
           <div className="header__left">
             <Logo />
           </div>
-          {pathname !== AppRoute.Login ? <HeaderNav /> : null}
+          {pathname !== AppRoute.Login && <HeaderNav />}
         </div>
       </div>
     </header>

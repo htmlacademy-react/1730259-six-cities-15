@@ -1,7 +1,7 @@
 import Map from '../../components/map/map';
 import PlaceCard from '../../components/place-card/place-card';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
-import Tabs from '../../components/tabs/tabs';
+import MemoizedTabs from '../../components/tabs/tabs';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { CITY, Cities, DEFAULT_CITY, DEFAULT_SORT, SORT_TYPE, SortType } from '../../const';
 import { capitalize, getCurrentOffers, sortingType } from '../../utils/utils';
@@ -16,7 +16,7 @@ type MainProps = {
 }
 
 function Main({offers}: MainProps): JSX.Element {
-  const [, setHoveredOfferId] = useState<Offer['id'] | null>(null);
+  const [hoveredOfferId, setHoveredOfferId] = useState<Offer['id'] | null>(null);
   const {search} = useLocation() as MyLocation;
   const [searchParams, setSearchParams] = useSearchParams({
     city: DEFAULT_CITY,
@@ -30,7 +30,7 @@ function Main({offers}: MainProps): JSX.Element {
     searchParams.set(SORT_TYPE, sortType);
     setSearchParams(searchParams);
   };
-  // TODO Если сделать по другому то приходится устанавливать значения по умолчанию в сортировку и город по умолчанию
+
   useEffect(() => {
     if (!search) {
       setSearchParams(searchParams);
@@ -53,7 +53,7 @@ function Main({offers}: MainProps): JSX.Element {
       }
     >
       <h1 className="visually-hidden">Cities</h1>
-      <Tabs currentCity={cityQuery} />
+      <MemoizedTabs currentCity={cityQuery} />
       <div className="cities">
         <div
           className={
@@ -85,7 +85,7 @@ function Main({offers}: MainProps): JSX.Element {
           </section>
           <div className="cities__right-section">
             {
-              !hasNoFilteredOrSortedOffers ? <Map className='cities' /> : null
+              !hasNoFilteredOrSortedOffers ? <Map className='cities' offers={filteredOffers} activeOfferId={hoveredOfferId} /> : null
             }
           </div>
         </div>

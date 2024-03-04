@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { getAuthorizationStatus } from '../../mocks/get-authorization-status';
 
 function HeaderNav(): JSX.Element {
-  const authorizationStatus = AuthorizationStatus.Auth;
+  const authorizationStatus = getAuthorizationStatus();
 
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
@@ -26,15 +27,12 @@ function HeaderNav(): JSX.Element {
           </Link>
         </li>
         {
-          isAuth
-            ?
+          isAuth &&
             <li className="header__nav-item">
               <Link className="header__nav-link" to={AppRoute.Root}>
                 <span className="header__signout">Sign out</span>
               </Link>
             </li>
-            :
-            null
         }
       </ul>
     </nav>

@@ -4,7 +4,7 @@ import RaitingStars from '../raiting-stars/raiting-stars';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offers';
-import { capitalize } from '../../utils/utils';
+import { capitalize, mouseEvents } from '../../utils/utils';
 
 type PlaceCardProps ={
   className: string;
@@ -16,26 +16,26 @@ type PlaceCardProps ={
 function PlaceCard({className, offer, onCardHover, isSmall}: PlaceCardProps): JSX.Element {
   const {id, isPremium, previewImage, price, isFavorite, rating, title, type} = offer;
 
-  function handleMouseEnter () {
-    onCardHover?.(id);
-  }
+  const handleMouseEvent = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (onCardHover) {
+      onCardHover(mouseEvents[event.type as keyof typeof mouseEvents](id));
+    }
+  };
 
-  function handleMouseLeave () {
-    onCardHover?.(null);
-  }
+  const cardURL = `${AppRoute.Offer}${id}`;
 
   return (
     <article
       className={`${className}__card place-card`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={handleMouseEvent}
+      onMouseLeave={handleMouseEvent}
     >
       {isPremium ? <Premium className={'place-card__mark'} /> : null}
 
       <div
         className={`${className}__image-wrapper place-card__image-wrapper`}
       >
-        <Link to={`${AppRoute.Offer}${id}`}>
+        <Link to={cardURL}>
           <img className="place-card__image" src={previewImage} width={isSmall ? '150' : '260'} height={isSmall ? '110' : '200'} alt="Place image" />
         </Link>
       </div>
@@ -51,7 +51,7 @@ function PlaceCard({className, offer, onCardHover, isSmall}: PlaceCardProps): JS
           <RaitingStars className='place-card__stars' rating={rating} />
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Offer}${id}`}>{title}</Link>
+          <Link to={cardURL}>{title}</Link>
         </h2>
         <p className="place-card__type">{capitalize(type)}</p>
       </div>

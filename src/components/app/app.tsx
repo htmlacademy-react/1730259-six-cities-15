@@ -1,4 +1,4 @@
-import Login from '../../pages/login/login';
+import MemoizedLogin from '../../pages/login/login';
 import { HelmetProvider } from 'react-helmet-async';
 import Main from '../../pages/main/main';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -30,7 +30,7 @@ function App({offers, fullOffers, reviews}: AppProps): JSX.Element {
               path={AppRoute.Login}
               element={
                 <PrivateRoute authorizationStatus={getAuthorizationStatus()} isReverse>
-                  <Login />
+                  <MemoizedLogin />
                 </PrivateRoute>
               }
             />

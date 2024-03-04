@@ -1,5 +1,5 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import ReviewsRaitingStars from '../reviews-raiting-stars/reviews-raiting-stars';
+import { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
+import MemoizedReviewsRaitingStars from '../reviews-raiting-stars/reviews-raiting-stars';
 import { MAX_VALUE_REVIEW_LENGHT, MIN_VALUE_REVIEW_LENGHT, STAR_NAME } from '../../const';
 
 function ReviewsForm(): JSX.Element {
@@ -7,30 +7,24 @@ function ReviewsForm(): JSX.Element {
   const [value, setValue] = useState('');
   const [isSubmitActive, setIsSubmitActive] = useState(false);
 
-  const handleChangeChecked = ({ target }: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeChecked = useCallback(({ target }: ChangeEvent<HTMLInputElement>) => {
     if (target.name === STAR_NAME) {
       setIsChecked(target.value);
     }
-  };
+  }, []);
 
-  const handleTextariaInputChange = ({ target }: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextariaInputChange = useCallback(({ target }: ChangeEvent<HTMLTextAreaElement>) => {
     setValue(target.value);
-  };
+  }, []);
 
   useEffect(() => {
-    setIsSubmitActive(
-      isChecked === '0' ||
-      (
-        value.length < MIN_VALUE_REVIEW_LENGHT ||
-        value.length > MAX_VALUE_REVIEW_LENGHT
-      )
-    );
+    setIsSubmitActive(isChecked === '0' || value.length < MIN_VALUE_REVIEW_LENGHT || value.length > MAX_VALUE_REVIEW_LENGHT);
   }, [isChecked, value.length]);
 
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <ReviewsRaitingStars
+      <MemoizedReviewsRaitingStars
         isChecked={isChecked}
         handleChangeChecked={handleChangeChecked}
       />
@@ -39,7 +33,7 @@ function ReviewsForm(): JSX.Element {
         id="review"
         name="review"
         value={value}
-        onChange={handleTextariaInputChange}
+        onChange={(evt) => handleTextariaInputChange(evt)}
         placeholder="Tell how was your stay, what you like and what can be improved"
       >
       </textarea>
@@ -53,4 +47,6 @@ function ReviewsForm(): JSX.Element {
   );
 }
 
-export default ReviewsForm;
+const MemoizedReviewsForm = memo(ReviewsForm);
+
+export default MemoizedReviewsForm;
