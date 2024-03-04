@@ -1,11 +1,11 @@
 import Map from '../../components/map/map';
-import PlaceCard from '../../components/place-card/place-card';
-import PlacesSorting from '../../components/places-sorting/places-sorting';
+import MemoizedPlaceCard from '../../components/place-card/place-card';
+import MemoizedPlacesSorting from '../../components/places-sorting/places-sorting';
 import MemoizedTabs from '../../components/tabs/tabs';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { CITY, Cities, DEFAULT_CITY, DEFAULT_SORT, SORT_TYPE, SortType } from '../../const';
 import { capitalize, getCurrentOffers, sortingType } from '../../utils/utils';
-import { useEffect, useMemo, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import { Offer, Offers } from '../../types/offers';
 import cn from 'classnames';
 import MainEmpty from '../../components/main-empty/main-empty';
@@ -74,10 +74,10 @@ function Main({offers}: MainProps): JSX.Element {
                 <>
                   <h2 className="visually-hidden">Places</h2>
                   <b className="places__found">{filteredAndSortedOffers.length} places to stay in {capitalize(cityQuery)}</b>
-                  <PlacesSorting currentSort={sortTypeQuery} onChangeSort={handleSortTypeChange} />
+                  <MemoizedPlacesSorting currentSort={sortTypeQuery} onChangeSort={handleSortTypeChange} />
                   <div className="cities__places-list places__list tabs__content">
                     {
-                      filteredAndSortedOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} className='cities' onCardHover={setHoveredOfferId} />)
+                      filteredAndSortedOffers.map((offer) => <MemoizedPlaceCard key={offer.id} offer={offer} className='cities' onCardHover={setHoveredOfferId} />)
                     }
                   </div>
                 </>
@@ -94,4 +94,6 @@ function Main({offers}: MainProps): JSX.Element {
   );
 }
 
-export default Main;
+const MemoizedMain = memo(Main);
+
+export default MemoizedMain;

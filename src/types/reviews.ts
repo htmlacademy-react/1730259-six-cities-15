@@ -1,15 +1,11 @@
-export type User = {
-    name: string;
-    avatarUrl: string;
-    isPro: boolean;
-};
+import { Host } from './offers';
 
 export type Review = {
   id: string;
   comment: string;
   date: string;
   rating: number;
-  user: User;
+  user: Host;
 };
 
 export type Reviews = Review[];
