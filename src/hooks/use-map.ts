@@ -3,7 +3,7 @@ import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { Location } from '../types/offers';
 import { LeafletParameters } from '../const';
 
-function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: Location) {
+function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: Location, mapZoomOnScroll: boolean) {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef(false);
 
@@ -17,7 +17,8 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: Location) {
           lat: latitude,
           lng: longitude
         },
-        zoom: zoom
+        zoom: zoom,
+        scrollWheelZoom: mapZoomOnScroll,
       });
 
       leaflet.tileLayer(TILE_LAYER, { attribution: ATTRIBUTION }).addTo(instance);
@@ -25,7 +26,7 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: Location) {
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [city, mapRef]);
+  }, [city, mapRef, mapZoomOnScroll]);
 
   return map;
 }
