@@ -1,13 +1,14 @@
 import Premium from '../premium/premium';
 import FavoritButton from '../favorit-button/favorit-button';
 import RaitingStars from '../raiting-stars/raiting-stars';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offers';
 import { capitalize, mouseEvents } from '../../utils/utils';
 import { memo } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { setCurrentOffer } from '../store/action';
+import { MyLocation } from '../../types/my-location';
 
 type PlaceCardProps ={
   className: string;
@@ -17,10 +18,13 @@ type PlaceCardProps ={
 
 function PlaceCard({className, offer, isSmall}: PlaceCardProps): JSX.Element {
   const {id, isPremium, previewImage, price, isFavorite, rating, title, type} = offer;
+  const {pathname} = useLocation() as MyLocation;
   const dispatch = useAppDispatch();
 
   const handleMouseEvent = (event: React.MouseEvent<HTMLDivElement>) => {
-    dispatch(setCurrentOffer(mouseEvents[event.type as keyof typeof mouseEvents](id)))
+    if (pathname === AppRoute.Root) {
+      dispatch(setCurrentOffer(mouseEvents[event.type as keyof typeof mouseEvents](id)))
+    }
   };
 
   const cardURL = `${AppRoute.Offer}${id}`;

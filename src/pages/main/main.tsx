@@ -13,7 +13,6 @@ import { useAppSelector } from '../../hooks';
 
 function Main(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
-  const hoveredOfferId = useAppSelector((state) => state.currentOfferId)
   const {search} = useLocation() as MyLocation;
   const [searchParams, setSearchParams] = useSearchParams({
     city: DEFAULT_CITY,
@@ -81,9 +80,7 @@ function Main(): JSX.Element {
             }
           </section>
           <div className="cities__right-section">
-            {
-              !hasNoFilteredOrSortedOffers ? <Map className='cities' offers={filteredOffers} activeOfferId={hoveredOfferId} /> : null
-            }
+            {!hasNoFilteredOrSortedOffers && <Map className='cities' offers={filteredOffers} />}
           </div>
         </div>
       </div>

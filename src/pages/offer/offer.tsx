@@ -14,7 +14,9 @@ import OfferPrice from '../../components/offer-price/offer-price';
 import OfferFeatures from '../../components/offer-features/offer-features';
 import OfferRating from '../../components/offer-rating/offer-rating';
 import OfferName from '../../components/offer-name/offer-name';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { setCurrentOffer } from '../../components/store/action';
 
 type OfferProps = {
   reviews: Reviews;
@@ -22,12 +24,17 @@ type OfferProps = {
 
 function Offer({reviews}: OfferProps): JSX.Element {
   const {id} = useParams();
+  const dispatch = useAppDispatch();
   const fullOffers = useAppSelector((state) => state.fullOffer);
   const [offer] = fullOffers.filter((item) => String(item.id) === String(id));
 
   if (!offer) {
     return <Navigate to={AppRoute.PageNotFound} replace />;
   }
+
+  useEffect(() => {
+    dispatch(setCurrentOffer(id as string));
+  })
 
   const {
     images, isPremium, title,
@@ -55,7 +62,7 @@ function Offer({reviews}: OfferProps): JSX.Element {
             <OfferReviews reviews={reviews} />
           </div>
         </div>
-        <Map className='offer' activeOfferId={id} offers={offers} />
+        <Map className='offer' offers={offers} />
       </section>
       <div className="container">
         <section className="near-places places">
