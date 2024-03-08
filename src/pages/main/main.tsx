@@ -5,18 +5,15 @@ import MemoizedTabs from '../../components/tabs/tabs';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { CITY, Cities, DEFAULT_CITY, DEFAULT_SORT, SORT_TYPE, SortType } from '../../const';
 import { capitalize, getCurrentOffers, sortingType } from '../../utils/utils';
-import { memo, useEffect, useMemo, useState } from 'react';
-import { Offer, Offers } from '../../types/offers';
+import { memo, useEffect, useMemo } from 'react';
 import cn from 'classnames';
 import MainEmpty from '../../components/main-empty/main-empty';
 import { MyLocation } from '../../types/my-location';
+import { useAppSelector } from '../../hooks';
 
-type MainProps = {
-  offers: Offers;
-}
-
-function Main({offers}: MainProps): JSX.Element {
-  const [hoveredOfferId, setHoveredOfferId] = useState<Offer['id'] | null>(null);
+function Main(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
+  const hoveredOfferId = useAppSelector((state) => state.currentOfferId)
   const {search} = useLocation() as MyLocation;
   const [searchParams, setSearchParams] = useSearchParams({
     city: DEFAULT_CITY,
@@ -77,7 +74,7 @@ function Main({offers}: MainProps): JSX.Element {
                   <MemoizedPlacesSorting currentSort={sortTypeQuery} onChangeSort={handleSortTypeChange} />
                   <div className="cities__places-list places__list tabs__content">
                     {
-                      filteredAndSortedOffers.map((offer) => <MemoizedPlaceCard key={offer.id} offer={offer} className='cities' onCardHover={setHoveredOfferId} />)
+                      filteredAndSortedOffers.map((offer) => <MemoizedPlaceCard key={offer.id} offer={offer} className='cities' />)
                     }
                   </div>
                 </>

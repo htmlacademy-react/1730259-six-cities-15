@@ -33,5 +33,6 @@ export const validateLoginAndEmail = (authData: FormData) => {
 };
 
 export function shuffle<T>(array: T[] | [T]): T[] | [T] {
-  return array.sort(() => Math.random() - 0.5);
+  const newArray = Array.isArray(array) ? [...array] : [...array];
+  return newArray.sort(() => Math.random() - 0.5);
 }

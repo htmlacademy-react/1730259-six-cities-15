@@ -6,21 +6,21 @@ import { AppRoute } from '../../const';
 import { Offer } from '../../types/offers';
 import { capitalize, mouseEvents } from '../../utils/utils';
 import { memo } from 'react';
+import { useAppDispatch } from '../../hooks';
+import { setCurrentOffer } from '../store/action';
 
 type PlaceCardProps ={
   className: string;
   offer: Offer;
-  onCardHover?: (offerId: Offer['id'] | null) => void;
   isSmall?: boolean;
 }
 
-function PlaceCard({className, offer, onCardHover, isSmall}: PlaceCardProps): JSX.Element {
+function PlaceCard({className, offer, isSmall}: PlaceCardProps): JSX.Element {
   const {id, isPremium, previewImage, price, isFavorite, rating, title, type} = offer;
+  const dispatch = useAppDispatch();
 
   const handleMouseEvent = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (onCardHover) {
-      onCardHover(mouseEvents[event.type as keyof typeof mouseEvents](id));
-    }
+    dispatch(setCurrentOffer(mouseEvents[event.type as keyof typeof mouseEvents](id)))
   };
 
   const cardURL = `${AppRoute.Offer}${id}`;

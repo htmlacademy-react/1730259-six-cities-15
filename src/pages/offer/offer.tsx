@@ -3,7 +3,6 @@ import Map from '../../components/map/map';
 import PlaceCard from '../../components/place-card/place-card';
 import Premium from '../../components/premium/premium';
 import { Navigate, useParams } from 'react-router-dom';
-import { FullOffer } from '../../types/offers';
 import { AppRoute } from '../../const';
 import { Reviews } from '../../types/reviews';
 import OfferReviews from '../../components/offer-reviews/offer-reviews';
@@ -15,14 +14,15 @@ import OfferPrice from '../../components/offer-price/offer-price';
 import OfferFeatures from '../../components/offer-features/offer-features';
 import OfferRating from '../../components/offer-rating/offer-rating';
 import OfferName from '../../components/offer-name/offer-name';
+import { useAppSelector } from '../../hooks';
 
 type OfferProps = {
-  fullOffers: FullOffer[];
   reviews: Reviews;
 }
 
-function Offer({fullOffers, reviews}: OfferProps): JSX.Element {
+function Offer({reviews}: OfferProps): JSX.Element {
   const {id} = useParams();
+  const fullOffers = useAppSelector((state) => state.fullOffer);
   const [offer] = fullOffers.filter((item) => String(item.id) === String(id));
 
   if (!offer) {
