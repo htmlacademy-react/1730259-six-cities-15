@@ -1,8 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { offers } from '../../mocks/offers';
 import { FullOffer, Offer, Offers } from '../../types/offers';
-import { getOfferId, setCurrentOffer, updateOffers } from './action';
-import { fullOffers } from '../../mocks/full-offers';
+import { getOfferId, getCurrentOffer, updateOffers } from './action';
 
 type InitialState = {
   offers: Offers;
@@ -11,20 +9,20 @@ type InitialState = {
 };
 
 const initialState: InitialState = {
-  offers: offers,
-  fullOffer: fullOffers,
+  offers: [],
+  fullOffer: [],
   currentOfferId: null
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(updateOffers, (state) => {
-      state.offers = offers;
+    .addCase(updateOffers, (state, action) => {
+      state.offers = action.payload;
     })
-    .addCase(getOfferId, (state) => {
-      state.fullOffer = fullOffers;
+    .addCase(getOfferId, (state, action) => {
+      state.fullOffer = action.payload;
     })
-    .addCase(setCurrentOffer, (state, action) => {
+    .addCase(getCurrentOffer, (state, action) => {
       state.currentOfferId = action.payload;
     });
 });

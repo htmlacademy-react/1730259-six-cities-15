@@ -16,7 +16,7 @@ import OfferRating from '../../components/offer-rating/offer-rating';
 import OfferName from '../../components/offer-name/offer-name';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { setCurrentOffer } from '../../components/store/action';
+import { getCurrentOffer } from '../../components/store/action';
 
 type OfferProps = {
   reviews: Reviews;
@@ -34,7 +34,7 @@ function Offer({reviews}: OfferProps): JSX.Element {
       return navigate(AppRoute.Root, { replace: true });
     }
 
-    dispatch(setCurrentOffer(id as string));
+    dispatch(getCurrentOffer(id as string));
   }, [dispatch, id, navigate, offer]);
 
   const {
