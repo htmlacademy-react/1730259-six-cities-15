@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { FullOffer, Offer, Offers } from '../../types/offers';
+import { FullOffer, Offer, Offers } from '../types/offers';
 import { getOfferId, getCurrentOffer, updateOffers } from './action';
 
 type InitialState = {
