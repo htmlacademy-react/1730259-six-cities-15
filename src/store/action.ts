@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
-import { AppRoute } from '../../const';
-import { FullOffer, Offer, Offers } from '../../types/offers';
+import { AppRoute } from '../const';
+import { FullOffer, Offer, Offers } from '../types/offers';
 
 export const redirectToRoute = createAction<AppRoute>('app/redirectToRoute');
 

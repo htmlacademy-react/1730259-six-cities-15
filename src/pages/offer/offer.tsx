@@ -16,7 +16,7 @@ import OfferRating from '../../components/offer-rating/offer-rating';
 import OfferName from '../../components/offer-name/offer-name';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { getCurrentOffer } from '../../components/store/action';
+import { getCurrentOffer } from '../../store/action';
 
 type OfferProps = {
   reviews: Reviews;

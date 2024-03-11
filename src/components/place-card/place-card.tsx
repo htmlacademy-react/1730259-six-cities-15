@@ -7,7 +7,7 @@ import { Offer } from '../../types/offers';
 import { capitalize, mouseEvents } from '../../utils/utils';
 import { memo } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { getCurrentOffer } from '../store/action';
+import { getCurrentOffer } from '../../store/action';
 import { MyLocation } from '../../types/my-location';
 
 type PlaceCardProps ={
