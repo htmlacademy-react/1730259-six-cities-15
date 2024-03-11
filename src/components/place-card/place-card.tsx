@@ -1,25 +1,29 @@
 import Premium from '../premium/premium';
 import FavoritButton from '../favorit-button/favorit-button';
 import RaitingStars from '../raiting-stars/raiting-stars';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offers';
 import { capitalize, mouseEvents } from '../../utils/utils';
 import { memo } from 'react';
+import { useAppDispatch } from '../../hooks';
+import { getCurrentOffer } from '../store/action';
+import { MyLocation } from '../../types/my-location';
 
 type PlaceCardProps ={
   className: string;
   offer: Offer;
-  onCardHover?: (offerId: Offer['id'] | null) => void;
   isSmall?: boolean;
 }
 
-function PlaceCard({className, offer, onCardHover, isSmall}: PlaceCardProps): JSX.Element {
+function PlaceCard({className, offer, isSmall}: PlaceCardProps): JSX.Element {
   const {id, isPremium, previewImage, price, isFavorite, rating, title, type} = offer;
+  const {pathname} = useLocation() as MyLocation;
+  const dispatch = useAppDispatch();
 
   const handleMouseEvent = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (onCardHover) {
-      onCardHover(mouseEvents[event.type as keyof typeof mouseEvents](id));
+    if (pathname === AppRoute.Root) {
+      dispatch(getCurrentOffer(mouseEvents[event.type as keyof typeof mouseEvents](id)));
     }
   };
 

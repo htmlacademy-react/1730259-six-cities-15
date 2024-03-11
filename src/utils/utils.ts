@@ -32,6 +32,7 @@ export const validateLoginAndEmail = (authData: FormData) => {
   return isValidEmail && isValidPassword;
 };
 
-export function shuffle<T>(array: T[] | [T]) {
-  array.sort(() => Math.random() - 0.5);
+export function shuffle<T>(array: T[] | [T]): T[] | [T] {
+  const newArray = Array.isArray(array) ? [...array] : [...array];
+  return newArray.sort(() => Math.random() - 0.5);
 }

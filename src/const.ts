@@ -73,3 +73,22 @@ export const MIN_VALUE_REVIEW_LENGHT = 50;
 export const MAX_VALUE_REVIEW_LENGHT = 300;
 
 export const MAX_REVIEWS_COUNT = 10;
+
+export const MAX_IMAGES_OFFER = 6;
+
+export const SCROLL_CLASS_NAME = 'cities';
+
+export enum NameSpace {
+  User = 'USER',
+  Offers = 'OFFERS',
+  City = 'CITY',
+  Reviews = 'REVIEWS',
+  Favorites = 'FAVORITES',
+}
+
+export enum Status {
+  Idle = 'Idle',
+  Loading = 'Loading',
+  Success = 'Success',
+  Failed = 'Failed',
+}
