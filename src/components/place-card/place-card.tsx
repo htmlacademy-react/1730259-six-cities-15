@@ -23,7 +23,7 @@ function PlaceCard({className, offer, isSmall}: PlaceCardProps): JSX.Element {
 
   const handleMouseEvent = (event: React.MouseEvent<HTMLDivElement>) => {
     if (pathname === AppRoute.Root) {
-      dispatch(setCurrentOffer(mouseEvents[event.type as keyof typeof mouseEvents](id)))
+      dispatch(setCurrentOffer(mouseEvents[event.type as keyof typeof mouseEvents](id)));
     }
   };
 

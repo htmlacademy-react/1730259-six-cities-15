@@ -25,7 +25,7 @@ const currentCustomIcon = new Icon({
 
 function Map({className, offers}: MapProps): JSX.Element {
   const mapRef = useRef(null);
-  const activeOfferId = useAppSelector((state) => state.currentOfferId)
+  const activeOfferId = useAppSelector((state) => state.currentOfferId);
   const cityLocation = offers[0].city.location;
   const mapZoomOnScroll = className === SCROLL_CLASS_NAME;
   const map = useMap(mapRef, cityLocation, mapZoomOnScroll);

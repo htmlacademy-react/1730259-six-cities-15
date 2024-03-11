@@ -26,7 +26,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setCurrentOffer, (state, action) => {
       state.currentOfferId = action.payload;
-    })
+    });
 });
 
 export {reducer};

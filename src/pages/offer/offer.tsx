@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import Map from '../../components/map/map';
 import PlaceCard from '../../components/place-card/place-card';
 import Premium from '../../components/premium/premium';
-import { Navigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Reviews } from '../../types/reviews';
 import OfferReviews from '../../components/offer-reviews/offer-reviews';
@@ -24,17 +24,18 @@ type OfferProps = {
 
 function Offer({reviews}: OfferProps): JSX.Element {
   const {id} = useParams();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const fullOffers = useAppSelector((state) => state.fullOffer);
   const [offer] = fullOffers.filter((item) => String(item.id) === String(id));
 
-  if (!offer) {
-    return <Navigate to={AppRoute.PageNotFound} replace />;
-  }
-
   useEffect(() => {
+    if (!offer) {
+      return navigate(AppRoute.Root, { replace: true });
+    }
+
     dispatch(setCurrentOffer(id as string));
-  })
+  }, [dispatch, id, navigate, offer]);
 
   const {
     images, isPremium, title,
