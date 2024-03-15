@@ -2,11 +2,9 @@ import { Helmet } from 'react-helmet-async';
 import Map from '../../components/map/map';
 import PlaceCard from '../../components/place-card/place-card';
 import Premium from '../../components/premium/premium';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { Reviews } from '../../types/reviews';
 import OfferReviews from '../../components/offer-reviews/offer-reviews';
-import { offers } from '../../mocks/offers';
 import OfferHost from '../../components/offer-host/offer-host';
 import OfferGalery from '../../components/offer-galery/offer-galery';
 import OfferInside from '../../components/offer-inside/offer-inside';
@@ -17,25 +15,28 @@ import OfferName from '../../components/offer-name/offer-name';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { getCurrentOffer } from '../../store/action';
+import { fetchOfferIdAction } from '../../store/api-actions';
 
-type OfferProps = {
-  reviews: Reviews;
-}
-
-function Offer({reviews}: OfferProps): JSX.Element {
+function Offer(): JSX.Element {
   const {id} = useParams();
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const fullOffers = useAppSelector((state) => state.fullOffer);
-  const [offer] = fullOffers.filter((item) => String(item.id) === String(id));
+  const offer = useAppSelector((state) => state.fullOffer);
 
   useEffect(() => {
-    if (!offer) {
-      return navigate(AppRoute.Root, { replace: true });
+    if (!id) {
+      return;
     }
 
+    dispatch(fetchOfferIdAction(id));
+  },[dispatch, id]);
+
+  useEffect(() => {
     dispatch(getCurrentOffer(id as string));
-  }, [dispatch, id, navigate, offer]);
+  }, [dispatch, id]);
+
+  if (!offer) {
+    return <Navigate to={AppRoute.PageNotFound} replace />;
+  }
 
   const {
     images, isPremium, title,

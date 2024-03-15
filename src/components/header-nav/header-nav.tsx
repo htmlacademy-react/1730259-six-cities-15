@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { getAuthorizationStatus } from '../../mocks/get-authorization-status';
+import { useAppSelector } from '../../hooks';
 
 function HeaderNav(): JSX.Element {
-  const authorizationStatus = getAuthorizationStatus();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 

@@ -1,5 +1,5 @@
 import { AuthorizationStatus, MAX_REVIEWS_COUNT } from '../../const';
-import { getAuthorizationStatus } from '../../mocks/get-authorization-status';
+import { useAppSelector } from '../../hooks';
 import { Reviews } from '../../types/reviews';
 import MemoizedReviewsForm from '../reviews-form/reviews-form';
 import ReviewsItem from '../reviews-item/reviews-item';
@@ -9,7 +9,7 @@ type OfferReviewsProps ={
 }
 
 function OfferReviews({reviews}: OfferReviewsProps): JSX.Element {
-  const authorizationStatus = getAuthorizationStatus();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   return (
     <section className="offer__reviews reviews">

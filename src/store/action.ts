@@ -8,6 +8,6 @@ export const loadOffers = createAction<Offers>('offers/loadOffers');
 
 export const getCurrentOffer = createAction<null | Offer['id']>('offers/getCurrentOffer');
 
-export const loadOfferId = createAction<FullOffer[]>('offers/loadOfferId');
+export const loadOfferId = createAction<FullOffer | null>('offers/loadOfferId');
 
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');

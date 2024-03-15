@@ -5,16 +5,16 @@ import { AuthorizationStatus } from '../const';
 
 type InitialState = {
   offers: Offers;
-  fullOffer: FullOffer[];
+  fullOffer: FullOffer | null;
   currentOfferId: Offer['id'] | null;
   authorizationStatus: AuthorizationStatus;
 };
 
 const initialState: InitialState = {
   offers: [],
-  fullOffer: [],
+  fullOffer: null,
   currentOfferId: null,
-  authorizationStatus: AuthorizationStatus.Unknown
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 
 const reducer = createReducer(initialState, (builder) => {

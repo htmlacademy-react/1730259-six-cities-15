@@ -5,11 +5,7 @@ import cn from 'classnames';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 
-type FavoritesProps = {
-  offersFavorite: Offers;
-}
-
-function Favorites({offersFavorite}: FavoritesProps): JSX.Element {
+function Favorites(): JSX.Element {
   const favoritLocations = new Map<City['name'], Offers>();
 
   offersFavorite.forEach((offer) => {
