@@ -1,29 +1,35 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { FullOffer, Offer, Offers } from '../types/offers';
-import { getOfferId, getCurrentOffer, updateOffers } from './action';
+import { loadOfferId, getCurrentOffer, loadOffers, requireAuthorization } from './action';
+import { AuthorizationStatus } from '../const';
 
 type InitialState = {
   offers: Offers;
   fullOffer: FullOffer[];
   currentOfferId: Offer['id'] | null;
+  authorizationStatus: AuthorizationStatus;
 };
 
 const initialState: InitialState = {
   offers: [],
   fullOffer: [],
-  currentOfferId: null
+  currentOfferId: null,
+  authorizationStatus: AuthorizationStatus.Unknown
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(updateOffers, (state, action) => {
+    .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
     })
-    .addCase(getOfferId, (state, action) => {
+    .addCase(loadOfferId, (state, action) => {
       state.fullOffer = action.payload;
     })
     .addCase(getCurrentOffer, (state, action) => {
       state.currentOfferId = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });
 
