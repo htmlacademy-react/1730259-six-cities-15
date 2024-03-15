@@ -1,11 +1,16 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { logoutAction } from '../../store/api-actions';
 
 function HeaderNav(): JSX.Element {
+  const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+
+  const handleClickLogout = () => {
+    dispatch(logoutAction());
+  };
 
   return (
     <nav className="header__nav">
@@ -29,7 +34,7 @@ function HeaderNav(): JSX.Element {
         {
           isAuth &&
             <li className="header__nav-item">
-              <Link className="header__nav-link" to={AppRoute.Root}>
+              <Link className="header__nav-link" to={AppRoute.Root} onClick={handleClickLogout}>
                 <span className="header__signout">Sign out</span>
               </Link>
             </li>

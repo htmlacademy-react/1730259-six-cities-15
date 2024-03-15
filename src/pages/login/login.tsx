@@ -3,10 +3,13 @@ import MemoizedLocationItem from '../../components/location-item/location-item';
 import { getRandomArrayItem, validateLoginAndEmail } from '../../utils/utils';
 import { Cities } from '../../const';
 import { Helmet } from 'react-helmet-async';
+import { useAppDispatch } from '../../hooks';
+import { loginAction } from '../../store/api-actions';
 
 function Login():JSX.Element {
   const formRef = useRef(null);
   const [randomCity,] = useState(getRandomArrayItem<Cities>(Object.values(Cities)));
+  const dispatch = useAppDispatch();
 
   const handleFormSubit = (evt: FormEvent) => {
     evt.preventDefault();
@@ -15,7 +18,9 @@ function Login():JSX.Element {
       const formData = new FormData(formRef.current);
 
       if (validateLoginAndEmail(formData)) {
-        // TODO Вставить колбк отправки
+        const email = formData.get('email') as string;
+        const password = formData.get('password') as string;
+        dispatch(loginAction({email, password}));
       }
     }
 
