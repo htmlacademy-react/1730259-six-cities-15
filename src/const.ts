@@ -92,3 +92,7 @@ export enum Status {
   Success = 'Success',
   Failed = 'Failed',
 }
+
+export const BASE_URL = 'https://15.design.htmlacademy.pro';
+
+export const REQUEST_TIMEOUT = 5000;
