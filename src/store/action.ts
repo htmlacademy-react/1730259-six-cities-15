@@ -23,5 +23,3 @@ export const loadReviews = createAction<Reviews>('offers/loadReviews');
 export const loadNearbyOffers = createAction<Offers>('offers/loadNearbyOffers');
 
 export const setDataLoadingStatus = createAction<boolean>('data/setDataLoadingStatus');
-
-export const setDataCurrentLoadingStatus = createAction<boolean>('data/setDataCurrentLoadingStatus');

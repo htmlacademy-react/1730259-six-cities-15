@@ -3,7 +3,7 @@ import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { FullOffer, Offer, Offers } from '../types/offers';
 import { APIRoute, AuthorizationStatus } from '../const';
-import { loadFavoriteOffers, loadNearbyOffers, loadOfferId, loadOffers, loadReviews, loadUserData, requireAuthorization, setDataCurrentLoadingStatus, setDataLoadingStatus } from './action';
+import { loadFavoriteOffers, loadNearbyOffers, loadOfferId, loadOffers, loadReviews, loadUserData, requireAuthorization, setDataLoadingStatus } from './action';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
@@ -31,10 +31,10 @@ export const fetchOfferIdAction = createAsyncThunk<void, Offer['id'], {
 }>(
   'data/fetchOfferId',
   async (id: Offer['id'], {dispatch, extra: api}) => {
-    dispatch(setDataCurrentLoadingStatus(true));
+    dispatch(setDataLoadingStatus(true));
     const {data} = await api.get<FullOffer>(`${APIRoute.Offers}/${id}`);
     dispatch(loadOfferId(data));
-    dispatch(setDataCurrentLoadingStatus(false));
+    dispatch(setDataLoadingStatus(false));
   },
 );
 

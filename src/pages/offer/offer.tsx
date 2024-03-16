@@ -21,7 +21,10 @@ import LoadingScreen from '../../components/loading-screen/loading-screen';
 function Offer(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const isLoading = useAppSelector((state) => state.isDataCurrentLoading);
+  const isLoading = useAppSelector((state) => state.isDataLoading);
+  const offer = useAppSelector((state) => state.fullOffer);
+  const reviews = useAppSelector((state) => state.reviews);
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffers).slice(0, 3);
 
   useEffect(() => {
     if (id) {
@@ -32,10 +35,6 @@ function Offer(): JSX.Element {
     }
 
   },[dispatch, id]);
-
-  const offer = useAppSelector((state) => state.fullOffer);
-  const reviews = useAppSelector((state) => state.reviews);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers).slice(0, 3);
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -78,7 +77,10 @@ function Offer(): JSX.Element {
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
             {
-              nearbyOffers.length > 0 && nearbyOffers.map((nearbyOffer) => <PlaceCard key={nearbyOffer.id} className='near-places' offer={nearbyOffer} />)
+              nearbyOffers.length > 0 &&
+              nearbyOffers.map(
+                (nearbyOffer) => <PlaceCard key={nearbyOffer.id} className='near-places' offer={nearbyOffer} />
+              )
             }
           </div>
         </section>
