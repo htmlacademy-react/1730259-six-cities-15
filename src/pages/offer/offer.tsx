@@ -16,13 +16,12 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { getCurrentOffer } from '../../store/action';
 import { fetchNearbyOffersAction, fetchOfferIdAction, fetchOfferReviewsAction } from '../../store/api-actions';
+import LoadingScreen from '../../components/loading-screen/loading-screen';
 
 function Offer(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const offer = useAppSelector((state) => state.fullOffer);
-  const reviews = useAppSelector((state) => state.reviews);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers).slice(0, 3);
+  const isLoading = useAppSelector((state) => state.isDataCurrentLoading);
 
   useEffect(() => {
     if (id) {
@@ -31,10 +30,16 @@ function Offer(): JSX.Element {
       dispatch(fetchOfferReviewsAction(id));
       dispatch(fetchNearbyOffersAction(id));
     }
-    console.log(offer);
-    console.log(reviews);
-    console.log('nearbyOffers', nearbyOffers.length);
+
   },[dispatch, id]);
+
+  const offer = useAppSelector((state) => state.fullOffer);
+  const reviews = useAppSelector((state) => state.reviews);
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffers).slice(0, 3);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   if (!offer) {
     return <Navigate to={AppRoute.PageNotFound} replace />;

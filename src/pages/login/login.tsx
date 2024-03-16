@@ -4,7 +4,8 @@ import { getRandomArrayItem, validateLoginAndEmail } from '../../utils/utils';
 import { Cities } from '../../const';
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch } from '../../hooks';
-import { loginAction } from '../../store/api-actions';
+import { fetchFavoriteOffersAction, loginAction } from '../../store/api-actions';
+import { toast } from 'react-toastify';
 
 function Login():JSX.Element {
   const formRef = useRef(null);
@@ -20,7 +21,10 @@ function Login():JSX.Element {
       if (validateLoginAndEmail(formData)) {
         const email = formData.get('email') as string;
         const password = formData.get('password') as string;
-        dispatch(loginAction({email, password}));
+
+        dispatch(loginAction({email, password})).then(() => dispatch(fetchFavoriteOffersAction()));
+      } else {
+        toast.warn('Пароль должен содержать минимум одну цифру и латинскую букву');
       }
     }
 
