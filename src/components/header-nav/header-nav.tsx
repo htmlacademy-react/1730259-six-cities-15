@@ -8,7 +8,8 @@ function HeaderNav(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
-  const handleClickLogout = () => {
+  const handleClickLogout = (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    evt.preventDefault();
     dispatch(logoutAction());
   };
 
@@ -34,9 +35,9 @@ function HeaderNav(): JSX.Element {
         {
           isAuth &&
             <li className="header__nav-item">
-              <Link className="header__nav-link" to={AppRoute.Root} onClick={handleClickLogout}>
+              <a className="header__nav-link" href='#todo' onClick={handleClickLogout}>
                 <span className="header__signout">Sign out</span>
-              </Link>
+              </a>
             </li>
         }
       </ul>

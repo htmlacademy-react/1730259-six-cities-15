@@ -15,19 +15,24 @@ import OfferName from '../../components/offer-name/offer-name';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { getCurrentOffer } from '../../store/action';
-import { fetchOfferIdAction } from '../../store/api-actions';
+import { fetchNearbyOffersAction, fetchOfferIdAction, fetchOfferReviewsAction } from '../../store/api-actions';
 
 function Offer(): JSX.Element {
   const {id} = useParams();
   const dispatch = useAppDispatch();
   const offer = useAppSelector((state) => state.fullOffer);
+  const reviews = useAppSelector((state) => state.reviews);
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
 
   useEffect(() => {
-    if (!id) {
-      return;
+    if (id) {
+      dispatch(fetchOfferIdAction(id));
+      dispatch(fetchOfferReviewsAction(id));
+      dispatch(fetchNearbyOffersAction(id));
     }
-
-    dispatch(fetchOfferIdAction(id));
+    console.log(offer);
+    console.log(reviews);
+    console.log('nearbyOffers', nearbyOffers);
   },[dispatch, id]);
 
   useEffect(() => {
@@ -64,14 +69,14 @@ function Offer(): JSX.Element {
             <OfferReviews reviews={reviews} />
           </div>
         </div>
-        <Map className='offer' offers={offers} />
+        {/* <Map className='offer' offers={offers} /> */}
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
             {
-              offers.slice(0, 3).map((nearOffer) => <PlaceCard key={nearOffer.id} className='near-places' offer={nearOffer} />)
+              nearbyOffers.length > 0 && nearbyOffers.slice(0, 3).map((nearbyOffer) => <PlaceCard key={nearbyOffer.id} className='near-places' offer={nearbyOffer} />)
             }
           </div>
         </section>
