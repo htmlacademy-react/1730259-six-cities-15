@@ -61,13 +61,13 @@ function Offer(): JSX.Element {
         <div className="offer__container container">
           <div className="offer__wrapper">
             {isPremium && <Premium className='offer__mark' />}
-            <OfferName title={title} isFavorite={isFavorite} />
+            <OfferName id={id || ''} title={title} isFavorite={isFavorite} />
             <OfferRating rating={rating} />
             <OfferFeatures type={type} bedrooms={bedrooms} maxAdults={maxAdults} />
             <OfferPrice price={price} />
             <OfferInside goods={goods} />
             <OfferHost host={host} description={description} />
-            {id && <OfferReviews reviews={reviews} id={id} />}
+            <OfferReviews reviews={reviews} id={id || ''} />
           </div>
         </div>
         <Map className='offer' offers={nearbyOffers} />
