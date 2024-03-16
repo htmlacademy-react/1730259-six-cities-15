@@ -7,6 +7,7 @@ function HeaderNav(): JSX.Element {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
+  const userData = useAppSelector((state) => state.userData);
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
   const handleClickLogout = (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -19,13 +20,18 @@ function HeaderNav(): JSX.Element {
       <ul className="header__nav-list">
         <li className="header__nav-item user">
           <Link className="header__nav-link header__nav-link--profile" to={isAuth ? AppRoute.Favorites : AppRoute.Login}>
-            <div className="header__avatar-wrapper user__avatar-wrapper">
+            <div className="header__avatar-wrapper user__avatar-wrapper"
+              style={{
+                backgroundImage: `url(${userData?.avatarUrl ?? '../img/avatar.svg'})`,
+                borderRadius: '50%'
+              }}
+            >
             </div>
             {
               isAuth
                 ?
                 <>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                  <span className="header__user-name user__name">{userData?.email}</span>
                   <span className="header__favorite-count">{favoriteOffers.length}</span>
                 </>
                 :

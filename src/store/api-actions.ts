@@ -3,7 +3,7 @@ import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { FullOffer, Offer, Offers } from '../types/offers';
 import { APIRoute, AuthorizationStatus } from '../const';
-import { loadFavoriteOffers, loadNearbyOffers, loadOfferId, loadOffers, loadReviews, requireAuthorization } from './action';
+import { loadFavoriteOffers, loadNearbyOffers, loadOfferId, loadOffers, loadReviews, loadUserData, requireAuthorization, setDataCurrentLoadingStatus, setDataLoadingStatus } from './action';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
@@ -17,7 +17,9 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
 }>(
   'data/fetchOffers',
   async (_arg, {dispatch, extra: api}) => {
+    dispatch(setDataLoadingStatus(true));
     const {data} = await api.get<Offers>(APIRoute.Offers);
+    dispatch(setDataLoadingStatus(false));
     dispatch(loadOffers(data));
   },
 );
@@ -29,8 +31,10 @@ export const fetchOfferIdAction = createAsyncThunk<void, Offer['id'], {
 }>(
   'data/fetchOfferId',
   async (id: Offer['id'], {dispatch, extra: api}) => {
+    dispatch(setDataCurrentLoadingStatus(true));
     const {data} = await api.get<FullOffer>(`${APIRoute.Offers}/${id}`);
     dispatch(loadOfferId(data));
+    dispatch(setDataCurrentLoadingStatus(false));
   },
 );
 
@@ -117,9 +121,10 @@ export const loginAction = createAsyncThunk<void, AuthData, {
 }>(
   'user/login',
   async ({email, password}, {dispatch, extra: api}) => {
-    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
-    saveToken(token);
+    const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
+    saveToken(data.token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(loadUserData(data));
   },
 );
 
@@ -133,5 +138,6 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await api.delete(APIRoute.Logout);
     dropToken();
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    dispatch(loadUserData(null));
   }
 );

@@ -10,6 +10,7 @@ import cn from 'classnames';
 import MainEmpty from '../../components/main-empty/main-empty';
 import { MyLocation } from '../../types/my-location';
 import { useAppSelector } from '../../hooks';
+import { Helmet } from 'react-helmet-async';
 
 function Main(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
@@ -48,6 +49,9 @@ function Main(): JSX.Element {
         )
       }
     >
+      <Helmet>
+        <title>6 cities</title>
+      </Helmet>
       <h1 className="visually-hidden">Cities</h1>
       <MemoizedTabs currentCity={cityQuery} />
       <div className="cities">

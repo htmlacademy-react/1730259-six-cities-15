@@ -2,16 +2,21 @@ import MemoizedLogin from '../../pages/login/login';
 import { HelmetProvider } from 'react-helmet-async';
 import MemoizedMain from '../../pages/main/main';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import Layout from '../layout/layout';
 import PageNotFound from '../../pages/page-not-found/page-not-found';
 import Favorites from '../../pages/favorites/favorites';
 import Offer from '../../pages/offer/offer';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
+  if (authorizationStatus === AuthorizationStatus.Unknown) {
+    return <LoadingScreen />;
+  }
 
   return (
     <HelmetProvider>
