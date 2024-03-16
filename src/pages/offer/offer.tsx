@@ -37,6 +37,8 @@ function Offer(): JSX.Element {
   const reviews = useAppSelector((state) => state.reviews);
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers).slice(0, 3);
 
+  console.log(isLoading)
+
   if (isLoading) {
     return <LoadingScreen />;
   }
