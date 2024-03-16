@@ -2,10 +2,13 @@ import { createAction } from '@reduxjs/toolkit';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { FullOffer, Offer, Offers } from '../types/offers';
 import { Reviews } from '../types/reviews';
+import { UserData } from '../types/user-data';
 
 export const redirectToRoute = createAction<AppRoute>('app/redirectToRoute');
 
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
+
+export const loadUserData = createAction<UserData | null>('user/loadUserData');
 
 export const loadOffers = createAction<Offers>('offers/loadOffers');
 

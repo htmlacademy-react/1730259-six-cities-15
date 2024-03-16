@@ -3,7 +3,7 @@ import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { FullOffer, Offer, Offers } from '../types/offers';
 import { APIRoute, AuthorizationStatus } from '../const';
-import { loadFavoriteOffers, loadNearbyOffers, loadOfferId, loadOffers, loadReviews, requireAuthorization } from './action';
+import { loadFavoriteOffers, loadNearbyOffers, loadOfferId, loadOffers, loadReviews, loadUserData, requireAuthorization } from './action';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
@@ -117,9 +117,10 @@ export const loginAction = createAsyncThunk<void, AuthData, {
 }>(
   'user/login',
   async ({email, password}, {dispatch, extra: api}) => {
-    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
-    saveToken(token);
+    const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
+    saveToken(data.token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(loadUserData(data));
   },
 );
 
