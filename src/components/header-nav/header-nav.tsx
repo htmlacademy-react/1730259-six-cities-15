@@ -22,7 +22,7 @@ function HeaderNav(): JSX.Element {
           <Link className="header__nav-link header__nav-link--profile" to={isAuth ? AppRoute.Favorites : AppRoute.Login}>
             <div className="header__avatar-wrapper user__avatar-wrapper"
               style={{
-                backgroundImage: `url(${userData?.avatarUrl ?? ''})`,
+                backgroundImage: `url(${userData?.avatarUrl ?? '../img/avatar.svg'})`,
                 borderRadius: '50%'
               }}
             >
