@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { FullOffer, Offer, Offers } from '../types/offers';
-import { loadOfferId, getCurrentOffer, loadOffers, requireAuthorization, loadReviews, loadNearbyOffers } from './action';
+import { loadOfferId, getCurrentOffer, loadOffers, requireAuthorization, loadReviews, loadNearbyOffers, loadFavoriteOffers } from './action';
 import { AuthorizationStatus } from '../const';
 import { Reviews } from '../types/reviews';
 
@@ -11,6 +11,7 @@ type InitialState = {
   authorizationStatus: AuthorizationStatus;
   reviews: Reviews;
   nearbyOffers: Offers;
+  favoriteOffers: Offers;
 };
 
 const initialState: InitialState = {
@@ -20,6 +21,7 @@ const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   reviews: [],
   nearbyOffers: [],
+  favoriteOffers: []
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -41,6 +43,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadNearbyOffers, (state, action) => {
       state.nearbyOffers = action.payload;
+    })
+    .addCase(loadFavoriteOffers, (state, action) => {
+      state.favoriteOffers = action.payload;
     });
 });
 

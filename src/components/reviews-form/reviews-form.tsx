@@ -3,10 +3,13 @@ import MemoizedReviewsRaitingStars from '../reviews-raiting-stars/reviews-raitin
 import { MAX_VALUE_REVIEW_LENGHT, MIN_VALUE_REVIEW_LENGHT, STAR_NAME } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { addReviewAction } from '../../store/api-actions';
-import { useParams } from 'react-router-dom';
+import { Offer } from '../../types/offers';
 
-function ReviewsForm(): JSX.Element {
-  const {id} = useParams();
+type ReviewsFormProps = {
+  id: Offer['id'];
+}
+
+function ReviewsForm({id}: ReviewsFormProps): JSX.Element {
   const [isChecked, setIsChecked] = useState('0');
   const [value, setValue] = useState('');
   const [isSubmitActive, setIsSubmitActive] = useState(false);
@@ -33,7 +36,7 @@ function ReviewsForm(): JSX.Element {
 
   const handleFormSubmit = (evt: FormEvent) => {
     evt.preventDefault();
-    if (value && isChecked && id) {
+    if (value && isChecked) {
       dispatch(addReviewAction({
         id: id,
         comment: value,

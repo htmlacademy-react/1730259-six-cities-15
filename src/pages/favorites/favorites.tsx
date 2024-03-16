@@ -4,11 +4,13 @@ import { City, Offers } from '../../types/offers';
 import cn from 'classnames';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 import FavoritesList from '../../components/favorites-list/favorites-list';
+import { useAppSelector } from '../../hooks';
 
 function Favorites(): JSX.Element {
+  const favoriteOffers = useAppSelector((store) => store.favoriteOffers);
   const favoritLocations = new Map<City['name'], Offers>();
 
-  offersFavorite.forEach((offer) => {
+  favoriteOffers.forEach((offer) => {
     const cityName = offer.city.name;
     if (favoritLocations.has(cityName)) {
       favoritLocations.get(cityName)?.push(offer);
@@ -17,7 +19,7 @@ function Favorites(): JSX.Element {
     }
   });
 
-  const hasNoOffersFavoriteLength = !offersFavorite.length;
+  const hasNoOffersFavoriteLength = !favoriteOffers.length;
 
   return (
     <>

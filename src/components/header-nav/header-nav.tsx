@@ -6,6 +6,7 @@ import { logoutAction } from '../../store/api-actions';
 function HeaderNav(): JSX.Element {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
   const handleClickLogout = (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -25,7 +26,7 @@ function HeaderNav(): JSX.Element {
                 ?
                 <>
                   <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  <span className="header__favorite-count">3</span>
+                  <span className="header__favorite-count">{favoriteOffers.length}</span>
                 </>
                 :
                 <span className="header__login">Sign in</span>

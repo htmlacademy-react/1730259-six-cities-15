@@ -13,6 +13,8 @@ export const getCurrentOffer = createAction<null | Offer['id']>('offers/getCurre
 
 export const loadOfferId = createAction<FullOffer | null>('offers/loadOfferId');
 
+export const loadFavoriteOffers = createAction<Offers>('offers/loadFavoriteOffers');
+
 export const loadReviews = createAction<Reviews>('offers/loadReviews');
 
 export const loadNearbyOffers = createAction<Offers>('offers/loadNearbyOffers');

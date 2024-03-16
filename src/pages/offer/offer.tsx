@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import Map from '../../components/map/map';
 import PlaceCard from '../../components/place-card/place-card';
 import Premium from '../../components/premium/premium';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import OfferReviews from '../../components/offer-reviews/offer-reviews';
 import OfferHost from '../../components/offer-host/offer-host';
@@ -18,26 +18,23 @@ import { getCurrentOffer } from '../../store/action';
 import { fetchNearbyOffersAction, fetchOfferIdAction, fetchOfferReviewsAction } from '../../store/api-actions';
 
 function Offer(): JSX.Element {
-  const {id} = useParams();
+  const { id } = useParams();
   const dispatch = useAppDispatch();
   const offer = useAppSelector((state) => state.fullOffer);
   const reviews = useAppSelector((state) => state.reviews);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffers).slice(0, 3);
 
   useEffect(() => {
     if (id) {
+      dispatch(getCurrentOffer(id));
       dispatch(fetchOfferIdAction(id));
       dispatch(fetchOfferReviewsAction(id));
       dispatch(fetchNearbyOffersAction(id));
     }
     console.log(offer);
     console.log(reviews);
-    console.log('nearbyOffers', nearbyOffers);
+    console.log('nearbyOffers', nearbyOffers.length);
   },[dispatch, id]);
-
-  useEffect(() => {
-    dispatch(getCurrentOffer(id as string));
-  }, [dispatch, id]);
 
   if (!offer) {
     return <Navigate to={AppRoute.PageNotFound} replace />;
@@ -66,17 +63,17 @@ function Offer(): JSX.Element {
             <OfferPrice price={price} />
             <OfferInside goods={goods} />
             <OfferHost host={host} description={description} />
-            <OfferReviews reviews={reviews} />
+            {id && <OfferReviews reviews={reviews} id={id} />}
           </div>
         </div>
-        {/* <Map className='offer' offers={offers} /> */}
+        <Map className='offer' offers={nearbyOffers} />
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
             {
-              nearbyOffers.length > 0 && nearbyOffers.slice(0, 3).map((nearbyOffer) => <PlaceCard key={nearbyOffer.id} className='near-places' offer={nearbyOffer} />)
+              nearbyOffers.length > 0 && nearbyOffers.map((nearbyOffer) => <PlaceCard key={nearbyOffer.id} className='near-places' offer={nearbyOffer} />)
             }
           </div>
         </section>

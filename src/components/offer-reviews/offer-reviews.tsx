@@ -4,12 +4,14 @@ import { useAppSelector } from '../../hooks';
 import { Reviews } from '../../types/reviews';
 import MemoizedReviewsForm from '../reviews-form/reviews-form';
 import ReviewsItem from '../reviews-item/reviews-item';
+import { Offer } from '../../types/offers';
 
-type OfferReviewsProps ={
+type OfferReviewsProps = {
   reviews: Reviews;
+  id: Offer['id'];
 }
 
-function OfferReviews({reviews}: OfferReviewsProps): JSX.Element {
+function OfferReviews({reviews, id}: OfferReviewsProps): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   const sortingReviws = useMemo(() => (
@@ -32,7 +34,7 @@ function OfferReviews({reviews}: OfferReviewsProps): JSX.Element {
           sortingReviws.map((review) => <ReviewsItem key={review.id} review={review} />)
         }
       </ul>
-      {authorizationStatus === AuthorizationStatus.Auth && <MemoizedReviewsForm />}
+      {authorizationStatus === AuthorizationStatus.Auth && <MemoizedReviewsForm id={id} />}
     </section>
   );
 }
