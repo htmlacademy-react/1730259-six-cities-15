@@ -2,11 +2,9 @@ import { Helmet } from 'react-helmet-async';
 import Map from '../../components/map/map';
 import PlaceCard from '../../components/place-card/place-card';
 import Premium from '../../components/premium/premium';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { Reviews } from '../../types/reviews';
 import OfferReviews from '../../components/offer-reviews/offer-reviews';
-import { offers } from '../../mocks/offers';
 import OfferHost from '../../components/offer-host/offer-host';
 import OfferGalery from '../../components/offer-galery/offer-galery';
 import OfferInside from '../../components/offer-inside/offer-inside';
@@ -17,25 +15,30 @@ import OfferName from '../../components/offer-name/offer-name';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { getCurrentOffer } from '../../store/action';
+import { fetchNearbyOffersAction, fetchOfferIdAction, fetchOfferReviewsAction } from '../../store/api-actions';
 
-type OfferProps = {
-  reviews: Reviews;
-}
-
-function Offer({reviews}: OfferProps): JSX.Element {
-  const {id} = useParams();
-  const navigate = useNavigate();
+function Offer(): JSX.Element {
+  const { id } = useParams();
   const dispatch = useAppDispatch();
-  const fullOffers = useAppSelector((state) => state.fullOffer);
-  const [offer] = fullOffers.filter((item) => String(item.id) === String(id));
+  const offer = useAppSelector((state) => state.fullOffer);
+  const reviews = useAppSelector((state) => state.reviews);
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffers).slice(0, 3);
 
   useEffect(() => {
-    if (!offer) {
-      return navigate(AppRoute.Root, { replace: true });
+    if (id) {
+      dispatch(getCurrentOffer(id));
+      dispatch(fetchOfferIdAction(id));
+      dispatch(fetchOfferReviewsAction(id));
+      dispatch(fetchNearbyOffersAction(id));
     }
+    console.log(offer);
+    console.log(reviews);
+    console.log('nearbyOffers', nearbyOffers.length);
+  },[dispatch, id]);
 
-    dispatch(getCurrentOffer(id as string));
-  }, [dispatch, id, navigate, offer]);
+  if (!offer) {
+    return <Navigate to={AppRoute.PageNotFound} replace />;
+  }
 
   const {
     images, isPremium, title,
@@ -60,17 +63,17 @@ function Offer({reviews}: OfferProps): JSX.Element {
             <OfferPrice price={price} />
             <OfferInside goods={goods} />
             <OfferHost host={host} description={description} />
-            <OfferReviews reviews={reviews} />
+            {id && <OfferReviews reviews={reviews} id={id} />}
           </div>
         </div>
-        <Map className='offer' offers={offers} />
+        <Map className='offer' offers={nearbyOffers} />
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
             {
-              offers.slice(0, 3).map((nearOffer) => <PlaceCard key={nearOffer.id} className='near-places' offer={nearOffer} />)
+              nearbyOffers.length > 0 && nearbyOffers.map((nearbyOffer) => <PlaceCard key={nearbyOffer.id} className='near-places' offer={nearbyOffer} />)
             }
           </div>
         </section>

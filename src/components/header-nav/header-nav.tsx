@@ -1,11 +1,18 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { getAuthorizationStatus } from '../../mocks/get-authorization-status';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { logoutAction } from '../../store/api-actions';
 
 function HeaderNav(): JSX.Element {
-  const authorizationStatus = getAuthorizationStatus();
-
+  const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+
+  const handleClickLogout = (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    evt.preventDefault();
+    dispatch(logoutAction());
+  };
 
   return (
     <nav className="header__nav">
@@ -19,7 +26,7 @@ function HeaderNav(): JSX.Element {
                 ?
                 <>
                   <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  <span className="header__favorite-count">3</span>
+                  <span className="header__favorite-count">{favoriteOffers.length}</span>
                 </>
                 :
                 <span className="header__login">Sign in</span>
@@ -29,9 +36,9 @@ function HeaderNav(): JSX.Element {
         {
           isAuth &&
             <li className="header__nav-item">
-              <Link className="header__nav-link" to={AppRoute.Root}>
+              <a className="header__nav-link" href='#todo' onClick={handleClickLogout}>
                 <span className="header__signout">Sign out</span>
-              </Link>
+              </a>
             </li>
         }
       </ul>

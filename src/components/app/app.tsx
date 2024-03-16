@@ -8,15 +8,11 @@ import PageNotFound from '../../pages/page-not-found/page-not-found';
 import Favorites from '../../pages/favorites/favorites';
 import Offer from '../../pages/offer/offer';
 import PrivateRoute from '../private-route/private-route';
-import { Reviews } from '../../types/reviews';
-import { getAuthorizationStatus } from '../../mocks/get-authorization-status';
-import { getOffersFavorites } from '../../mocks/get-offers-favorites';
+import { useAppSelector } from '../../hooks';
 
-type AppProps = {
-  reviews: Reviews;
-}
+function App(): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
-function App({reviews}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -26,17 +22,17 @@ function App({reviews}: AppProps): JSX.Element {
             <Route
               path={AppRoute.Login}
               element={
-                <PrivateRoute authorizationStatus={getAuthorizationStatus()} isReverse>
+                <PrivateRoute authorizationStatus={authorizationStatus} isReverse>
                   <MemoizedLogin />
                 </PrivateRoute>
               }
             />
-            <Route path={`${AppRoute.Offer}:id`} element={<Offer reviews={reviews} />} />
+            <Route path={`${AppRoute.Offer}:id`} element={<Offer />} />
             <Route
               path={AppRoute.Favorites}
               element={
-                <PrivateRoute authorizationStatus={getAuthorizationStatus()}>
-                  <Favorites offersFavorite={getOffersFavorites()} />
+                <PrivateRoute authorizationStatus={authorizationStatus}>
+                  <Favorites />
                 </PrivateRoute>
               }
             />
