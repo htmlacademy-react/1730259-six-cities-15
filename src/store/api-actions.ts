@@ -2,8 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { FullOffer, Offer, Offers } from '../types/offers';
-import { APIRoute, AuthorizationStatus } from '../const';
-import { loadFavoriteOffers, loadNearbyOffers, loadOfferId, loadOffers, loadReviews, loadUserData, requireAuthorization, setDataCurrentLoadingStatus, setDataLoadingStatus } from './action';
+import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
+import { loadFavoriteOffers, loadNearbyOffers, loadOfferId, loadOffers, loadReviews, setUserData, requireAuthorization, setDataLoadingStatus, redirectToRoute } from './action';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
@@ -31,10 +31,10 @@ export const fetchOfferIdAction = createAsyncThunk<void, Offer['id'], {
 }>(
   'data/fetchOfferId',
   async (id: Offer['id'], {dispatch, extra: api}) => {
-    dispatch(setDataCurrentLoadingStatus(true));
+    dispatch(setDataLoadingStatus(true));
     const {data} = await api.get<FullOffer>(`${APIRoute.Offers}/${id}`);
     dispatch(loadOfferId(data));
-    dispatch(setDataCurrentLoadingStatus(false));
+    dispatch(setDataLoadingStatus(false));
   },
 );
 
@@ -93,7 +93,7 @@ export const updateFavoriteOffersAction = createAsyncThunk<Offers, UpdateFavorit
 }>(
   'data/updateFavoriteOffers',
   async ({id, status}, {extra: api}) => {
-    const {data} = await api.get<Offers>(`${APIRoute.Favorite}/${id}/${status}`);
+    const {data} = await api.post<Offers>(`${APIRoute.Favorite}/${id}/${status}`);
     return data;
   },
 );
@@ -124,7 +124,8 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
     saveToken(data.token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    dispatch(loadUserData(data));
+    dispatch(setUserData(data));
+    dispatch(redirectToRoute(AppRoute.Root));
   },
 );
 
@@ -138,6 +139,6 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await api.delete(APIRoute.Logout);
     dropToken();
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
-    dispatch(loadUserData(null));
+    dispatch(setUserData(null));
   }
 );

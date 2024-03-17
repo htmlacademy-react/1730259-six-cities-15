@@ -21,21 +21,22 @@ import LoadingScreen from '../../components/loading-screen/loading-screen';
 function Offer(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const isLoading = useAppSelector((state) => state.isDataCurrentLoading);
-
-  useEffect(() => {
-    if (id) {
-      dispatch(getCurrentOffer(id));
-      dispatch(fetchOfferIdAction(id));
-      dispatch(fetchOfferReviewsAction(id));
-      dispatch(fetchNearbyOffersAction(id));
-    }
-
-  },[dispatch, id]);
-
+  const isLoading = useAppSelector((state) => state.isDataLoading);
   const offer = useAppSelector((state) => state.fullOffer);
   const reviews = useAppSelector((state) => state.reviews);
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers).slice(0, 3);
+
+  useEffect(() => {
+    if (!id) {
+      return;
+    }
+
+    dispatch(getCurrentOffer(id));
+    dispatch(fetchOfferIdAction(id));
+    dispatch(fetchOfferReviewsAction(id));
+    dispatch(fetchNearbyOffersAction(id));
+
+  },[dispatch, id]);
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -62,13 +63,13 @@ function Offer(): JSX.Element {
         <div className="offer__container container">
           <div className="offer__wrapper">
             {isPremium && <Premium className='offer__mark' />}
-            <OfferName title={title} isFavorite={isFavorite} />
+            <OfferName id={id || ''} title={title} isFavorite={isFavorite} />
             <OfferRating rating={rating} />
             <OfferFeatures type={type} bedrooms={bedrooms} maxAdults={maxAdults} />
             <OfferPrice price={price} />
             <OfferInside goods={goods} />
             <OfferHost host={host} description={description} />
-            {id && <OfferReviews reviews={reviews} id={id} />}
+            <OfferReviews reviews={reviews} id={id || ''} />
           </div>
         </div>
         <Map className='offer' offers={nearbyOffers} />
@@ -78,7 +79,10 @@ function Offer(): JSX.Element {
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
             {
-              nearbyOffers.length > 0 && nearbyOffers.map((nearbyOffer) => <PlaceCard key={nearbyOffer.id} className='near-places' offer={nearbyOffer} />)
+              nearbyOffers.length > 0 &&
+              nearbyOffers.map(
+                (nearbyOffer) => <PlaceCard key={nearbyOffer.id} className='near-places' offer={nearbyOffer} />
+              )
             }
           </div>
         </section>

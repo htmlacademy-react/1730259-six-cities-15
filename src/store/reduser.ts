@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { FullOffer, Offer, Offers } from '../types/offers';
-import { loadOfferId, getCurrentOffer, loadOffers, requireAuthorization, loadReviews, loadNearbyOffers, loadFavoriteOffers, loadUserData, setDataLoadingStatus, setDataCurrentLoadingStatus } from './action';
+import { loadOfferId, getCurrentOffer, loadOffers, requireAuthorization, loadReviews, loadNearbyOffers, loadFavoriteOffers, setUserData, setDataLoadingStatus } from './action';
 import { AuthorizationStatus } from '../const';
 import { Reviews } from '../types/reviews';
 import { UserData } from '../types/user-data';
@@ -15,7 +15,6 @@ type InitialState = {
   favoriteOffers: Offers;
   userData: UserData | null;
   isDataLoading: boolean;
-  isDataCurrentLoading: boolean;
 };
 
 const initialState: InitialState = {
@@ -28,16 +27,12 @@ const initialState: InitialState = {
   nearbyOffers: [],
   favoriteOffers: [],
   isDataLoading: false,
-  isDataCurrentLoading: false
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setDataLoadingStatus, (state, action) => {
       state.isDataLoading = action.payload;
-    })
-    .addCase(setDataCurrentLoadingStatus, (state, action) => {
-      state.isDataCurrentLoading = action.payload;
     })
     .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
@@ -51,7 +46,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })
-    .addCase(loadUserData, (state, action) => {
+    .addCase(setUserData, (state, action) => {
       state.userData = action.payload;
     })
     .addCase(loadReviews, (state, action) => {

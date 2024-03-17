@@ -42,7 +42,7 @@ function HeaderNav(): JSX.Element {
         {
           isAuth &&
             <li className="header__nav-item">
-              <a className="header__nav-link" href='#todo' onClick={handleClickLogout}>
+              <a className="header__nav-link" href='#todo' onClick={(evt) => handleClickLogout(evt)}>
                 <span className="header__signout">Sign out</span>
               </a>
             </li>
