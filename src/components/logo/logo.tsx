@@ -6,7 +6,7 @@ import { memo, useMemo } from 'react';
 
 type LogoProps = {
   isFooter?: boolean;
-  pathname: AppRoute;
+  pathname?: AppRoute;
 }
 
 function Logo({isFooter, pathname}: LogoProps): JSX.Element {

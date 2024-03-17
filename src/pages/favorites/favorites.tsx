@@ -1,4 +1,4 @@
-import Logo from '../../components/logo/logo';
+import MemoizedLogo from '../../components/logo/logo';
 import { Helmet } from 'react-helmet-async';
 import { City, Offers } from '../../types/offers';
 import cn from 'classnames';
@@ -58,7 +58,7 @@ function Favorites(): JSX.Element {
         </div>
       </main>
       <footer className="footer container">
-        <Logo isFooter />
+        <MemoizedLogo isFooter />
       </footer>
     </>
   );

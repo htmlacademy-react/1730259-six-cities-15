@@ -1,6 +1,6 @@
 import {Icon, Marker, layerGroup} from 'leaflet';
 import { useEffect, useRef } from 'react';
-import { Offer, Offers } from '../../types/offers';
+import { FullOffer, Offer, Offers } from '../../types/offers';
 import useMap from '../../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
 import { SCROLL_CLASS_NAME, URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
@@ -26,6 +26,7 @@ const currentCustomIcon = new Icon({
 function Map({className, offers}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const activeOfferId = useAppSelector((state) => state.currentOfferId);
+  const fullOffer = useAppSelector((state) => state.fullOffer);
   const cityLocation = offers[0].city.location;
   const mapZoomOnScroll = className === SCROLL_CLASS_NAME;
   const map = useMap(mapRef, cityLocation, mapZoomOnScroll);
@@ -35,7 +36,7 @@ function Map({className, offers}: MapProps): JSX.Element {
       map.flyTo([cityLocation.latitude, cityLocation.longitude], cityLocation.zoom);
       const markerGroup = layerGroup().addTo(map);
 
-      const addMarker = (offer: Offer) => {
+      const addMarker = (offer: Offer | FullOffer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude
@@ -52,11 +53,15 @@ function Map({className, offers}: MapProps): JSX.Element {
 
       offers.forEach((offer) => addMarker(offer));
 
+      if (activeOfferId && !offers.find((offer) => offer.id === activeOfferId) && fullOffer) {
+        addMarker(fullOffer);
+      }
+
       return () => {
         map.removeLayer(markerGroup);
       };
     }
-  }, [activeOfferId, cityLocation, map, offers]);
+  }, [activeOfferId, cityLocation, fullOffer, map, offers]);
 
   return (
     <section ref={mapRef} className={`${className}__map map`}></section>

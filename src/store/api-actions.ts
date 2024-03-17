@@ -125,6 +125,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     saveToken(data.token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
     dispatch(setUserData(data));
+    dispatch(fetchFavoriteOffersAction());
     dispatch(redirectToRoute(AppRoute.Root));
   },
 );

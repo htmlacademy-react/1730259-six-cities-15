@@ -20,15 +20,15 @@ function FavoritButton({id, className, iconWidth, iconHeight, isFavorite}: Favor
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const status = isFavorite ? 0 : 1;
 
   const handleFavoritButtonClick = () => {
     if (!isAuthorized) {
       return navigate(AppRoute.Login, {replace: true});
     }
+
     setFavoriteStatus((prevState) => !prevState);
 
-    dispatch(updateFavoriteOffersAction({id, status}))
+    dispatch(updateFavoriteOffersAction({id, status: Number(!favoriteStatus)}))
       .then(() => dispatch(fetchFavoriteOffersAction()));
   };
 
@@ -50,7 +50,7 @@ function FavoritButton({id, className, iconWidth, iconHeight, isFavorite}: Favor
       >
         <use xlinkHref="#icon-bookmark"></use>
       </svg>
-      <span className="visually-hidden">{favoriteStatus ? 'In bookmarks' : 'To bookmarks'}</span>
+      <span className="visually-hidden">{isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
     </button>
   );
 }
