@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFavoriteOffersAction, updateFavoriteOffersAction } from '../../store/api-actions';
 import { Offer } from '../../types/offers';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 type FavoritButtonProps = {
@@ -25,7 +25,6 @@ function FavoritButton({id, className, iconWidth, iconHeight, isFavorite}: Favor
   const handleFavoritButtonClick = () => {
     if (!isAuthorized) {
       return navigate(AppRoute.Login, {replace: true});
-      return <Navigate to={AppRoute.Login} replace />;
     }
     setFavoriteStatus((prevState) => !prevState);
 

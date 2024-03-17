@@ -8,11 +8,11 @@ export const redirectToRoute = createAction<AppRoute>('app/redirectToRoute');
 
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
-export const loadUserData = createAction<UserData | null>('user/loadUserData');
+export const setUserData = createAction<UserData | null>('user/loadUserData');
 
 export const loadOffers = createAction<Offers>('offers/loadOffers');
 
-export const getCurrentOffer = createAction<null | Offer['id']>('offers/getCurrentOffer');
+export const getCurrentOffer = createAction<Offer['id'] | null>('offers/getCurrentOffer');
 
 export const loadOfferId = createAction<FullOffer | null>('offers/loadOfferId');
 

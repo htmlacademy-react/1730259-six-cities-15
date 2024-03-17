@@ -27,12 +27,14 @@ function Offer(): JSX.Element {
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers).slice(0, 3);
 
   useEffect(() => {
-    if (id) {
-      dispatch(getCurrentOffer(id));
-      dispatch(fetchOfferIdAction(id));
-      dispatch(fetchOfferReviewsAction(id));
-      dispatch(fetchNearbyOffersAction(id));
+    if (!id) {
+      return;
     }
+
+    dispatch(getCurrentOffer(id));
+    dispatch(fetchOfferIdAction(id));
+    dispatch(fetchOfferReviewsAction(id));
+    dispatch(fetchNearbyOffersAction(id));
 
   },[dispatch, id]);
 
