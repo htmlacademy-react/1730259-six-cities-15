@@ -28,7 +28,10 @@ function FavoritButton({id, className, iconWidth, iconHeight, isFavorite}: Favor
 
     setFavoriteStatus((prevState) => !prevState);
 
-    dispatch(updateFavoriteOffersAction({id, status: Number(!favoriteStatus)}))
+    dispatch(updateFavoriteOffersAction({
+      id,
+      status: Number(!favoriteStatus)
+    }))
       .then(() => dispatch(fetchFavoriteOffersAction()));
   };
 
