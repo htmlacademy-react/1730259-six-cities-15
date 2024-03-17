@@ -6,7 +6,7 @@ import { Navigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import OfferReviews from '../../components/offer-reviews/offer-reviews';
 import OfferHost from '../../components/offer-host/offer-host';
-import OfferGalery from '../../components/offer-galery/offer-galery';
+import MemoizedOfferGalery from '../../components/offer-galery/offer-galery';
 import OfferInside from '../../components/offer-inside/offer-inside';
 import OfferPrice from '../../components/offer-price/offer-price';
 import OfferFeatures from '../../components/offer-features/offer-features';
@@ -59,7 +59,7 @@ function Offer(): JSX.Element {
         <title>6 cities: offer</title>
       </Helmet>
       <section className="offer">
-        <OfferGalery images={images} />
+        <MemoizedOfferGalery images={images} />
         <div className="offer__container container">
           <div className="offer__wrapper">
             {isPremium && <Premium className='offer__mark' />}

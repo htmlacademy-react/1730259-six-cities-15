@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { Outlet, useLocation, Location } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import Header from '../header/header';
+import MemoizedHeader from '../header/header';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import { useAppSelector } from '../../hooks';
 
@@ -24,7 +24,7 @@ function Layout(): JSX.Element {
       }
     >
       <ScrollToTop />
-      <Header />
+      <MemoizedHeader pathname={pathname} />
       <Outlet />
     </div>
   );

@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 type LogoImageProps = {
   classImage: string;
   imageWidth: string;
@@ -16,4 +18,6 @@ function LogoImage({classImage, imageWidth, imageHeight}: LogoImageProps): JSX.E
   );
 }
 
-export default LogoImage;
+const MemoizedLogoImage = memo(LogoImage);
+
+export default MemoizedLogoImage;

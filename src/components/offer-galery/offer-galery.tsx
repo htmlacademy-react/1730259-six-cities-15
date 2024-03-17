@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { MAX_IMAGES_OFFER } from '../../const';
 import { shuffle } from '../../utils/utils';
 
@@ -21,4 +22,6 @@ function OfferGalery({images}: OfferGaleryProps): JSX.Element {
   );
 }
 
-export default OfferGalery;
+const MemoizedOfferGalery = memo(OfferGalery);
+
+export default MemoizedOfferGalery;
