@@ -1,17 +1,19 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import { capitalize } from '../../utils/utils';
 import cn from 'classnames';
-import { AppRoute, CITY, Cities, DEFAULT_SORT, SORT_TYPE, SortType } from '../../const';
+import { AppRoute, CITY, Cities, DEFAULT_SORT, SORT_TYPE } from '../../const';
+import { useMemo } from 'react';
 
 type LocationLinkProps = {
   isTabs?: boolean;
   city: keyof typeof Cities | Cities;
-  isActive?: boolean;
 }
 
-function LocationLink({city, isActive, isTabs}: LocationLinkProps):JSX.Element {
+function LocationLink({city, isTabs}: LocationLinkProps):JSX.Element {
   const [searchParams] = useSearchParams();
-  const currentSort = searchParams.get(SORT_TYPE) as SortType;
+  const { [SORT_TYPE]: currentSort, [CITY]: sityQwery } = Object.fromEntries(searchParams);
+
+  const isActive = useMemo(() => sityQwery === city, [sityQwery, city]);
 
   return (
     <Link
@@ -21,7 +23,7 @@ function LocationLink({city, isActive, isTabs}: LocationLinkProps):JSX.Element {
           {'tabs__item--active': isActive}
         )
       }
-      to={{pathname: AppRoute.Root, search: `?${CITY}=${city}&${SORT_TYPE}=${isTabs ? currentSort : DEFAULT_SORT}`}}
+      to={`${AppRoute.Root}?${CITY}=${city}&${SORT_TYPE}=${isTabs ? currentSort : DEFAULT_SORT}`}
     >
       <span>{capitalize(city)}</span>
     </Link>

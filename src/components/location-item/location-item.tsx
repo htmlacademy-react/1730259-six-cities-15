@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import { Cities } from '../../const';
 import LocationItemWrapper from '../location-item-wrapper/location-item-wrapper';
 import LocationLink from '../location-link/location-link';
@@ -6,15 +6,12 @@ import LocationLink from '../location-link/location-link';
 type LocationItemProps = {
   isTabs?: boolean;
   city: keyof typeof Cities | Cities;
-  currentCity?: Cities;
 }
 
-function LocationItem({isTabs, currentCity, city}: LocationItemProps): JSX.Element {
-  const isActive = useMemo(() => currentCity === city, [currentCity, city]);
-
-  return (
+function LocationItem({isTabs, city}: LocationItemProps): JSX.Element {
+    return (
     <LocationItemWrapper isTabs={isTabs}>
-      <LocationLink isTabs={isTabs} isActive={isActive} city={city} />
+      <LocationLink isTabs={isTabs} city={city} />
     </LocationItemWrapper>
   );
 }
