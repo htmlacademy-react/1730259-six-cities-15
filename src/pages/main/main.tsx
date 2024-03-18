@@ -53,7 +53,7 @@ function Main(): JSX.Element {
         <title>6 cities</title>
       </Helmet>
       <h1 className="visually-hidden">Cities</h1>
-      <MemoizedTabs />
+      <MemoizedTabs currentCity={cityQuery} />
       <div className="cities">
         <div
           className={

@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 type LocationItemWrapperProps = {
   isTabs?: boolean;
   children: JSX.Element;
@@ -14,4 +16,6 @@ function LocationItemWrapper({isTabs, children}: LocationItemWrapperProps): JSX.
 
 }
 
-export default LocationItemWrapper;
+const MemoizedLocationItemWrapper = memo(LocationItemWrapper);
+
+export default MemoizedLocationItemWrapper;
