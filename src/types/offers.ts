@@ -42,3 +42,11 @@ export type FullOffer = Omit<Offer, 'previewImage'> & {
   images: string[];
   maxAdults: number;
 };
+
+export type OfferMapItem = {
+  id: Offer['id'];
+  city: City;
+  location: Location;
+}
+
+export type OfferMapItems = OfferMapItem[];

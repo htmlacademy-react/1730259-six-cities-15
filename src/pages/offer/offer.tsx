@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { getCurrentOffer } from '../../store/action';
 import { fetchNearbyOffersAction, fetchOfferIdAction, fetchOfferReviewsAction } from '../../store/api-actions';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
+import { getDataToMap } from '../../utils/utils';
 
 function Offer(): JSX.Element {
   const { id } = useParams();
@@ -49,8 +50,10 @@ function Offer(): JSX.Element {
     images, isPremium, title,
     isFavorite, rating, type,
     bedrooms, maxAdults, price,
-    goods, host, description
+    goods, host, description,
   } = offer;
+
+  const mapItems = getDataToMap(nearbyOffers).concat({id: offer.id, city: offer.city, location: offer.location});
 
   return (
     <main className="page__main page__main--offer">
@@ -71,7 +74,7 @@ function Offer(): JSX.Element {
             <OfferReviews id={id || ''} />
           </div>
         </div>
-        <Map className='offer' offers={nearbyOffers} />
+        <Map className='offer' offers={mapItems} />
       </section>
       <div className="container">
         <section className="near-places places">

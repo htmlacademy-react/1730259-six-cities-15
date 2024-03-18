@@ -4,7 +4,7 @@ import MemoizedPlacesSorting from '../../components/places-sorting/places-sortin
 import MemoizedTabs from '../../components/tabs/tabs';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { CITY, Cities, DEFAULT_CITY, DEFAULT_SORT, SORT_TYPE, SortType } from '../../const';
-import { capitalize, getCurrentOffers, sortingType } from '../../utils/utils';
+import { capitalize, getCurrentOffers, getDataToMap, sortingType } from '../../utils/utils';
 import { memo, useEffect, useMemo } from 'react';
 import cn from 'classnames';
 import MainEmpty from '../../components/main-empty/main-empty';
@@ -39,6 +39,8 @@ function Main(): JSX.Element {
   const filteredAndSortedOffers = useMemo(() => sortingType[sortTypeQuery](filteredOffers), [filteredOffers, sortTypeQuery]);
 
   const hasNoFilteredOrSortedOffers = !filteredAndSortedOffers.length;
+
+  const offerMapItems = getDataToMap(filteredOffers);
 
   return (
     <main
@@ -84,7 +86,7 @@ function Main(): JSX.Element {
             }
           </section>
           <div className="cities__right-section">
-            {!hasNoFilteredOrSortedOffers && <Map className='cities' offers={filteredOffers} />}
+            {!hasNoFilteredOrSortedOffers && <Map className='cities' offers={offerMapItems} />}
           </div>
         </div>
       </div>
