@@ -23,7 +23,6 @@ function Offer(): JSX.Element {
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector((state) => state.isDataLoading);
   const offer = useAppSelector((state) => state.fullOffer);
-  const reviews = useAppSelector((state) => state.reviews);
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers).slice(0, 3);
 
   useEffect(() => {
@@ -69,7 +68,7 @@ function Offer(): JSX.Element {
             <OfferPrice price={price} />
             <OfferInside goods={goods} />
             <OfferHost host={host} description={description} />
-            <OfferReviews reviews={reviews} id={id || ''} />
+            <OfferReviews id={id || ''} />
           </div>
         </div>
         <Map className='offer' offers={nearbyOffers} />

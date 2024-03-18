@@ -1,18 +1,17 @@
 import { useMemo } from 'react';
 import { AuthorizationStatus, MAX_REVIEWS_COUNT } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { Reviews } from '../../types/reviews';
 import MemoizedReviewsForm from '../reviews-form/reviews-form';
 import ReviewsItem from '../reviews-item/reviews-item';
 import { Offer } from '../../types/offers';
 
 type OfferReviewsProps = {
-  reviews: Reviews;
   id: Offer['id'];
 }
 
-function OfferReviews({reviews, id}: OfferReviewsProps): JSX.Element {
+function OfferReviews({id}: OfferReviewsProps): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const reviews = useAppSelector((store) => store.reviews);
 
   const sortingReviws = useMemo(() => (
     reviews

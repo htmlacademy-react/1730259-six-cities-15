@@ -4,19 +4,14 @@ type LocationItemWrapperProps = {
 }
 
 function LocationItemWrapper({isTabs, children}: LocationItemWrapperProps): JSX.Element {
-  if (isTabs) {
-    return (
-      <li className="locations__item">
-        {children}
-      </li>
-    );
-  }
+  const WrapperTag = isTabs ? 'li' : 'div';
 
   return (
-    <div className="locations__item">
+    <WrapperTag className="locations__item">
       {children}
-    </div>
+    </WrapperTag>
   );
+
 }
 
 export default LocationItemWrapper;

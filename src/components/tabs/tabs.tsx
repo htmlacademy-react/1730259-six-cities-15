@@ -13,7 +13,7 @@ function Tabs({currentCity}: TabsProps): JSX.Element {
         <ul className="locations__list tabs__list">
           {
             Object.values(Cities).map(
-              (city) => <MemoizedLocationItem key={city} isTabs city={city} isActive={currentCity === city} />
+              (city) => <MemoizedLocationItem key={city} isTabs city={city} currentCity={currentCity} />
             )
           }
         </ul>
