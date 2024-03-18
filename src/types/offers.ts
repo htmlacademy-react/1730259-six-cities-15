@@ -35,7 +35,7 @@ export type Host = {
 };
 
 export type FullOffer = Omit<Offer, 'previewImage'> & {
-  description: string | string[];
+  description: string;
   bedrooms: number;
   goods: string[];
   host: Host;

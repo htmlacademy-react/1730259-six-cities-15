@@ -9,7 +9,7 @@ type LocationItemProps = {
 }
 
 function LocationItem({isTabs, city}: LocationItemProps): JSX.Element {
-    return (
+  return (
     <LocationItemWrapper isTabs={isTabs}>
       <LocationLink isTabs={isTabs} city={city} />
     </LocationItemWrapper>
