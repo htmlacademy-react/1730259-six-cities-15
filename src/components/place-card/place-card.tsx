@@ -7,8 +7,8 @@ import { Offer } from '../../types/offers';
 import { capitalize, mouseEvents } from '../../utils/utils';
 import { memo } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { getCurrentOffer } from '../../store/action';
 import { MyLocation } from '../../types/my-location';
+import { setCurrentOfferId } from '../../store/offer-process/offer-process.slice';
 
 type PlaceCardProps ={
   className: string;
@@ -23,7 +23,7 @@ function PlaceCard({className, offer, isSmall}: PlaceCardProps): JSX.Element {
 
   const handleMouseEvent = (event: React.MouseEvent<HTMLDivElement>) => {
     if (pathname === AppRoute.Root) {
-      dispatch(getCurrentOffer(mouseEvents[event.type as keyof typeof mouseEvents](id)));
+      dispatch(setCurrentOfferId(mouseEvents[event.type as keyof typeof mouseEvents](id)));
     }
   };
 

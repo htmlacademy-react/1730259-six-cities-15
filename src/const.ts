@@ -50,7 +50,6 @@ export enum LoginCredentials {
 export enum NameSpace {
   User = 'USER',
   Offers = 'OFFERS',
-  City = 'CITY',
   Reviews = 'REVIEWS',
   Favorites = 'FAVORITES',
 }
@@ -106,5 +105,7 @@ export const MAX_VALUE_REVIEW_LENGHT = 300;
 export const MAX_REVIEWS_COUNT = 10;
 
 export const MAX_IMAGES_OFFER = 6;
+
+export const MAX_NIAR_OFFER = 3;
 
 export const REQUEST_TIMEOUT = 5000;

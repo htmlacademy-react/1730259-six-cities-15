@@ -11,9 +11,10 @@ import MainEmpty from '../../components/main-empty/main-empty';
 import { MyLocation } from '../../types/my-location';
 import { useAppSelector } from '../../hooks';
 import { Helmet } from 'react-helmet-async';
+import { getOffersData } from '../../store/offer-process/offer-process.selectors';
 
 function Main(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getOffersData);
   const {search} = useLocation() as MyLocation;
   const [searchParams, setSearchParams] = useSearchParams({
     city: DEFAULT_CITY,

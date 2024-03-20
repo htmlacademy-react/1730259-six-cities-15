@@ -1,14 +1,16 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { logoutAction } from '../../store/api-actions';
+import { logOutAction } from '../../store/api-actions';
 import { memo, useCallback, useMemo } from 'react';
+import { getAuthorizationStatus, getUserData } from '../../store/user-process/user-process.selectors';
+import { getFavoritsData } from '../../store/favorite-process/favorite-process.selectors';
 
 function HeaderNav(): JSX.Element {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
-  const userData = useAppSelector((state) => state.userData);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const favoriteOffers = useAppSelector(getFavoritsData);
+  const userData = useAppSelector(getUserData);
 
   const isAuth = useMemo(() => authorizationStatus === AuthorizationStatus.Auth, [authorizationStatus]);
   const userAvatar = useMemo(() => userData?.avatarUrl ?? '../img/avatar.svg', [userData?.avatarUrl]);
@@ -17,7 +19,7 @@ function HeaderNav(): JSX.Element {
 
   const handleClickLogout = useCallback((evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     evt.preventDefault();
-    dispatch(logoutAction());
+    dispatch(logOutAction());
   }, [dispatch]);
 
   return (

@@ -4,14 +4,16 @@ import { useAppSelector } from '../../hooks';
 import MemoizedReviewsForm from '../reviews-form/reviews-form';
 import ReviewsItem from '../reviews-item/reviews-item';
 import { Offer } from '../../types/offers';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
+import { getReviewsData } from '../../store/review-process/review-process.selectors';
 
 type OfferReviewsProps = {
   id: Offer['id'];
 }
 
 function OfferReviews({id}: OfferReviewsProps): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const reviews = useAppSelector((store) => store.reviews);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const reviews = useAppSelector(getReviewsData);
 
   const sortingReviws = useMemo(() => (
     reviews

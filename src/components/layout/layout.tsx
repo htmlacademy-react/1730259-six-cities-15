@@ -4,6 +4,7 @@ import { AppRoute } from '../../const';
 import MemoizedHeader from '../header/header';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import { useAppSelector } from '../../hooks';
+import { getFavoritsData } from '../../store/favorite-process/favorite-process.selectors';
 
 interface MyLocation extends Location {
   pathname: AppRoute;
@@ -11,7 +12,7 @@ interface MyLocation extends Location {
 
 function Layout(): JSX.Element {
   const { pathname } = useLocation() as MyLocation;
-  const favoriteOffers = useAppSelector((store) => store.favoriteOffers);
+  const favoriteOffers = useAppSelector(getFavoritsData);
 
   return (
     <div
