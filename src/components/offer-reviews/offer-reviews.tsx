@@ -15,7 +15,7 @@ function OfferReviews({id}: OfferReviewsProps): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const reviews = useAppSelector(getReviewsData);
 
-  const sortingReviws = useMemo(() => (
+  const sortingReviews = useMemo(() => (
     reviews
       .slice()
       .sort(
@@ -30,9 +30,9 @@ function OfferReviews({id}: OfferReviewsProps): JSX.Element {
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
       <ul className="reviews__list">
         {
-          sortingReviws &&
-          sortingReviws.length > 0 &&
-          sortingReviws.map((review) => <ReviewsItem key={review.id} review={review} />)
+          sortingReviews &&
+          sortingReviews.length > 0 &&
+          sortingReviews.map((review) => <ReviewsItem key={review.id} review={review} />)
         }
       </ul>
       {authorizationStatus === AuthorizationStatus.Auth && <MemoizedReviewsForm id={id} />}

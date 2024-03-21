@@ -28,7 +28,7 @@ export const reviewsData = createSlice({
         state.reviewsLoadingStatus = Status.Loading;
       })
       .addCase(addReviewAction.fulfilled, (state, action) => {
-        state.reviews = action.payload;
+        state.reviews.push(action.payload);
         state.reviewsLoadingStatus = Status.Success;
       })
       .addCase(addReviewAction.rejected, (state) => {

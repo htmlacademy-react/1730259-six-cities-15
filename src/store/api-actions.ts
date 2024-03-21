@@ -5,7 +5,7 @@ import { APIRoute } from '../const';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
-import { NewReview, Reviews } from '../types/reviews';
+import { NewReview, Review, Reviews } from '../types/reviews';
 import { UpdateFavoriteStatus } from '../types/update-favorite-status';
 
 export const fetchOffersAction = createAsyncThunk<Offers, undefined, Extra>(
@@ -40,10 +40,10 @@ export const fetchOfferReviewsAction = createAsyncThunk<Reviews, Offer['id'], Ex
   },
 );
 
-export const addReviewAction = createAsyncThunk<Reviews, NewReview, Extra>(
+export const addReviewAction = createAsyncThunk<Review, NewReview, Extra>(
   'data/setNewReview',
   async ({id, comment, rating}, {extra: api}) => {
-    const {data} = await api.post<Reviews>(`${APIRoute.Reviews}/${id}`, {comment, rating});
+    const {data} = await api.post<Review>(`${APIRoute.Reviews}/${id}`, {comment, rating});
     return data;
   },
 );
