@@ -33,7 +33,7 @@ function ReviewsForm({id}: ReviewsFormProps): JSX.Element {
     setIsSubmitActive(isChecked === '0' || value.length < MIN_VALUE_REVIEW_LENGHT || value.length > MAX_VALUE_REVIEW_LENGHT);
   }, [isChecked, value.length]);
 
-  const resetChecked = () => {
+  const resetForm = () => {
     setIsChecked('0');
     setValue('');
   };
@@ -50,7 +50,7 @@ function ReviewsForm({id}: ReviewsFormProps): JSX.Element {
     }
 
     if (getReviewStatus === Status.Success) {
-      resetChecked();
+      resetForm();
     }
 
     if (getReviewStatus === Status.Failed) {
@@ -73,6 +73,7 @@ function ReviewsForm({id}: ReviewsFormProps): JSX.Element {
         value={value}
         onChange={(evt) => handleTextariaInputChange(evt)}
         placeholder="Tell how was your stay, what you like and what can be improved"
+        disabled={isReviewLoading}
       >
       </textarea>
       <div className="reviews__button-wrapper">

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Review } from '../../types/reviews';
 import RaitingStars from '../raiting-stars/raiting-stars';
 
@@ -34,4 +35,6 @@ function ReviewsItem({review}: ReviewsItemProps): JSX.Element {
   );
 }
 
-export default ReviewsItem;
+const MemoizedReviewsItem = memo(ReviewsItem);
+
+export default MemoizedReviewsItem;

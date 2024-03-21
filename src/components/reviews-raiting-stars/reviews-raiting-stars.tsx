@@ -8,6 +8,8 @@ type ReviewsRaitingStarsProps = {
 }
 
 function ReviewsRaitingStars({isChecked, isDisabled, handleChangeChecked}: ReviewsRaitingStarsProps): JSX.Element {
+  const isNumberStar = (index: number) => STARS.length - index;
+
   return (
     <div className="reviews__rating-form form__rating">
       {
@@ -16,15 +18,15 @@ function ReviewsRaitingStars({isChecked, isDisabled, handleChangeChecked}: Revie
             <input
               className="form__rating-input visually-hidden"
               name="rating"
-              value={STARS.length - index}
-              id={`${STARS.length - index}-stars`}
-              checked={isChecked === `${STARS.length - index}`}
+              value={isNumberStar(index)}
+              id={isNumberStar(index) === 1 ? `${isNumberStar(index)}-star` : `${isNumberStar(index)}-stars`}
+              checked={Number(isChecked) === isNumberStar(index)}
               type="radio"
               disabled={isDisabled}
               onChange={handleChangeChecked}
             />
             <label
-              htmlFor={`${STARS.length - index}-stars`}
+              htmlFor={isNumberStar(index) === 1 ? `${isNumberStar(index)}-star` : `${isNumberStar(index)}-stars`}
               className="reviews__rating-label form__rating-label"
               title={title}
             >

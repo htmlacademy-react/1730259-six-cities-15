@@ -76,7 +76,9 @@ function Main(): JSX.Element {
                 :
                 <>
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{filteredAndSortedOffers.length} places to stay in {capitalize(cityQuery)}</b>
+                  <b className="places__found">
+                    {filteredAndSortedOffers.length} {filteredAndSortedOffers.length > 1 ? 'places' : 'place'} to stay in {capitalize(cityQuery)}
+                  </b>
                   <MemoizedPlacesSorting currentSort={sortTypeQuery} onChangeSort={handleSortTypeChange} />
                   <div className="cities__places-list places__list tabs__content">
                     {

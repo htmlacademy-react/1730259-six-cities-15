@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { AuthorizationStatus, MAX_REVIEWS_COUNT } from '../../const';
 import { useAppSelector } from '../../hooks';
 import MemoizedReviewsForm from '../reviews-form/reviews-form';
-import ReviewsItem from '../reviews-item/reviews-item';
+import MemoizedReviewsItem from '../reviews-item/reviews-item';
 import { Offer } from '../../types/offers';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 import { getReviewsData } from '../../store/review-process/review-process.selectors';
@@ -32,7 +32,7 @@ function OfferReviews({id}: OfferReviewsProps): JSX.Element {
         {
           sortingReviews &&
           sortingReviews.length > 0 &&
-          sortingReviews.map((review) => <ReviewsItem key={review.id} review={review} />)
+          sortingReviews.map((review) => <MemoizedReviewsItem key={review.id} review={review} />)
         }
       </ul>
       {authorizationStatus === AuthorizationStatus.Auth && <MemoizedReviewsForm id={id} />}

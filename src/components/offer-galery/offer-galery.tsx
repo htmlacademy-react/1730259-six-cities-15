@@ -1,6 +1,5 @@
 import { memo } from 'react';
 import { MAX_IMAGES_OFFER } from '../../const';
-import { shuffle } from '../../utils/utils';
 
 type OfferGaleryProps = {
   images: string[];
@@ -11,7 +10,7 @@ function OfferGalery({images}: OfferGaleryProps): JSX.Element {
     <div className="offer__gallery-container container">
       <div className="offer__gallery">
         {
-          shuffle(images).slice(0, MAX_IMAGES_OFFER).map((image) => (
+          images.slice(0, MAX_IMAGES_OFFER).map((image) => (
             <div key={String(image)} className="offer__image-wrapper">
               <img className="offer__image" src={image} alt="Photo studio" />
             </div>
