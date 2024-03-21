@@ -11,6 +11,7 @@ const initialState: OffersProcess = {
   fullOfferLoadingStatus: Status.Idle,
   currentOfferId: null,
   nearByOffers: [],
+  nearByOffersLoadingStatus: Status.Idle,
 };
 
 export const offersData = createSlice({
@@ -21,7 +22,7 @@ export const offersData = createSlice({
       state.currentOfferId = action.payload;
     }
   },
-  extraReducers(builder) {
+  extraReducers: (builder) => {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
         state.offersLoadingStatus = Status.Loading;
@@ -43,8 +44,15 @@ export const offersData = createSlice({
       .addCase(fetchOfferIdAction.rejected, (state) => {
         state.fullOfferLoadingStatus = Status.Failed;
       })
+      .addCase(fetchNearByOffersAction.pending, (state) => {
+        state.nearByOffersLoadingStatus = Status.Loading;
+      })
       .addCase(fetchNearByOffersAction.fulfilled, (state, action) => {
         state.nearByOffers = action.payload;
+        state.nearByOffersLoadingStatus = Status.Success;
+      })
+      .addCase(fetchNearByOffersAction.rejected, (state) => {
+        state.nearByOffersLoadingStatus = Status.Failed;
       });
   }
 });

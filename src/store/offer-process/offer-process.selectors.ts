@@ -13,3 +13,5 @@ export const getFullOfferLoadingStatus = (state: State): Status => state[NameSpa
 export const getCurrentOfferId = (state: State): Offer['id'] | null => state[NameSpace.Offers].currentOfferId;
 
 export const getNearByOffers = (state: State): Offers => state[NameSpace.Offers].nearByOffers;
+
+export const getNearByOffersLoadingStatus = (state: State): Status => state[NameSpace.Offers].nearByOffersLoadingStatus;

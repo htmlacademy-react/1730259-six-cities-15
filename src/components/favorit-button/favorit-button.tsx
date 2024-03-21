@@ -5,6 +5,7 @@ import { Offer } from '../../types/offers';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 
 type FavoritButtonProps = {
   id: Offer['id'];
@@ -16,7 +17,7 @@ type FavoritButtonProps = {
 
 function FavoritButton({id, className, iconWidth, iconHeight, isFavorite}: FavoritButtonProps): JSX.Element {
   const [favoriteStatus, setFavoriteStatus] = useState(isFavorite);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

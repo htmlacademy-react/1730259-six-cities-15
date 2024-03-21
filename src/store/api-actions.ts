@@ -25,7 +25,7 @@ export const fetchOfferIdAction = createAsyncThunk<FullOffer, Offer['id'], Extra
 );
 
 export const fetchNearByOffersAction = createAsyncThunk<Offers, Offer['id'], Extra>(
-  'data/fetchOfferReviews',
+  'data/fetchNearByOffers',
   async (id: Offer['id'], {extra: api}) => {
     const {data} = await api.get<Offers>(`${APIRoute.Offers}/${id}/${APIRoute.Nearby}`);
     return data;

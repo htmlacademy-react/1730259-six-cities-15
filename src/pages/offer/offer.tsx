@@ -17,13 +17,14 @@ import { useEffect } from 'react';
 import { fetchNearByOffersAction, fetchOfferIdAction, fetchOfferReviewsAction } from '../../store/api-actions';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
 import { getDataToMap } from '../../utils/utils';
-import { getFullOffer, getFullOfferLoadingStatus, getNearByOffers } from '../../store/offer-process/offer-process.selectors';
+import { getFullOffer, getFullOfferLoadingStatus, getNearByOffers, getNearByOffersLoadingStatus } from '../../store/offer-process/offer-process.selectors';
 import { setCurrentOfferId } from '../../store/offer-process/offer-process.slice';
 
 function Offer(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const isLoading = useAppSelector(getFullOfferLoadingStatus);
+  const isLoadingFullOffer = useAppSelector(getFullOfferLoadingStatus);
+  const isLoadingNearByOffers = useAppSelector(getNearByOffersLoadingStatus);
   const offer = useAppSelector(getFullOffer);
   const nearByOffers = useAppSelector(getNearByOffers).slice(0, MAX_NIAR_OFFER);
 
@@ -38,7 +39,10 @@ function Offer(): JSX.Element {
     dispatch(fetchNearByOffersAction(id));
   },[dispatch, id]);
 
-  if ((isLoading === Status.Loading) || (isLoading === Status.Idle)) {
+  if (
+    (isLoadingFullOffer === Status.Idle || isLoadingFullOffer === Status.Loading) ||
+    (isLoadingNearByOffers === Status.Idle || isLoadingNearByOffers === Status.Loading)
+  ) {
     return <LoadingScreen />;
   }
 

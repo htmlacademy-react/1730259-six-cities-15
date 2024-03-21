@@ -3,10 +3,21 @@ import MemoizedLocationItem from '../location-item/location-item';
 import PlaceCard from '../place-card/place-card';
 
 type FavoritesListProps = {
-  favoritLocations: Map<City['name'], Offers>;
+  favoriteOffers: Offers;
 }
 
-function FavoritesList({favoritLocations}:FavoritesListProps): JSX.Element {
+function FavoritesList({favoriteOffers}:FavoritesListProps): JSX.Element {
+  const favoritLocations = new Map<City['name'], Offers>();
+
+  favoriteOffers.forEach((offer) => {
+    const cityName = offer.city.name;
+    if (favoritLocations.has(cityName)) {
+      favoritLocations.get(cityName)?.push(offer);
+    } else {
+      favoritLocations.set(cityName, [offer]);
+    }
+  });
+
   return (
     <ul className="favorites__list">
       {

@@ -5,7 +5,7 @@ import useMap from '../../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
 import { SCROLL_CLASS_NAME, URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { getCurrentOfferId, getFullOffer } from '../../store/offer-process/offer-process.selectors';
+import { getCurrentOfferId } from '../../store/offer-process/offer-process.selectors';
 
 type MapProps = {
   className: string;
@@ -27,7 +27,6 @@ const currentCustomIcon = new Icon({
 function Map({className, offers}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const activeOfferId = useAppSelector(getCurrentOfferId);
-  const fullOffer = useAppSelector(getFullOffer);
   const cityLocation = offers[0].city.location;
   const mapZoomOnScroll = className === SCROLL_CLASS_NAME;
   const map = useMap(mapRef, cityLocation, mapZoomOnScroll);
@@ -58,7 +57,7 @@ function Map({className, offers}: MapProps): JSX.Element {
         map.removeLayer(markerGroup);
       };
     }
-  }, [activeOfferId, cityLocation, fullOffer, map, offers]);
+  }, [activeOfferId, cityLocation, map, offers]);
 
   return (
     <section ref={mapRef} className={`${className}__map map`}></section>

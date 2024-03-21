@@ -3,10 +3,11 @@ import { STARS } from '../../const';
 
 type ReviewsRaitingStarsProps = {
   isChecked: string;
+  isDisabled: boolean;
   handleChangeChecked: ({ target }: ChangeEvent<HTMLInputElement>) => void;
 }
 
-function ReviewsRaitingStars({isChecked, handleChangeChecked}: ReviewsRaitingStarsProps): JSX.Element {
+function ReviewsRaitingStars({isChecked, isDisabled, handleChangeChecked}: ReviewsRaitingStarsProps): JSX.Element {
   return (
     <div className="reviews__rating-form form__rating">
       {
@@ -19,6 +20,7 @@ function ReviewsRaitingStars({isChecked, handleChangeChecked}: ReviewsRaitingSta
               id={`${STARS.length - index}-stars`}
               checked={isChecked === `${STARS.length - index}`}
               type="radio"
+              disabled={isDisabled}
               onChange={handleChangeChecked}
             />
             <label

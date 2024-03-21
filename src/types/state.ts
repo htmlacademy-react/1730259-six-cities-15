@@ -28,6 +28,7 @@ export type OffersProcess = {
   fullOfferLoadingStatus: Status;
   currentOfferId: Offer['id'] | null;
   nearByOffers: Offers;
+  nearByOffersLoadingStatus: Status;
 }
 
 export type FavoriteProcess = {
