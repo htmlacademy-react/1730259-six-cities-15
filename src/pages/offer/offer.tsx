@@ -1,17 +1,17 @@
 import { Helmet } from 'react-helmet-async';
-import Map from '../../components/map/map';
-import PlaceCard from '../../components/place-card/place-card';
-import Premium from '../../components/premium/premium';
+import MemoizedMap from '../../components/map/map';
+import MemoizedPlaceCard from '../../components/place-card/place-card';
+import MemoizedPremium from '../../components/premium/premium';
 import { Navigate, useParams } from 'react-router-dom';
 import { AppRoute, MAX_NIAR_OFFER, Status } from '../../const';
-import OfferReviews from '../../components/offer-reviews/offer-reviews';
-import OfferHost from '../../components/offer-host/offer-host';
+import MemoizedOfferReviews from '../../components/offer-reviews/offer-reviews';
+import MemoizedOfferHost from '../../components/offer-host/offer-host';
 import MemoizedOfferGalery from '../../components/offer-galery/offer-galery';
-import OfferInside from '../../components/offer-inside/offer-inside';
-import OfferPrice from '../../components/offer-price/offer-price';
-import OfferFeatures from '../../components/offer-features/offer-features';
-import OfferRating from '../../components/offer-rating/offer-rating';
-import OfferName from '../../components/offer-name/offer-name';
+import MemoizedOfferInside from '../../components/offer-inside/offer-inside';
+import MemoizedOfferPrice from '../../components/offer-price/offer-price';
+import MemoizedOfferFeatures from '../../components/offer-features/offer-features';
+import MemoizedOfferRating from '../../components/offer-rating/offer-rating';
+import MemoizedOfferName from '../../components/offer-name/offer-name';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { fetchNearByOffersAction, fetchOfferIdAction, fetchOfferReviewsAction } from '../../store/api-actions';
@@ -68,17 +68,17 @@ function Offer(): JSX.Element {
         <MemoizedOfferGalery images={images} />
         <div className="offer__container container">
           <div className="offer__wrapper">
-            {isPremium && <Premium className='offer__mark' />}
-            {id && <OfferName id={id} title={title} isFavorite={isFavorite} />}
-            <OfferRating rating={rating} />
-            <OfferFeatures type={type} bedrooms={bedrooms} maxAdults={maxAdults} />
-            <OfferPrice price={price} />
-            <OfferInside goods={goods} />
-            <OfferHost host={host} description={description} />
-            {id && <OfferReviews id={id} />}
+            {isPremium && <MemoizedPremium className='offer__mark' />}
+            {id && <MemoizedOfferName id={id} title={title} isFavorite={isFavorite} />}
+            <MemoizedOfferRating rating={rating} />
+            <MemoizedOfferFeatures type={type} bedrooms={bedrooms} maxAdults={maxAdults} />
+            <MemoizedOfferPrice price={price} />
+            <MemoizedOfferInside goods={goods} />
+            <MemoizedOfferHost host={host} description={description} />
+            {id && <MemoizedOfferReviews id={id} />}
           </div>
         </div>
-        <Map className='offer' offers={mapItems} />
+        <MemoizedMap className='offer' offers={mapItems} />
       </section>
       <div className="container">
         <section className="near-places places">
@@ -87,7 +87,7 @@ function Offer(): JSX.Element {
             {
               nearByOffers.length > 0 &&
               nearByOffers.map(
-                (nearByOffer) => <PlaceCard key={nearByOffer.id} className='near-places' offer={nearByOffer} />
+                (nearByOffer) => <MemoizedPlaceCard key={nearByOffer.id} className='near-places' offer={nearByOffer} />
               )
             }
           </div>

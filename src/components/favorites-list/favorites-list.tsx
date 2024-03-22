@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import { City, Offers } from '../../types/offers';
 import MemoizedLocationItem from '../location-item/location-item';
-import PlaceCard from '../place-card/place-card';
+import MemoizedPlaceCard from '../place-card/place-card';
 
 type FavoritesListProps = {
   favoriteOffers: Offers;
@@ -29,7 +30,7 @@ function FavoritesList({favoriteOffers}:FavoritesListProps): JSX.Element {
             <div className="favorites__places">
               {
                 favoritLocations.get(city)
-                  ?.map((offer) => <PlaceCard key={offer.id} className='favorites' offer={offer} isSmall />)
+                  ?.map((offer) => <MemoizedPlaceCard key={offer.id} className='favorites' offer={offer} isSmall />)
               }
             </div>
           </li>
@@ -39,4 +40,6 @@ function FavoritesList({favoriteOffers}:FavoritesListProps): JSX.Element {
   );
 }
 
-export default FavoritesList;
+const MemoizedFavoritesList = memo(FavoritesList);
+
+export default MemoizedFavoritesList;

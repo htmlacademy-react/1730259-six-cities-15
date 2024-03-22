@@ -2,7 +2,7 @@ import MemoizedLogo from '../../components/logo/logo';
 import { Helmet } from 'react-helmet-async';
 import cn from 'classnames';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
-import FavoritesList from '../../components/favorites-list/favorites-list';
+import MemoizedFavoritesList from '../../components/favorites-list/favorites-list';
 import { useAppSelector } from '../../hooks';
 import { getFavoriteLoadingStatus, getFavoritsData } from '../../store/favorite-process/favorite-process.selectors';
 import { Status } from '../../const';
@@ -50,7 +50,7 @@ function Favorites(): JSX.Element {
             >
               {hasNoOffersFavoriteLength ? 'Favorites (empty)' : 'Saved listing'}
             </h1>
-            {hasNoOffersFavoriteLength ? <FavoritesEmpty /> : <FavoritesList favoriteOffers={favoriteOffers} />}
+            {hasNoOffersFavoriteLength ? <FavoritesEmpty /> : <MemoizedFavoritesList favoriteOffers={favoriteOffers} />}
           </section>
         </div>
       </main>

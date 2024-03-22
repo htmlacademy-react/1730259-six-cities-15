@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import { Host } from '../../types/offers';
+import { memo } from 'react';
 
 type OfferHostProps = {
   host: Host;
@@ -40,4 +41,6 @@ function OfferHost({host, description}: OfferHostProps): JSX.Element {
   );
 }
 
-export default OfferHost;
+const MemoizedOfferHost = memo(OfferHost);
+
+export default MemoizedOfferHost;

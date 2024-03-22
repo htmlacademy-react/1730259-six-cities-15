@@ -1,5 +1,5 @@
 import {Icon, Marker, layerGroup} from 'leaflet';
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { OfferMapItem, OfferMapItems } from '../../types/offers';
 import useMap from '../../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
@@ -64,4 +64,6 @@ function Map({className, offers}: MapProps): JSX.Element {
   );
 }
 
-export default Map;
+const MemoizedMap = memo(Map);
+
+export default MemoizedMap;

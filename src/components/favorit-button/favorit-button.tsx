@@ -4,7 +4,7 @@ import { fetchFavoriteOffersAction, updateFavoriteOffersAction } from '../../sto
 import { Offer } from '../../types/offers';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 
 type FavoritButtonProps = {
@@ -59,4 +59,6 @@ function FavoritButton({id, className, iconWidth, iconHeight, isFavorite}: Favor
   );
 }
 
-export default FavoritButton;
+const MemoizedFavoritButton = memo(FavoritButton);
+
+export default MemoizedFavoritButton;

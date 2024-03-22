@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { AuthorizationStatus, MAX_REVIEWS_COUNT } from '../../const';
 import { useAppSelector } from '../../hooks';
 import MemoizedReviewsForm from '../reviews-form/reviews-form';
@@ -40,4 +40,6 @@ function OfferReviews({id}: OfferReviewsProps): JSX.Element {
   );
 }
 
-export default OfferReviews;
+const MemoizedOfferReviews = memo(OfferReviews);
+
+export default MemoizedOfferReviews;

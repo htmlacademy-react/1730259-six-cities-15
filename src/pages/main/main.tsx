@@ -1,4 +1,4 @@
-import Map from '../../components/map/map';
+import MemoizedMap from '../../components/map/map';
 import MemoizedPlaceCard from '../../components/place-card/place-card';
 import MemoizedPlacesSorting from '../../components/places-sorting/places-sorting';
 import MemoizedTabs from '../../components/tabs/tabs';
@@ -89,7 +89,7 @@ function Main(): JSX.Element {
             }
           </section>
           <div className="cities__right-section">
-            {!hasNoFilteredOrSortedOffers && <Map className='cities' offers={offerMapItems} />}
+            {!hasNoFilteredOrSortedOffers && <MemoizedMap className='cities' offers={offerMapItems} />}
           </div>
         </div>
       </div>
