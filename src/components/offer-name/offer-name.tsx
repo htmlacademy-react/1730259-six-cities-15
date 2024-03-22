@@ -19,6 +19,6 @@ function OfferName({title, isFavorite, id}: OfferNameProps): JSX.Element {
   );
 }
 
-const MemoizedOfferName = memo(OfferName)
+const MemoizedOfferName = memo(OfferName);
 
 export default MemoizedOfferName;
