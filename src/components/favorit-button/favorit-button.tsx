@@ -1,11 +1,12 @@
 import cn from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchFavoriteOffersAction, updateFavoriteOffersAction } from '../../store/api-actions';
+import { updateFavoriteOffersAction } from '../../store/api-actions';
 import { Offer } from '../../types/offers';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus, Status } from '../../const';
 import { useNavigate } from 'react-router-dom';
 import { memo, useState } from 'react';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
+import { getFavoriteUpdateOffersLoadingStatus } from '../../store/favorite-process/favorite-process.selectors';
 
 type FavoritButtonProps = {
   id: Offer['id'];
@@ -19,6 +20,9 @@ function FavoritButton({id, className, iconWidth, iconHeight, isFavorite}: Favor
   const [favoriteStatus, setFavoriteStatus] = useState(isFavorite);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+  const udateFavoritLoadingStatus = useAppSelector(getFavoriteUpdateOffersLoadingStatus);
+  const isDisabled = udateFavoritLoadingStatus === Status.Loading;
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -32,8 +36,7 @@ function FavoritButton({id, className, iconWidth, iconHeight, isFavorite}: Favor
     dispatch(updateFavoriteOffersAction({
       id,
       status: Number(!favoriteStatus)
-    }))
-      .then(() => dispatch(fetchFavoriteOffersAction()));
+    }));
   };
 
   return (
@@ -46,6 +49,7 @@ function FavoritButton({id, className, iconWidth, iconHeight, isFavorite}: Favor
       }
       type="button"
       onClick={handleFavoritButtonClick}
+      disabled={isDisabled}
     >
       <svg
         className={`${className}__bookmark-icon`}

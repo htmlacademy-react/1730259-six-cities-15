@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NameSpace, Status } from '../../const';
-import { fetchNearByOffersAction, fetchOfferIdAction, fetchOffersAction } from '../api-actions';
+import { fetchNearByOffersAction, fetchOfferIdAction, fetchOffersAction, updateFavoriteOffersAction } from '../api-actions';
 import { OffersProcess } from '../../types/state';
 import { Offer } from '../../types/offers';
 
@@ -53,6 +53,11 @@ export const offersData = createSlice({
       })
       .addCase(fetchNearByOffersAction.rejected, (state) => {
         state.nearByOffersLoadingStatus = Status.Failed;
+      })
+      .addCase(updateFavoriteOffersAction.fulfilled, (state, action) => {
+        state.offers = state.offers.map((offer) =>
+          offer.id === action.payload.id ? { ...offer, isFavorite: action.payload.isFavorite } : offer
+        );
       });
   }
 });
