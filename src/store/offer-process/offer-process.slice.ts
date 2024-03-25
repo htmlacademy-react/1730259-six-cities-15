@@ -22,7 +22,7 @@ export const offersData = createSlice({
       state.currentOfferId = action.payload;
     }
   },
-  extraReducers: (builder) => {
+  extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
         state.offersLoadingStatus = Status.Loading;

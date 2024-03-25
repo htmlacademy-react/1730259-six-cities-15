@@ -12,7 +12,7 @@ export const reviewsData = createSlice({
   name: NameSpace.Reviews,
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers(builder) {
     builder
       .addCase(fetchOfferReviewsAction.pending, (state) => {
         state.reviewsLoadingStatus = Status.Loading;
