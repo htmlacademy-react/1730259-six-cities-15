@@ -19,14 +19,14 @@ function ReviewsRaitingStars({isChecked, isDisabled, handleChangeChecked}: Revie
               className="form__rating-input visually-hidden"
               name="rating"
               value={isNumberStar(index)}
-              id={isNumberStar(index) === 1 ? `${isNumberStar(index)}-star` : `${isNumberStar(index)}-stars`}
+              id={`${isNumberStar(index)}-stars`}
               checked={Number(isChecked) === isNumberStar(index)}
               type="radio"
               disabled={isDisabled}
               onChange={handleChangeChecked}
             />
             <label
-              htmlFor={isNumberStar(index) === 1 ? `${isNumberStar(index)}-star` : `${isNumberStar(index)}-stars`}
+              htmlFor={`${isNumberStar(index)}-stars`}
               className="reviews__rating-label form__rating-label"
               title={title}
             >
