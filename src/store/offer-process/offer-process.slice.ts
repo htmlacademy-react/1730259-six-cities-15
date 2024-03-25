@@ -55,9 +55,15 @@ export const offersData = createSlice({
         state.nearByOffersLoadingStatus = Status.Failed;
       })
       .addCase(updateFavoriteOffersAction.fulfilled, (state, action) => {
+        const { id, isFavorite } = action.payload;
+
         state.offers = state.offers.map((offer) =>
-          offer.id === action.payload.id ? { ...offer, isFavorite: action.payload.isFavorite } : offer
+          offer.id === id ? { ...offer, isFavorite } : offer
         );
+
+        if (state.fullOffer && state.fullOffer.id === id) {
+          state.fullOffer = { ...state.fullOffer, isFavorite };
+        }
       });
   }
 });

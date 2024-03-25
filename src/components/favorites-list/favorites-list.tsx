@@ -2,6 +2,8 @@ import { memo } from 'react';
 import { City, Offers } from '../../types/offers';
 import MemoizedLocationItem from '../location-item/location-item';
 import MemoizedPlaceCard from '../place-card/place-card';
+import { decapitalize } from '../../utils/utils';
+import { Cities } from '../../const';
 
 type FavoritesListProps = {
   favoriteOffers: Offers;
@@ -11,7 +13,7 @@ function FavoritesList({favoriteOffers}:FavoritesListProps): JSX.Element {
   const favoritLocations = new Map<City['name'], Offers>();
 
   favoriteOffers.forEach((offer) => {
-    const cityName = offer.city.name;
+    const cityName = decapitalize(offer.city.name) as keyof typeof Cities;
     if (favoritLocations.has(cityName)) {
       favoritLocations.get(cityName)?.push(offer);
     } else {
