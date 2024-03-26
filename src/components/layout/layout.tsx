@@ -1,30 +1,27 @@
 import cn from 'classnames';
-import { Outlet, useLocation, Location } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import Header from '../header/header';
+import MemoizedHeader from '../header/header';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import { useAppSelector } from '../../hooks';
-
-interface MyLocation extends Location {
-  pathname: AppRoute;
-}
+import { getFavoritsData } from '../../store/favorite-process/favorite-process.selectors';
+import { MyLocation } from '../../types/my-location';
+import { useMemo } from 'react';
 
 function Layout(): JSX.Element {
   const { pathname } = useLocation() as MyLocation;
-  const favoriteOffers = useAppSelector((store) => store.favoriteOffers);
+  const favoriteOffers = useAppSelector(getFavoritsData);
+  const classLink = useMemo(() =>
+    cn('page',
+      {'page--gray page--main' : pathname === AppRoute.Root},
+      {'page--gray page--login': pathname === AppRoute.Login},
+      {'page--favorites-empty': pathname === AppRoute.Favorites && !favoriteOffers.length},
+    ), [favoriteOffers.length, pathname]);
 
   return (
-    <div
-      className={
-        cn('page',
-          {'page--gray page--main' : pathname === AppRoute.Root},
-          {'page--gray page--login': pathname === AppRoute.Login},
-          {'page--favorites-empty': pathname === AppRoute.Favorites && !favoriteOffers.length},
-        )
-      }
-    >
+    <div className={classLink} >
       <ScrollToTop />
-      <Header />
+      <MemoizedHeader pathname={pathname} />
       <Outlet />
     </div>
   );

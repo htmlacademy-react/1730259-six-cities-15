@@ -1,22 +1,21 @@
+import { memo, useMemo } from 'react';
+
 type LocationItemWrapperProps = {
   isTabs?: boolean;
   children: JSX.Element;
 }
 
 function LocationItemWrapper({isTabs, children}: LocationItemWrapperProps): JSX.Element {
-  if (isTabs) {
-    return (
-      <li className="locations__item">
-        {children}
-      </li>
-    );
-  }
+  const WrapperTag = useMemo(() => isTabs ? 'li' : 'div', [isTabs]);
 
   return (
-    <div className="locations__item">
+    <WrapperTag className="locations__item">
       {children}
-    </div>
+    </WrapperTag>
   );
+
 }
 
-export default LocationItemWrapper;
+const MemoizedLocationItemWrapper = memo(LocationItemWrapper);
+
+export default MemoizedLocationItemWrapper;

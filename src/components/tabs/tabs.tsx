@@ -7,6 +7,7 @@ type TabsProps = {
 }
 
 function Tabs({currentCity}: TabsProps): JSX.Element {
+
   return (
     <div className="tabs">
       <section className="locations container">

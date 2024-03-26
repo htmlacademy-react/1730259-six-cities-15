@@ -1,5 +1,6 @@
+import { memo } from 'react';
 import { Offer } from '../../types/offers';
-import FavoritButton from '../favorit-button/favorit-button';
+import MemoizedFavoritButton from '../favorit-button/favorit-button';
 
 type OfferNameProps = {
   title: string;
@@ -13,9 +14,11 @@ function OfferName({title, isFavorite, id}: OfferNameProps): JSX.Element {
       <h1 className="offer__name">
         {title}
       </h1>
-      <FavoritButton className='offer' iconWidth='31' iconHeight='33' isFavorite={isFavorite} id={id} />
+      <MemoizedFavoritButton className='offer' iconWidth='31' iconHeight='33' isFavorite={isFavorite} id={id} />
     </div>
   );
 }
 
-export default OfferName;
+const MemoizedOfferName = memo(OfferName);
+
+export default MemoizedOfferName;

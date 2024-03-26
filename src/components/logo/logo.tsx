@@ -1,35 +1,37 @@
-import { useLocation } from 'react-router-dom';
-import LogoLink from '../logo-link/logo-link';
+import MemoizedLogoLink from '../logo-link/logo-link';
 import { AppRoute } from '../../const';
-import classNames from 'classnames';
-import LogoImage from '../logo-image/logo-image';
-import { MyLocation } from '../../types/my-location';
+import cn from 'classnames';
+import MemoizedLogoImage from '../logo-image/logo-image';
+import { memo, useMemo } from 'react';
 
 type LogoProps = {
   isFooter?: boolean;
+  pathname?: AppRoute;
 }
 
-function Logo({isFooter}: LogoProps): JSX.Element {
-  const {pathname} = useLocation() as MyLocation;
-  const isMain = pathname === AppRoute.Root;
+function Logo({isFooter, pathname}: LogoProps): JSX.Element {
+  const classLink = useMemo(() =>
+    cn(
+      {'footer__logo-link': isFooter},
+      {'header__logo-link': !isFooter},
+      {'header__logo-link--active': pathname === AppRoute.Root}
+    ), [isFooter, pathname]);
 
   return (
-    <LogoLink
+    <MemoizedLogoLink
       isFooter={isFooter}
-      isMain={isMain}
-      classLink={classNames(
-        {'footer__logo-link': isFooter},
-        {'header__logo-link': !isFooter},
-        {'header__logo-link--active' : isMain}
-      )}
+      isMain={pathname === AppRoute.Root}
+      classLink={classLink}
     >
-      <LogoImage
+      <MemoizedLogoImage
         classImage={isFooter ? 'footer__logo' : 'header__logo'}
         imageWidth={isFooter ? '64' : '81'}
         imageHeight={isFooter ? '33' : '41'}
       />
-    </LogoLink>
+    </MemoizedLogoLink>
   );
 }
 
-export default Logo;
+const MemoizedLogo = memo(Logo);
+
+export default MemoizedLogo;

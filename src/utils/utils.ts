@@ -3,6 +3,8 @@ import { Offers } from '../types/offers';
 
 export const capitalize = (item: string | null): string | null => item !== null ? item.charAt(0).toUpperCase() + item.substring(1) : null;
 
+export const decapitalize = (item: string | null): string | null => item !== null ? item.charAt(0).toLowerCase() + item.substring(1) : null;
+
 export function getRandomArrayItem<T>(items: T[]) {
   return items[Math.floor(Math.random() * items.length)];
 }
@@ -32,7 +34,4 @@ export const validateLoginAndEmail = (authData: FormData) => {
   return isValidEmail && isValidPassword;
 };
 
-export function shuffle<T>(array: T[] | [T]): T[] | [T] {
-  const newArray = Array.isArray(array) ? [...array] : [...array];
-  return newArray.sort(() => Math.random() - 0.5);
-}
+export const getDataToMap = (array: Offers) => array.map(({id, city, location}) => ({id, city, location}));

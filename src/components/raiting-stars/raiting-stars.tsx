@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { convertRatingToPercentage } from '../../utils/utils';
 
 type RaitingStarsProps = {
@@ -14,4 +15,6 @@ function RaitingStars({className, rating}: RaitingStarsProps): JSX.Element {
   );
 }
 
-export default RaitingStars;
+const MemoizedRaitingStars = memo(RaitingStars);
+
+export default MemoizedRaitingStars;

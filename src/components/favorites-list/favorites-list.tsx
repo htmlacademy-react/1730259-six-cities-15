@@ -1,12 +1,26 @@
+import { memo } from 'react';
 import { City, Offers } from '../../types/offers';
 import MemoizedLocationItem from '../location-item/location-item';
-import PlaceCard from '../place-card/place-card';
+import MemoizedPlaceCard from '../place-card/place-card';
+import { decapitalize } from '../../utils/utils';
+import { Cities } from '../../const';
 
 type FavoritesListProps = {
-  favoritLocations: Map<City['name'], Offers>;
+  favoriteOffers: Offers;
 }
 
-function FavoritesList({favoritLocations}:FavoritesListProps): JSX.Element {
+function FavoritesList({favoriteOffers}:FavoritesListProps): JSX.Element {
+  const favoritLocations = new Map<City['name'], Offers>();
+
+  favoriteOffers.forEach((offer) => {
+    const cityName = decapitalize(offer.city.name) as keyof typeof Cities;
+    if (favoritLocations.has(cityName)) {
+      favoritLocations.get(cityName)?.push(offer);
+    } else {
+      favoritLocations.set(cityName, [offer]);
+    }
+  });
+
   return (
     <ul className="favorites__list">
       {
@@ -18,7 +32,7 @@ function FavoritesList({favoritLocations}:FavoritesListProps): JSX.Element {
             <div className="favorites__places">
               {
                 favoritLocations.get(city)
-                  ?.map((offer) => <PlaceCard key={offer.id} className='favorites' offer={offer} isSmall />)
+                  ?.map((offer) => <MemoizedPlaceCard key={offer.id} className='favorites' offer={offer} isSmall />)
               }
             </div>
           </li>
@@ -28,4 +42,6 @@ function FavoritesList({favoritLocations}:FavoritesListProps): JSX.Element {
   );
 }
 
-export default FavoritesList;
+const MemoizedFavoritesList = memo(FavoritesList);
+
+export default MemoizedFavoritesList;

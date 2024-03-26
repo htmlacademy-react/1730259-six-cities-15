@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { ApartmentType } from '../../types/offers';
 import { capitalize } from '../../utils/utils';
 
@@ -23,4 +24,6 @@ function OfferFeatures({type, bedrooms, maxAdults}: OfferFeaturesProps): JSX.Ele
   );
 }
 
-export default OfferFeatures;
+const MemoizedOfferFeatures = memo(OfferFeatures);
+
+export default MemoizedOfferFeatures;

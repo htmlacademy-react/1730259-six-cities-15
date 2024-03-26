@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 
@@ -8,24 +9,18 @@ type LogoLinkProps = {
   classLink: string;
 }
 
-function LogoLink({isFooter, isMain, classLink, children}: LogoLinkProps): JSX.Element {
-
-  if (isMain && !isFooter) {
-    return (
-      <a className={classLink}>
-        {children}
-      </a>
-    );
-  }
-
-  return (
-    <Link
-      to={AppRoute.Root}
-      className={classLink}
-    >
+const LogoLink = ({ isFooter, isMain, classLink, children }: LogoLinkProps): JSX.Element => (
+  isMain && !isFooter ? (
+    <a className={classLink}>
+      {children}
+    </a>
+  ) : (
+    <Link to={AppRoute.Root} className={classLink}>
       {children}
     </Link>
-  );
-}
+  )
+);
 
-export default LogoLink;
+const MemoizedLogoLink = memo(LogoLink);
+
+export default MemoizedLogoLink;

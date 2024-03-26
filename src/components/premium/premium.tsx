@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 type PremiumProps = {
   className?: string;
 }
@@ -10,4 +12,6 @@ function Premium({className}: PremiumProps): JSX.Element {
   );
 }
 
-export default Premium;
+const MemoizedPremium = memo(Premium);
+
+export default MemoizedPremium;
