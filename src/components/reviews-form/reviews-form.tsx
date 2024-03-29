@@ -4,7 +4,7 @@ import { MAX_VALUE_REVIEW_LENGHT, MIN_VALUE_REVIEW_LENGHT, STAR_NAME, Status } f
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addReviewAction } from '../../store/api-actions';
 import { Offer } from '../../types/offers';
-import { getReviewsLoadingStatus } from '../../store/review-process/review-process.selectors';
+import { getAddReviewsLoadingStatus } from '../../store/review-process/review-process.selectors';
 import { toast } from 'react-toastify';
 
 type ReviewsFormProps = {
@@ -16,8 +16,8 @@ function ReviewsForm({id}: ReviewsFormProps): JSX.Element {
   const [value, setValue] = useState('');
   const [isSubmitActive, setIsSubmitActive] = useState(false);
   const dispatch = useAppDispatch();
-  const getReviewStatus = useAppSelector(getReviewsLoadingStatus);
-  const isReviewLoading = getReviewStatus === Status.Loading;
+  const getAddReviewStatus = useAppSelector(getAddReviewsLoadingStatus);
+  const isReviewLoading = getAddReviewStatus === Status.Loading;
 
   const handleChangeChecked = useCallback(({ target }: ChangeEvent<HTMLInputElement>) => {
     if (target.name === STAR_NAME) {
@@ -38,6 +38,12 @@ function ReviewsForm({id}: ReviewsFormProps): JSX.Element {
     setValue('');
   };
 
+  useEffect(() => {
+    if (getAddReviewStatus === Status.Success) {
+      resetForm();
+    }
+  }, [getAddReviewStatus]);
+
   const handleFormSubmit = (evt: FormEvent) => {
     evt.preventDefault();
 
@@ -49,11 +55,7 @@ function ReviewsForm({id}: ReviewsFormProps): JSX.Element {
       }));
     }
 
-    if (getReviewStatus === Status.Success) {
-      resetForm();
-    }
-
-    if (getReviewStatus === Status.Failed) {
+    if (getAddReviewStatus === Status.Failed) {
       toast.warn('Ошибка отправки, попробуйте еще раз');
     }
   };

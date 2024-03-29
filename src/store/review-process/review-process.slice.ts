@@ -5,7 +5,8 @@ import { ReviewProcess } from '../../types/state';
 
 const initialState: ReviewProcess = {
   reviews: [],
-  reviewsLoadingStatus: Status.Idle
+  reviewsLoadingStatus: Status.Idle,
+  addReviewsLoadingStatus: Status.Idle
 };
 
 export const reviewsData = createSlice({
@@ -25,14 +26,14 @@ export const reviewsData = createSlice({
         state.reviewsLoadingStatus = Status.Failed;
       })
       .addCase(addReviewAction.pending, (state) => {
-        state.reviewsLoadingStatus = Status.Loading;
+        state.addReviewsLoadingStatus = Status.Loading;
       })
       .addCase(addReviewAction.fulfilled, (state, action) => {
         state.reviews.push(action.payload);
-        state.reviewsLoadingStatus = Status.Success;
+        state.addReviewsLoadingStatus = Status.Success;
       })
       .addCase(addReviewAction.rejected, (state) => {
-        state.reviewsLoadingStatus = Status.Failed;
+        state.addReviewsLoadingStatus = Status.Failed;
       });
   },
 });

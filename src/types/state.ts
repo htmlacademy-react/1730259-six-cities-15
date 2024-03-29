@@ -37,4 +37,5 @@ export type FavoriteProcess = {
 export type ReviewProcess = {
   reviews: Reviews;
   reviewsLoadingStatus: Status;
+  addReviewsLoadingStatus: Status;
 }
