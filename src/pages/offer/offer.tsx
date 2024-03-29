@@ -13,18 +13,22 @@ import MemoizedOfferFeatures from '../../components/offer-features/offer-feature
 import MemoizedOfferRating from '../../components/offer-rating/offer-rating';
 import MemoizedOfferName from '../../components/offer-name/offer-name';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { fetchNearByOffersAction, fetchOfferIdAction, fetchOfferReviewsAction } from '../../store/api-actions';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
 import { getDataToMap } from '../../utils/utils';
 import { getFullOffer, getFullOfferLoadingStatus, getNearByOffers, getNearByOffersLoadingStatus } from '../../store/offer-process/offer-process.selectors';
 import { setCurrentOfferId } from '../../store/offer-process/offer-process.slice';
+import { getReviewsLoadingStatus } from '../../store/review-process/review-process.selectors';
+import ErrorLoadSreen from '../../components/error-load-screen/error-load-screen';
+import { Offer } from '../../types/offers';
 
-function Offer(): JSX.Element {
-  const { id } = useParams();
+function OfferPage(): JSX.Element {
+  const { id } = useParams<{ id: Offer['id'] }>();
   const dispatch = useAppDispatch();
   const isLoadingFullOffer = useAppSelector(getFullOfferLoadingStatus);
   const isLoadingNearByOffers = useAppSelector(getNearByOffersLoadingStatus);
+  const isReviewLoading = useAppSelector(getReviewsLoadingStatus);
   const offer = useAppSelector(getFullOffer);
   const nearByOffers = useAppSelector(getNearByOffers).slice(0, MAX_NIAR_OFFER);
 
@@ -41,9 +45,16 @@ function Offer(): JSX.Element {
 
   if (
     (isLoadingFullOffer === Status.Idle || isLoadingFullOffer === Status.Loading) ||
+    (isReviewLoading === Status.Idle || isReviewLoading === Status.Loading) ||
     (isLoadingNearByOffers === Status.Idle || isLoadingNearByOffers === Status.Loading)
   ) {
     return <LoadingScreen />;
+  }
+
+  if (isLoadingFullOffer === Status.Failed && id) {
+    return (
+      <ErrorLoadSreen onButtonDispatchClick={() => fetchOfferIdAction(id)} />
+    );
   }
 
   if (!offer) {
@@ -97,4 +108,6 @@ function Offer(): JSX.Element {
   );
 }
 
-export default Offer;
+const MemoizedOfferPage = memo(OfferPage);
+
+export default MemoizedOfferPage;
