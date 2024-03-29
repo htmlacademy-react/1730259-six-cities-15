@@ -1,24 +1,29 @@
-import { useLocation } from 'react-router-dom';
-import Logo from '../logo/logo';
+import MemoizedLogo from '../logo/logo';
 import { AppRoute } from '../../const';
-import HeaderNav from '../header-nav/header-nav';
-import { MyLocation } from '../../types/my-location';
+import MemoizedHeaderNav from '../header-nav/header-nav';
+import { memo, useMemo } from 'react';
 
-function Header(): JSX.Element {
-  const { pathname } = useLocation() as MyLocation;
+type HeaderProps = {
+  pathname: AppRoute;
+}
+
+function Header({pathname}: HeaderProps): JSX.Element {
+  const isLogin = useMemo(() => pathname !== AppRoute.Login, [pathname]);
 
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Logo />
+            <MemoizedLogo pathname={pathname} />
           </div>
-          {pathname !== AppRoute.Login && <HeaderNav />}
+          {isLogin && <MemoizedHeaderNav />}
         </div>
       </div>
     </header>
   );
 }
 
-export default Header;
+const MemoizedHeader = memo(Header);
+
+export default MemoizedHeader;

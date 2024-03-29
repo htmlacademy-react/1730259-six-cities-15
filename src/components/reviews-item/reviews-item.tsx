@@ -1,5 +1,6 @@
+import { memo } from 'react';
 import { Review } from '../../types/reviews';
-import RaitingStars from '../raiting-stars/raiting-stars';
+import MemoizedRaitingStars from '../raiting-stars/raiting-stars';
 
 type ReviewsItemProps = {
   review: Review;
@@ -23,7 +24,7 @@ function ReviewsItem({review}: ReviewsItemProps): JSX.Element {
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
-          <RaitingStars className='reviews__stars' rating={rating} />
+          <MemoizedRaitingStars className='reviews__stars' rating={rating} />
         </div>
         <p className="reviews__text">
           {comment}
@@ -34,4 +35,6 @@ function ReviewsItem({review}: ReviewsItemProps): JSX.Element {
   );
 }
 
-export default ReviewsItem;
+const MemoizedReviewsItem = memo(ReviewsItem);
+
+export default MemoizedReviewsItem;

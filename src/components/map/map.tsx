@@ -1,14 +1,15 @@
 import {Icon, Marker, layerGroup} from 'leaflet';
-import { useEffect, useRef } from 'react';
-import { Offer, Offers } from '../../types/offers';
+import { memo, useEffect, useRef } from 'react';
+import { OfferMapItem, OfferMapItems } from '../../types/offers';
 import useMap from '../../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
 import { SCROLL_CLASS_NAME, URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
 import { useAppSelector } from '../../hooks';
+import { getCurrentOfferId } from '../../store/offer-process/offer-process.selectors';
 
 type MapProps = {
   className: string;
-  offers: Offers;
+  offers: OfferMapItems;
 }
 
 const defaultCustomIcon = new Icon({
@@ -25,7 +26,7 @@ const currentCustomIcon = new Icon({
 
 function Map({className, offers}: MapProps): JSX.Element {
   const mapRef = useRef(null);
-  const activeOfferId = useAppSelector((state) => state.currentOfferId);
+  const activeOfferId = useAppSelector(getCurrentOfferId);
   const cityLocation = offers[0].city.location;
   const mapZoomOnScroll = className === SCROLL_CLASS_NAME;
   const map = useMap(mapRef, cityLocation, mapZoomOnScroll);
@@ -35,7 +36,7 @@ function Map({className, offers}: MapProps): JSX.Element {
       map.flyTo([cityLocation.latitude, cityLocation.longitude], cityLocation.zoom);
       const markerGroup = layerGroup().addTo(map);
 
-      const addMarker = (offer: Offer) => {
+      const addMarker = (offer: OfferMapItem) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude
@@ -63,4 +64,6 @@ function Map({className, offers}: MapProps): JSX.Element {
   );
 }
 
-export default Map;
+const MemoizedMap = memo(Map);
+
+export default MemoizedMap;

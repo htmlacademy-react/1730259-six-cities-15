@@ -2,22 +2,36 @@ import MemoizedLogin from '../../pages/login/login';
 import { HelmetProvider } from 'react-helmet-async';
 import MemoizedMain from '../../pages/main/main';
 import { Route, Routes } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus, Status } from '../../const';
 import Layout from '../layout/layout';
 import PageNotFound from '../../pages/page-not-found/page-not-found';
 import Favorites from '../../pages/favorites/favorites';
 import Offer from '../../pages/offer/offer';
 import PrivateRoute from '../private-route/private-route';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import LoadingScreen from '../loading-screen/loading-screen';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
+import { getOffersLoadingStatus } from '../../store/offer-process/offer-process.selectors';
+import { useEffect } from 'react';
+import { fetchFavoriteOffersAction } from '../../store/api-actions';
 
 function App(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const dispatch = useAppDispatch();
+  const isAuthChecked = useAppSelector(getAuthorizationStatus);
+  const isDataLoading = useAppSelector(getOffersLoadingStatus);
 
-  if (authorizationStatus === AuthorizationStatus.Unknown) {
-    return <LoadingScreen />;
+  useEffect(() => {
+    if (isAuthChecked === AuthorizationStatus.Auth) {
+      dispatch(fetchFavoriteOffersAction());
+    }
+  }, [dispatch, isAuthChecked]);
+
+  if (isAuthChecked === AuthorizationStatus.Unknown || isDataLoading === Status.Loading) {
+    return (
+      <LoadingScreen />
+    );
   }
 
   return (
@@ -29,7 +43,7 @@ function App(): JSX.Element {
             <Route
               path={AppRoute.Login}
               element={
-                <PrivateRoute authorizationStatus={authorizationStatus} isReverse>
+                <PrivateRoute authorizationStatus={isAuthChecked} isReverse>
                   <MemoizedLogin />
                 </PrivateRoute>
               }
@@ -38,7 +52,7 @@ function App(): JSX.Element {
             <Route
               path={AppRoute.Favorites}
               element={
-                <PrivateRoute authorizationStatus={authorizationStatus}>
+                <PrivateRoute authorizationStatus={isAuthChecked}>
                   <Favorites />
                 </PrivateRoute>
               }

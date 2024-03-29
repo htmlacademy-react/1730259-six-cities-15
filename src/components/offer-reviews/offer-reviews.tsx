@@ -1,20 +1,21 @@
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { AuthorizationStatus, MAX_REVIEWS_COUNT } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { Reviews } from '../../types/reviews';
 import MemoizedReviewsForm from '../reviews-form/reviews-form';
-import ReviewsItem from '../reviews-item/reviews-item';
+import MemoizedReviewsItem from '../reviews-item/reviews-item';
 import { Offer } from '../../types/offers';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
+import { getReviewsData } from '../../store/review-process/review-process.selectors';
 
 type OfferReviewsProps = {
-  reviews: Reviews;
   id: Offer['id'];
 }
 
-function OfferReviews({reviews, id}: OfferReviewsProps): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+function OfferReviews({id}: OfferReviewsProps): JSX.Element {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const reviews = useAppSelector(getReviewsData);
 
-  const sortingReviws = useMemo(() => (
+  const sortingReviews = useMemo(() => (
     reviews
       .slice()
       .sort(
@@ -29,9 +30,9 @@ function OfferReviews({reviews, id}: OfferReviewsProps): JSX.Element {
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
       <ul className="reviews__list">
         {
-          sortingReviws &&
-          sortingReviws.length > 0 &&
-          sortingReviws.map((review) => <ReviewsItem key={review.id} review={review} />)
+          sortingReviews &&
+          sortingReviews.length > 0 &&
+          sortingReviews.map((review) => <MemoizedReviewsItem key={review.id} review={review} />)
         }
       </ul>
       {authorizationStatus === AuthorizationStatus.Auth && <MemoizedReviewsForm id={id} />}
@@ -39,4 +40,6 @@ function OfferReviews({reviews, id}: OfferReviewsProps): JSX.Element {
   );
 }
 
-export default OfferReviews;
+const MemoizedOfferReviews = memo(OfferReviews);
+
+export default MemoizedOfferReviews;

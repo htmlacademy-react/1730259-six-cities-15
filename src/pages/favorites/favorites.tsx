@@ -1,23 +1,20 @@
-import Logo from '../../components/logo/logo';
+import MemoizedLogo from '../../components/logo/logo';
 import { Helmet } from 'react-helmet-async';
-import { City, Offers } from '../../types/offers';
 import cn from 'classnames';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
-import FavoritesList from '../../components/favorites-list/favorites-list';
+import MemoizedFavoritesList from '../../components/favorites-list/favorites-list';
 import { useAppSelector } from '../../hooks';
+import { getFavoriteLoadingStatus, getFavoritsData } from '../../store/favorite-process/favorite-process.selectors';
+import { Status } from '../../const';
+import LoadingScreen from '../../components/loading-screen/loading-screen';
 
 function Favorites(): JSX.Element {
-  const favoriteOffers = useAppSelector((store) => store.favoriteOffers);
-  const favoritLocations = new Map<City['name'], Offers>();
+  const favoriteOffers = useAppSelector(getFavoritsData);
+  const isLoadingFavoriteOffers = useAppSelector(getFavoriteLoadingStatus);
 
-  favoriteOffers.forEach((offer) => {
-    const cityName = offer.city.name;
-    if (favoritLocations.has(cityName)) {
-      favoritLocations.get(cityName)?.push(offer);
-    } else {
-      favoritLocations.set(cityName, [offer]);
-    }
-  });
+  if (isLoadingFavoriteOffers === Status.Loading) {
+    return <LoadingScreen />;
+  }
 
   const hasNoOffersFavoriteLength = !favoriteOffers.length;
 
@@ -53,12 +50,12 @@ function Favorites(): JSX.Element {
             >
               {hasNoOffersFavoriteLength ? 'Favorites (empty)' : 'Saved listing'}
             </h1>
-            {hasNoOffersFavoriteLength ? <FavoritesEmpty /> : <FavoritesList favoritLocations={favoritLocations} />}
+            {hasNoOffersFavoriteLength ? <FavoritesEmpty /> : <MemoizedFavoritesList favoriteOffers={favoriteOffers} />}
           </section>
         </div>
       </main>
       <footer className="footer container">
-        <Logo isFooter />
+        <MemoizedLogo isFooter />
       </footer>
     </>
   );

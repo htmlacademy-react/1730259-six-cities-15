@@ -1,10 +1,12 @@
 import cn from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchFavoriteOffersAction, updateFavoriteOffersAction } from '../../store/api-actions';
+import { updateFavoriteOffersAction } from '../../store/api-actions';
 import { Offer } from '../../types/offers';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus, Status } from '../../const';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { memo } from 'react';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
+import { getFavoriteUpdateOffersLoadingStatus } from '../../store/favorite-process/favorite-process.selectors';
 
 type FavoritButtonProps = {
   id: Offer['id'];
@@ -15,21 +17,23 @@ type FavoritButtonProps = {
 }
 
 function FavoritButton({id, className, iconWidth, iconHeight, isFavorite}: FavoritButtonProps): JSX.Element {
-  const [favoriteStatus, setFavoriteStatus] = useState(isFavorite);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+  const udateFavoritLoadingStatus = useAppSelector(getFavoriteUpdateOffersLoadingStatus);
+  const isDisabled = udateFavoritLoadingStatus === Status.Loading;
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const status = isFavorite ? 0 : 1;
 
   const handleFavoritButtonClick = () => {
     if (!isAuthorized) {
       return navigate(AppRoute.Login, {replace: true});
     }
-    setFavoriteStatus((prevState) => !prevState);
 
-    dispatch(updateFavoriteOffersAction({id, status}))
-      .then(() => dispatch(fetchFavoriteOffersAction()));
+    dispatch(updateFavoriteOffersAction({
+      id,
+      status: Number(!isFavorite)
+    }));
   };
 
   return (
@@ -37,11 +41,12 @@ function FavoritButton({id, className, iconWidth, iconHeight, isFavorite}: Favor
       className={
         cn(
           `${className}__bookmark-button button`,
-          {[`${className}__bookmark-button--active`]: favoriteStatus}
+          {[`${className}__bookmark-button--active`]: isFavorite}
         )
       }
       type="button"
       onClick={handleFavoritButtonClick}
+      disabled={isDisabled}
     >
       <svg
         className={`${className}__bookmark-icon`}
@@ -50,9 +55,11 @@ function FavoritButton({id, className, iconWidth, iconHeight, isFavorite}: Favor
       >
         <use xlinkHref="#icon-bookmark"></use>
       </svg>
-      <span className="visually-hidden">{favoriteStatus ? 'In bookmarks' : 'To bookmarks'}</span>
+      <span className="visually-hidden">{isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
     </button>
   );
 }
 
-export default FavoritButton;
+const MemoizedFavoritButton = memo(FavoritButton);
+
+export default MemoizedFavoritButton;

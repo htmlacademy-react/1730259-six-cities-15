@@ -1,9 +1,10 @@
 import cn from 'classnames';
 import { Host } from '../../types/offers';
+import { memo } from 'react';
 
 type OfferHostProps = {
   host: Host;
-  description: string | string[];
+  description: string;
 }
 
 function OfferHost({host, description}: OfferHostProps): JSX.Element {
@@ -34,17 +35,12 @@ function OfferHost({host, description}: OfferHostProps): JSX.Element {
         }
       </div>
       <div className="offer__description">
-        {
-          Array.isArray(description)
-            ?
-            description.map((item) => <p key={item} className="offer__text">{item}</p>)
-            :
-            <p className="offer__text">{description}</p>
-        }
-
+        <p className="offer__text">{description}</p>
       </div>
     </div>
   );
 }
 
-export default OfferHost;
+const MemoizedOfferHost = memo(OfferHost);
+
+export default MemoizedOfferHost;
