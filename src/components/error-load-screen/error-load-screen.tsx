@@ -10,7 +10,7 @@ function ErrorLoadSreen({onButtonDispatchClick}: ErrorRewiewsSreenProps):JSX.Ele
   const dispatch = useAppDispatch();
   return (
     <div className='error-review'>
-      <p>Ошибка загрузки отзывов</p>
+      <p>Ошибка загрузки данных</p>
       <button onClick={() => {
         dispatch(onButtonDispatchClick());
       }}

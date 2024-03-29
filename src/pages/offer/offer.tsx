@@ -20,7 +20,6 @@ import { getDataToMap } from '../../utils/utils';
 import { getFullOffer, getFullOfferLoadingStatus, getNearByOffers, getNearByOffersLoadingStatus } from '../../store/offer-process/offer-process.selectors';
 import { setCurrentOfferId } from '../../store/offer-process/offer-process.slice';
 import { getReviewsLoadingStatus } from '../../store/review-process/review-process.selectors';
-import ErrorLoadSreen from '../../components/error-load-screen/error-load-screen';
 import { Offer } from '../../types/offers';
 
 function OfferPage(): JSX.Element {
@@ -49,12 +48,6 @@ function OfferPage(): JSX.Element {
     (isLoadingNearByOffers === Status.Idle || isLoadingNearByOffers === Status.Loading)
   ) {
     return <LoadingScreen />;
-  }
-
-  if (isLoadingFullOffer === Status.Failed && id) {
-    return (
-      <ErrorLoadSreen onButtonDispatchClick={() => fetchOfferIdAction(id)} />
-    );
   }
 
   if (!offer) {

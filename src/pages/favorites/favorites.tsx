@@ -7,8 +7,6 @@ import { useAppSelector } from '../../hooks';
 import { getFavoriteLoadingStatus, getFavoritsData } from '../../store/favorite-process/favorite-process.selectors';
 import { Status } from '../../const';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
-import ErrorLoadSreen from '../../components/error-load-screen/error-load-screen';
-import { fetchFavoriteOffersAction } from '../../store/api-actions';
 
 function Favorites(): JSX.Element {
   const favoriteOffers = useAppSelector(getFavoritsData);
@@ -16,12 +14,6 @@ function Favorites(): JSX.Element {
 
   if (isLoadingFavoriteOffers === Status.Loading) {
     return <LoadingScreen />;
-  }
-
-  if (isLoadingFavoriteOffers === Status.Failed) {
-    return (
-      <ErrorLoadSreen onButtonDispatchClick={fetchFavoriteOffersAction} />
-    );
   }
 
   const hasNoOffersFavoriteLength = !favoriteOffers.length;
