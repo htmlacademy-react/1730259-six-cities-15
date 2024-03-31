@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { SortType } from '../../const';
-import { RefObject, useEffect, useRef, useState } from 'react';
+import { RefObject, memo, useEffect, useRef, useState } from 'react';
 
 type PlacesSortingProps ={
   currentSort: SortType;
@@ -59,4 +59,6 @@ function PlacesSorting({currentSort, onChangeSort}: PlacesSortingProps): JSX.Ele
   );
 }
 
-export default PlacesSorting;
+const MemoizedPlacesSorting = memo(PlacesSorting);
+
+export default MemoizedPlacesSorting;
