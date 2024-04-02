@@ -64,6 +64,10 @@ export const offersData = createSlice({
         if (state.fullOffer && state.fullOffer.id === id) {
           state.fullOffer = { ...state.fullOffer, isFavorite };
         }
+
+        state.nearByOffers = state.nearByOffers.map((offer) =>
+          offer.id === id ? { ...offer, isFavorite } : offer
+        );
       });
   }
 });

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logOutAction } from '../../store/api-actions';
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback } from 'react';
 import { getAuthorizationStatus, getUserData } from '../../store/user-process/user-process.selectors';
 import { getFavoritsData } from '../../store/favorite-process/favorite-process.selectors';
 
@@ -12,10 +12,7 @@ function HeaderNav(): JSX.Element {
   const favoriteOffers = useAppSelector(getFavoritsData);
   const userData = useAppSelector(getUserData);
 
-  const isAuth = useMemo(() => authorizationStatus === AuthorizationStatus.Auth, [authorizationStatus]);
-  const userAvatar = useMemo(() => userData?.avatarUrl ?? '../img/avatar.svg', [userData?.avatarUrl]);
-  const userEmail = useMemo(() => userData?.email, [userData?.email]);
-  const favoriteCount = useMemo(() => favoriteOffers.length, [favoriteOffers.length]);
+  const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
   const handleClickLogout = useCallback((evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     evt.preventDefault();
@@ -29,7 +26,7 @@ function HeaderNav(): JSX.Element {
           <Link className="header__nav-link header__nav-link--profile" to={isAuth ? AppRoute.Favorites : AppRoute.Login}>
             <div className="header__avatar-wrapper user__avatar-wrapper"
               style={{
-                backgroundImage: `url(${userAvatar})`,
+                backgroundImage: `url(${userData?.avatarUrl ?? '../img/avatar.svg'})`,
                 borderRadius: '50%'
               }}
             >
@@ -38,8 +35,8 @@ function HeaderNav(): JSX.Element {
               isAuth
                 ?
                 <>
-                  <span className="header__user-name user__name">{userEmail}</span>
-                  <span className="header__favorite-count">{favoriteCount}</span>
+                  <span className="header__user-name user__name">{userData?.email}</span>
+                  <span className="header__favorite-count">{favoriteOffers.length}</span>
                 </>
                 :
                 <span className="header__login">Sign in</span>

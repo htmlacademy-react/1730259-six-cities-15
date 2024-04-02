@@ -17,13 +17,13 @@ type FavoritButtonProps = {
 }
 
 function FavoritButton({id, className, iconWidth, iconHeight, isFavorite}: FavoritButtonProps): JSX.Element {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
   const udateFavoritLoadingStatus = useAppSelector(getFavoriteUpdateOffersLoadingStatus);
   const isDisabled = udateFavoritLoadingStatus === Status.Loading;
-
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   const handleFavoritButtonClick = () => {
     if (!isAuthorized) {

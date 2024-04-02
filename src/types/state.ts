@@ -4,9 +4,11 @@ import { AuthorizationStatus, Status } from '../const';
 import { UserData } from './user-data';
 import { FullOffer, Offer, Offers } from './offers';
 import { Reviews } from './reviews';
+import { Action, ThunkAction } from '@reduxjs/toolkit';
 
 export type State = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, State, AxiosInstance, Action<string>>;
 
 export type Extra = {
   state: State;

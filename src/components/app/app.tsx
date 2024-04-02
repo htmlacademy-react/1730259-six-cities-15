@@ -6,7 +6,6 @@ import { AppRoute, AuthorizationStatus, Status } from '../../const';
 import Layout from '../layout/layout';
 import PageNotFound from '../../pages/page-not-found/page-not-found';
 import Favorites from '../../pages/favorites/favorites';
-import Offer from '../../pages/offer/offer';
 import PrivateRoute from '../private-route/private-route';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import LoadingScreen from '../loading-screen/loading-screen';
@@ -15,7 +14,9 @@ import browserHistory from '../../browser-history';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 import { getOffersLoadingStatus } from '../../store/offer-process/offer-process.selectors';
 import { useEffect } from 'react';
-import { fetchFavoriteOffersAction } from '../../store/api-actions';
+import { fetchFavoriteOffersAction, fetchOffersAction } from '../../store/api-actions';
+import ErrorLoadSreen from '../error-load-screen/error-load-screen';
+import MemoizedOfferPage from '../../pages/offer/offer';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -34,6 +35,12 @@ function App(): JSX.Element {
     );
   }
 
+  if (isDataLoading === Status.Failed) {
+    return (
+      <ErrorLoadSreen onButtonDispatchClick={fetchOffersAction} />
+    );
+  }
+
   return (
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
@@ -48,7 +55,7 @@ function App(): JSX.Element {
                 </PrivateRoute>
               }
             />
-            <Route path={`${AppRoute.Offer}:id`} element={<Offer />} />
+            <Route path={`${AppRoute.Offer}:id`} element={<MemoizedOfferPage />} />
             <Route
               path={AppRoute.Favorites}
               element={

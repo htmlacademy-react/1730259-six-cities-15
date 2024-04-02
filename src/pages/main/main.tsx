@@ -5,7 +5,7 @@ import MemoizedTabs from '../../components/tabs/tabs';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { CITY, Cities, DEFAULT_CITY, DEFAULT_SORT, SORT_TYPE, SortType } from '../../const';
 import { capitalize, getCurrentOffers, getDataToMap, sortingType } from '../../utils/utils';
-import { memo, useEffect, useMemo } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import cn from 'classnames';
 import MainEmpty from '../../components/main-empty/main-empty';
 import { MyLocation } from '../../types/my-location';
@@ -22,12 +22,12 @@ function Main(): JSX.Element {
   });
 
   const cityQuery = searchParams.get(CITY) as Cities;
-  const sortTypeQuery = searchParams.get(SORT_TYPE) as SortType;
+  const sortTypeQuery = useMemo(() => searchParams.get(SORT_TYPE) as SortType,[searchParams]);
 
-  const handleSortTypeChange = (sortType: SortType) => {
+  const handleSortTypeChange = useCallback((sortType: SortType) => {
     searchParams.set(SORT_TYPE, sortType);
     setSearchParams(searchParams);
-  };
+  }, [searchParams, setSearchParams]);
 
   useEffect(() => {
     if (!search) {
