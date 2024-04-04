@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { BASE_URL, REQUEST_TIMEOUT } from '../const';
+import { BASE_URL, DEFAULT_DELAY_TIME, REQUEST_TIMEOUT } from '../const';
 import { getToken } from './token';
 import { StatusCodes } from 'http-status-codes';
 import { toast } from 'react-toastify';
@@ -39,7 +39,7 @@ export const createAPI = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError<DetailMessageType>) => {
       if (error.response && shouldDisplayError(error.response)) {
-        toast.warn(error.response.data.message, { delay: 1000 });
+        toast.warn(error.response.data.message, { delay: DEFAULT_DELAY_TIME });
       }
 
       throw Error;

@@ -109,3 +109,11 @@ export const MAX_IMAGES_OFFER = 6;
 export const MAX_NIAR_OFFER = 3;
 
 export const REQUEST_TIMEOUT = 5000;
+
+export const CLOSE_TIME = 2000;
+
+export const DEFAULT_DELAY_TIME = 1000;
+
+export const DEFAULT_ZERO = 0;
+
+export const DEFAULT_ONE = 1;

@@ -3,7 +3,7 @@ import { memo, useEffect, useRef } from 'react';
 import { OfferMapItem, OfferMapItems } from '../../types/offers';
 import useMap from '../../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
-import { SCROLL_CLASS_NAME, URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
+import { DEFAULT_ZERO, SCROLL_CLASS_NAME, URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getCurrentOfferId } from '../../store/offer-process/offer-process.selectors';
 
@@ -27,7 +27,7 @@ const currentCustomIcon = new Icon({
 function Map({className, offers}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const activeOfferId = useAppSelector(getCurrentOfferId);
-  const cityLocation = offers[0].city.location;
+  const cityLocation = offers[DEFAULT_ZERO].city.location;
   const mapZoomOnScroll = className === SCROLL_CLASS_NAME;
   const map = useMap(mapRef, cityLocation, mapZoomOnScroll);
 

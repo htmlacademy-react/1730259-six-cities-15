@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { SortType } from '../../const';
+import { DEFAULT_ZERO, SortType } from '../../const';
 import { RefObject, memo, useEffect, useRef, useState } from 'react';
 
 type PlacesSortingProps ={
@@ -30,7 +30,7 @@ function PlacesSorting({currentSort, onChangeSort}: PlacesSortingProps): JSX.Ele
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex={0} onClick={() => setIsOpenSorting(!isOpenSorting)} ref={sortRef}>
+      <span className="places__sorting-type" tabIndex={DEFAULT_ZERO} onClick={() => setIsOpenSorting(!isOpenSorting)} ref={sortRef}>
         {currentSort}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
@@ -47,7 +47,7 @@ function PlacesSorting({currentSort, onChangeSort}: PlacesSortingProps): JSX.Ele
                   { 'places__option--active': currentSort === type }
                 )
               }
-              tabIndex={0}
+              tabIndex={DEFAULT_ZERO}
               onClick={() => onChangeSort(type)}
             >
               {type}

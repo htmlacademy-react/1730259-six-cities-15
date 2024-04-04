@@ -6,6 +6,7 @@ import { store } from './store';
 import { checkAuthAction, fetchOffersAction } from './store/api-actions';
 import { ToastContainer, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import { CLOSE_TIME } from './const';
 
 store.dispatch(checkAuthAction());
 store.dispatch(fetchOffersAction());
@@ -17,7 +18,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store} >
-      <ToastContainer transition={Zoom} autoClose={2000} />
+      <ToastContainer transition={Zoom} autoClose={CLOSE_TIME} />
       <App />
     </Provider>
   </React.StrictMode>

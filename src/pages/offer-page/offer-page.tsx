@@ -3,7 +3,7 @@ import MemoizedMap from '../../components/map/map';
 import MemoizedPlaceCard from '../../components/place-card/place-card';
 import MemoizedPremium from '../../components/premium/premium';
 import { Navigate, useParams } from 'react-router-dom';
-import { AppRoute, MAX_NIAR_OFFER, Status } from '../../const';
+import { AppRoute, DEFAULT_ZERO, MAX_NIAR_OFFER, Status } from '../../const';
 import MemoizedOfferReviews from '../../components/offer-reviews/offer-reviews';
 import MemoizedOfferHost from '../../components/offer-host/offer-host';
 import MemoizedOfferGalery from '../../components/offer-galery/offer-galery';
@@ -29,7 +29,7 @@ function OfferPage(): JSX.Element {
   const isLoadingNearByOffers = useAppSelector(getNearByOffersLoadingStatus);
   const isReviewLoading = useAppSelector(getReviewsLoadingStatus);
   const offer = useAppSelector(getFullOffer);
-  const nearByOffers = useAppSelector(getNearByOffers).slice(0, MAX_NIAR_OFFER);
+  const nearByOffers = useAppSelector(getNearByOffers).slice(DEFAULT_ZERO, MAX_NIAR_OFFER);
 
   useEffect(() => {
     if (!id) {
@@ -89,7 +89,7 @@ function OfferPage(): JSX.Element {
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
             {
-              nearByOffers.length > 0 &&
+              nearByOffers.length > DEFAULT_ZERO &&
               nearByOffers.map(
                 (nearByOffer) => <MemoizedPlaceCard key={nearByOffer.id} className='near-places' offer={nearByOffer} />
               )

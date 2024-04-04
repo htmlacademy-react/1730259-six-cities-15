@@ -3,7 +3,7 @@ import MemoizedPlaceCard from '../../components/place-card/place-card';
 import MemoizedPlacesSorting from '../../components/places-sorting/places-sorting';
 import MemoizedTabs from '../../components/tabs/tabs';
 import { useLocation, useSearchParams } from 'react-router-dom';
-import { CITY, Cities, DEFAULT_CITY, DEFAULT_SORT, SORT_TYPE, SortType } from '../../const';
+import { CITY, Cities, DEFAULT_CITY, DEFAULT_ONE, DEFAULT_SORT, SORT_TYPE, SortType } from '../../const';
 import { capitalize, getCurrentOffers, getDataToMap, sortingType } from '../../utils/utils';
 import { memo, useCallback, useEffect, useMemo } from 'react';
 import cn from 'classnames';
@@ -77,7 +77,7 @@ function Main(): JSX.Element {
                 <>
                   <h2 className="visually-hidden">Places</h2>
                   <b className="places__found">
-                    {filteredAndSortedOffers.length} {filteredAndSortedOffers.length > 1 ? 'places' : 'place'} to stay in {capitalize(cityQuery)}
+                    {filteredAndSortedOffers.length} {filteredAndSortedOffers.length > DEFAULT_ONE ? 'places' : 'place'} to stay in {capitalize(cityQuery)}
                   </b>
                   <MemoizedPlacesSorting currentSort={sortTypeQuery} onChangeSort={handleSortTypeChange} />
                   <div className="cities__places-list places__list tabs__content">
