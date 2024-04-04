@@ -16,7 +16,7 @@ import { getOffersLoadingStatus } from '../../store/offer-process/offer-process.
 import { useEffect } from 'react';
 import { fetchFavoriteOffersAction, fetchOffersAction } from '../../store/api-actions';
 import ErrorLoadSreen from '../error-load-screen/error-load-screen';
-import MemoizedOfferPage from '../../pages/offer/offer';
+import MemoizedOfferPage from '../../pages/offer-page/offer-page';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();

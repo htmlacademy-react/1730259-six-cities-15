@@ -1,5 +1,5 @@
 import { memo, useMemo } from 'react';
-import { AuthorizationStatus, MAX_REVIEWS_COUNT } from '../../const';
+import { AuthorizationStatus, DEFAULT_ZERO, MAX_REVIEWS_COUNT } from '../../const';
 import { useAppSelector } from '../../hooks';
 import MemoizedReviewsForm from '../reviews-form/reviews-form';
 import MemoizedReviewsItem from '../reviews-item/reviews-item';
@@ -22,7 +22,7 @@ function OfferReviews({id}: OfferReviewsProps): JSX.Element {
         (reviewFirst, reviewSecond) => new Date(reviewFirst.date).getTime() - new Date(reviewSecond.date).getTime()
       )
       .reverse()
-      .slice(0, MAX_REVIEWS_COUNT)
+      .slice(DEFAULT_ZERO, MAX_REVIEWS_COUNT)
   ), [reviews]);
 
   return (
@@ -31,7 +31,7 @@ function OfferReviews({id}: OfferReviewsProps): JSX.Element {
       <ul className="reviews__list">
         {
           sortingReviews &&
-          sortingReviews.length > 0 &&
+          sortingReviews.length > DEFAULT_ZERO &&
           sortingReviews.map((review) => <MemoizedReviewsItem key={review.id} review={review} />)
         }
       </ul>
